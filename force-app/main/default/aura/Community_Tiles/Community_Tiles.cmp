@@ -1,0 +1,14 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name='Title' type='String'/>
+    <aura:attribute name='Url' type='String'/>
+    <aura:attribute name='Icon' type='String'/>
+    
+     <div  >
+            
+            <div class="slds-text-body_regular Title" >{!v.Title}</div>
+            <a href="{!v.Url}" target="_blank">
+                <span> <img src="{!v.Icon}" class="Logo"/></span>
+                
+            </a>
+        </div>
+</aura:component>

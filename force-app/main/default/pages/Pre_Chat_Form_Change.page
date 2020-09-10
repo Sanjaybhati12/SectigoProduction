@@ -1,0 +1,305 @@
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false">            
+
+  <html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Pre-Chat Form</title>
+        <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8"/>
+        
+        <apex:stylesheet value="{!URLFOR($Resource.Com_KnowledgeFiles,'/styles/CCAFoundation.css')}" />
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" crossorigin="anonymous" />
+        
+        
+       <!--jQuery-->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      <script type="text/javascript">
+      
+        (function() { 
+          function handlePageLoad() {
+            var endpointMatcher = new RegExp("[\\?\\&]endpoint=([^&#]*)");
+            document.getElementById('prechatForm').setAttribute('action',
+            decodeURIComponent(endpointMatcher.exec(document.location.search)[1]));
+          } 
+            if (window.addEventListener) {
+              window.addEventListener('load', handlePageLoad, false);
+            } else { 
+              window.attachEvent('onload', handlePageLoad, false);
+            }
+            })();
+
+        document.addEventListener("DOMContentLoaded", function() {
+          var elements = document.getElementsByTagName("INPUT");         
+          for (var i = 0; i < elements.length; i++) {
+            elements[i].oninvalid = function(e) {
+            e.target.setCustomValidity("");
+            if (!e.target.validity.valid) {
+                e.target.setCustomValidity("Please enter your name, a valid email and what we can help you with.");
+                }
+            };
+            elements[i].oninput = function(e) {
+              e.target.setCustomValidity("");
+            };
+          }
+          
+        })
+        
+        function countChar(val) {
+           var len = val.value.length;
+           if (len >=100) {
+              val.value = val.value.substring (0, 100);
+            }  {
+              $('#charNum').text(100 - len);
+            }
+        };  
+                                       
+      </script>
+        <style type="text/css">
+        
+            body {
+            margin: auto;
+            //max-width: 600px;
+            background-color: #F9F9F9;
+            }
+            .innerwrapper {
+                width: 100%;
+                max-width: 1280px;
+                padding: 0 15px;
+                background-color: #1d1a1a;
+                box-sizing: border-box;
+            }
+            #toptoolbar {
+                padding: 6px 0px;
+                border-top: 1px solid #00a069;
+                border-bottom: 1px solid #fff;
+                background-color: #00a069;
+            }
+            .innerwrapper {
+                width: 100%;
+                margin: 0 auto;
+                max-width: 1280px;
+                box-sizing: border-box;
+            }
+            .container {
+              width: 90%;
+              clear: both;
+              text-align: center;
+              margin: auto;
+              font-family: "Helvetica Neue", Helvetica Neue, Arial, sans-serif;
+              font-weight: 200;
+              font-size: 1.2em;
+              color: #5e5e5e;
+              padding: 15px;
+            }
+            
+            .container input,.container select {
+              clear: both;
+              border: 1px solid #D3D3D3;
+              border-radius: 4px;
+              font-size: 1em;
+              font-weight: 200;
+              padding: 5px;
+            }
+            .container select {
+            -webkit-appearance: menulist;
+               -moz-appearance:menulist;
+                   appearance: menulist;
+             }
+            #prechat_submit {
+             // width: 50%;
+              padding:8px 25px;
+              font-size: 1em;
+              font-weight: 200;
+              border-radius: 4px;
+              background: #4494ED;
+              color: #FFFFFF;
+              border: none;
+              cursor: pointer;
+              background: rgb(0, 160, 105);
+            }
+            
+            #prechat_submit:hover {
+              background: #1674df;
+            }
+            
+            #prechat_submit:focus {
+              outline: 0;
+            }
+            
+            #charNum {
+              color: #AAAAAA;
+              text-align: right;
+              width: 95%;
+              display: inherit;
+              }
+            
+            @media screen and (max-width: 425px), handheld and (max-device-width: 425px) {
+              body {
+               // width: 300px;
+              }
+            }
+          </style>
+    </head>
+
+  <body>
+    <div id="topbanner">
+    <div class="innerwrapper">
+    <a href="https://support.comodo.com/index.php?">
+    <img border="0" src="https://www.comodoca.com/App_Themes/Styles/Images/ComodoCA-Logo-White.svg" class="img-responsive" style="width: 250px;" alt="Kayako logo" id="logo" />
+    </a>
+    </div>
+    </div>
+    <div id="toptoolbar">
+    
+    <div class="innerwrapper">
+    <span id="toptoolbarrightarea">
+    
+    </span>
+    <ul id="toptoolbarlinklist"></ul>
+    </div>
+    </div>
+    <div class="container">
+      <span class="title"> Please fill out the following:</span><br/><br/>
+      
+        <form method="post" id="prechatForm">
+           
+          <!-- Detail inputs -->
+           <div class="row">
+               <div class="small-12 columns">
+                   <input type="text" name="liveagent.prechat:WebName" required="required" autofocus="true" onchange="javascript: document.getElementById('prechat_field').value=this.value;" maxlength="80" placeholder="First Name" />    
+               </div>
+           </div>
+           
+           <div class="row">
+               <div class="small-12 columns">
+                   <input type="text" name="liveagent.prechat:WebName1" required="required" autofocus="true" onchange="javascript: document.getElementById('prechat_field').value=this.value;" maxlength="80" placeholder="Last Name" />    
+               </div>
+           </div>
+           
+           <div class="row">
+               <div class="small-12 columns">
+                   <input type="email" name="liveagent.prechat:WebEmail" required="required" maxlength="80" placeholder="Email" pattern="^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$" />    
+               </div>
+           </div>    
+           
+           <div class="row">
+            <div class="small-12 columns">
+                <!--Added three new picklist values -->
+
+                <select type="select" id="CustomerType" name="liveagent.prechat:CustomerType" class="required"  >
+                    <!-- Values are LiveChatButton and/or User IDs. -->
+                    <option value="5731N0000005fua">Lookup Order Status</option>
+                    <option value="5731N0000005fuV">Place An Order</option>
+                    <option value="5731N0000005fuf">Product Inquiry</option>
+                   <!--Need to add a fallback code if required here option value="5731N0000005fua_5731N0000005f7E">Route to agent 005D01234567890
+                with Fallback to button 573D01234567890</option> -->
+                </select> 
+                <!--Code Ends-->
+            </div>
+          </div>
+          
+          <div class="row">
+               <div class="small-12 columns">
+                   <input type="text" name="liveagent.prechat:OrderNumber" autofocus="true" onchange="javascript: document.getElementById('prechat_field1').value=this.value;" maxlength="80" placeholder="Order Number" />   
+               </div>
+           </div>
+           
+           <div class="row">
+               <div class="small-12 columns">
+                   <input type="text" name="liveagent.prechat:caseSubject" required="required" maxlength="100" title="In a few words, please let us know what you'd like to talk to us about." onkeyup="countChar(this)" placeholder="What can we help you with?" />
+                   <div id="charNum">100</div>   
+               </div>
+           </div>
+         
+
+        
+         
+        
+          
+          
+        <!-- Find knowledge article -->
+
+        <!-- searchKnowledge: Searches knowledge article based on the text, this assumes that Knowledge is setup -->
+        <input type="hidden" name="liveagent.prechat.knowledgeSearch:caseSubject" value="true" />
+
+        <!--Find related opporunity -->         
+        <input type="hidden" name="liveagent.prechat.findorcreate.map.doFind:Opportunity" value="Order_Number__c,true;" />
+
+        <!--Custom Visitor Name field, copies from WebName input-->
+          <input type="hidden" name="liveagent.prechat.name"  id='prechat_field'/>
+          
+            <!-- Map the detail inputs to the Contact fields --> 
+            <input type="hidden" name="liveagent.prechat.findorcreate.map:Contact" value="FirstName,WebName;LastName,WebName1;Email,WebEmail;" />  
+            
+            <!-- Try to find the Contact by email (exact match) -->
+            <input type="hidden" name="liveagent.prechat.findorcreate.map.doFind:Contact" value="Email,true;" />
+            <input type="hidden" name="liveagent.prechat.findorcreate.map.isExactMatch:Contact" value="Email,true;" /> 
+            
+            <!-- If the Contact is not found, then create one with the following fields set -->
+            <input type="hidden" name="liveagent.prechat.findorcreate.map.doCreate:Contact" value="FirstName,true;LastName,true;Email,true;" />            
+            
+            <!-- Save the Contact on the Live Chat Transcript's Contact Loookup -->
+            <input type="hidden" name="liveagent.prechat.findorcreate.saveToTranscript:Contact" value="Contact" />
+                        
+            <!-- Show the Contact when it is found or created -->
+            <input type="hidden" name="liveagent.prechat.findorcreate.showOnCreate:Contact" value="true" />   
+            
+            <!--Map the Details inputs to the Opportuntiy Details -->
+              <input type="hidden" name="liveagent.prechat.findorcreate.map:Opportunity" value="Order_Number__c,OrderNumber;" /> 
+            
+            <!-- Find the opportunity with order Number-->
+             <input type="hidden" name="liveagent.prechat.findorcreate.map.doFind:Opportunity" value="Order_Number__c,true;" />
+            <input type="hidden" name="liveagent.prechat.findorcreate.map.isExactMatch:Opportunity" value="Order_Number__c,true;" />  
+            
+            <!-- Save the Opportunity on the Live Chat Transcript's Opportunity Loookup -->
+            <input type="hidden" name="liveagent.prechat.findorcreate.saveToTranscript:Opportunity" value="Opportunity__c" />                        
+            
+            <!-- Show the Oppportunity when it is found or created -->
+            <input type="hidden" name="liveagent.prechat.findorcreate.showOnCreate:Opportunity" value="true" />   
+            
+           
+            <input type="hidden" name="liveagent.prechat:caseOrigin" value="Chat" />
+            <input type="hidden" name="liveagent.prechat.findorcreate.map:Case" value="Origin,caseOrigin;Subject,caseSubject;Order_Number__c,OrderNumber;" />   <!-- Description,CustomerType; -->
+          
+             <!-- Find the Case with order Number-->
+             <input type="hidden" name="liveagent.prechat.findorcreate.map.doFind:Case" value="Order_Number__c,true;" />
+            <input type="hidden" name="liveagent.prechat.findorcreate.map.isExactMatch:Case" value="Order_Number__c,true;" />  
+          
+          
+            <input type="hidden" name="liveagent.prechat.findorcreate.saveToTranscript:Case" value="Case" />
+            
+            <!-- Show the Case when it is found or created -->
+            <input type="hidden" name="liveagent.prechat.findorcreate.showOnCreate:Case" value="true" />            
+           
+            <!-- Link the Contact to the Case -->
+            <input type= "hidden" name="liveagent.prechat.findorcreate.linkToEntity:Contact" value="Case,ContactId" />
+          
+           
+            
+            <div class="row">
+                <div class="small-12 small-centered text-center columns">
+                    <input type="submit" value="Request Chat" id="prechat_submit" onclick="setName()" />
+                </div>
+           </div>
+        </form>
+    </div>
+
+<!--jQuery HTML5 Validation - Forces IE6-9, Opera to obey HTML5 validation rules -->
+     <script src="jquery.h5validate.js"></script>
+      <script>
+        $(document).ready(function () {
+          $('form').h5Validate();
+        });
+      </script>
+
+
+<!-- Set the visitor's name for the agent in the Console to first and last name provided by the customer -->
+<script type="text/javascript">
+   function setName() {
+    document.getElementById("prechat_field_name").value =  
+        document.getElementById("firstName").value + " " + document.getElementById("lastName").value;
+    }
+</script> 
+       
+  </body>
+  </html>
+</apex:page>

@@ -1,0 +1,116 @@
+<apex:component controller="HG_KnowledgeControllerFaq">
+<apex:stylesheet value="{!$Page.Comodo_DesignCss}" />
+<!--<apex:includeScript value="{!$Resource.pkb_js_base}" />-->
+<script>
+$(function () {
+  $( "#categorySelect" ).change(function() {
+      var categoryselectedvalue =  $(this).val();
+    $(".categoryHiddenInputField").val(categoryselectedvalue );
+    console.log('Hidden input--->'+ $(".categoryHiddenInputField").val());
+    
+    });
+  });
+    
+   function updateCategoryField() {
+   console.log('calling fun');
+   
+    var a = document.getElementById("categorySelect").value;
+    document.getElementsByClassName("categoryHiddenInputField").value = a;
+
+   console.log('Naidu>>'+a);
+   
+}
+
+function clearKeyword() {
+    var clearOK= false;
+    $$(".keywordField").each(
+        function(keywordField) {
+            if (keywordField.getValue()!='') {
+                keywordField.clear();
+                  clearOK = true;
+              }
+         }
+    );
+    return clearOK;
+}
+
+
+function submitEnter(event)  {
+    var keycode;
+    if (window.event) keycode = window.event.keyCode;
+    else if (event) keycode = event.which;
+    else return true;
+
+    if (keycode == 13) {
+        if (updateCategoryField())
+            searchJs();
+        return false;
+    }
+    return true;
+}
+
+</script>
+    <apex:outputPanel styleClass="pkbSearchBox" layout="block"  >
+         <apex:outputPanel styleClass="pkbSearchBoxText" layout="block">
+         <apex:form id="searchBox">
+             
+              <div class="row">
+                  <div class="small-12 columns">
+                      <label for="categorySelect" class="right inline category">Category</label>
+                  </div>
+                  <div class="large-6 small-12 columns">
+                      <div class="row">
+                        <div class="small-12 columns">
+                          <apex:inputText value="{!currentCategory}" styleClass="categoryHiddenInputField" id="categoryField"/>
+                          <select id="categorySelect" name="searchCategory"  size="1"  >
+                           <apex:outputPanel layout="none" rendered="{!securityOK}" >
+                              <apex:outputPanel layout="none" rendered="{!currentCategory=rootCategoryName}" >
+                                 <option value="{!rootCategoryName}" selected="selected">{!PKB_Search_NoFilter}</option>
+                              </apex:outputPanel>
+                              <apex:outputPanel layout="none" rendered="{!currentCategory!=rootCategoryName}" >
+                                 <option value="{!rootCategoryName}">{!PKB_Search_NoFilter}</option>
+                              </apex:outputPanel>
+                              <knowledge:categoryList categoryGroup="{!categoryGroupName}" rootCategory="{!rootCategoryName}" categoryVar="category" level="-1" >
+                                 <apex:outputPanel layout="none" rendered="{!currentCategory=category.name}" >
+                                    <option value="{!category.name}" selected="selected">
+                                       <apex:outputText escape="false" value="{!IF(category.depth=1, '', IF(category.depth=2, '&nbsp;&nbsp;', IF(category.depth=3, '&nbsp;&nbsp;&nbsp;&nbsp;', IF(category.depth=4, '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'))))}" />
+                                       {!category.label}
+                                    </option>
+                                 </apex:outputPanel>
+                                 <apex:outputPanel layout="none" rendered="{!currentCategory!=category.name}">
+                                    <option value="{!category.name}">
+                                       <apex:outputText escape="false" value="{!IF(category.depth=1, '', IF(category.depth=2, '&nbsp;&nbsp;', IF(category.depth=3, '&nbsp;&nbsp;&nbsp;&nbsp;', IF(category.depth=4, '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'))))}" />
+                                       {!category.label}
+                                    </option>
+                                 </apex:outputPanel>
+                              </knowledge:categoryList>
+                           </apex:outputPanel>
+                        </select>
+                        </div>
+                      </div>
+                    </div>
+                    
+                
+                <div class="large-4 small-8 columns">
+                    <apex:actionFunction name="searchJs" action="{!doSearch}"  reRender="categoryField"/>
+                  <label>
+                    <apex:inputText styleClass="keywordField" value="{!currentKeyword}" size="25"  /> 
+                  </label>
+                </div>
+                
+                <div class="large-2 small-4 columns">
+                  <div class="row collapse">
+                    <div class="small-12 columns">
+                      <apex:commandButton action="{!doSearch}" value="SEARCH" onclick="return updateCategoryField();return false;" id="searchButton1" styleclass="searchbutton button large" />
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+              
+          
+          
+          </apex:form>
+      </apex:outputPanel>
+      </apex:outputPanel>
+</apex:component>

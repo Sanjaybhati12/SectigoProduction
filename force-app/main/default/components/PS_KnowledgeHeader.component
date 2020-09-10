@@ -1,0 +1,296 @@
+<apex:component >
+   
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation.min.css"/>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/motion-ui/1.2.3/motion-ui.min.css"/>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation-prototype.min.css"/>
+      <link href='https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css' rel='stylesheet' type='text/css'/>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+    
+   <style type="text/css">
+   .font-light,.hover\:font-light:hover, .sm\:font-light,.sm\:hover\:font-light:hover,.md\:font-light,.md\:hover\:font-light:hover , .lg\:font-light,.lg\:hover\:font-light:hover,.xl\:font-light,.xl\:hover\:font-light:hover {font-weight:360;font-size: 3rem !important;}
+
+    .responsive_menu .accordion{display:none;}
+    .top_mob_nav{display:none;}
+    body ul li:before{content: none !important;}
+    .top_btn .fa{color: #000;}
+    .responsive_menu{display: none;}
+           .site-header{max-width: 123rem;  margin: 0 auto;} 
+
+    .site-logo img {width: 231px;height: 45px;}
+    .site-header.top-bar, .top-bar ul {background-color: #fff;/*box-shadow: 0 2px 12px 0 #9ea4a8;*/ padding-top: 8px;padding-bottom: 9px;}
+    .site-header .menu.medium-horizontal{box-shadow: none;}
+    .site-header.top-bar ul li a{color: #000;font-size:18px;}
+    .site-header.top-bar ul li a:hover{color:#eec22f;}
+    .utility-nav .icon svg {height: 23px;width: 28px;}
+    .site-header.top-bar ul li a img{margin-right:7px;}
+    .dropdown.menu.medium-horizontal>li.is-dropdown-submenu-parent>a::after{border: none !important; border-color: #000 transparent transparent;}
+    .top-bar .top-bar-left{padding-left: 40px;}
+        .bottom_header .top-bar-left, .top-bar-right{padding-top: 3px;padding-bottom: 2px;}
+
+    .dropdown.menu.medium-horizontal>li.opens-left>.is-dropdown-submenu, .top_mob_nav .dropdown.menu .submenu{box-shadow: 0 8px 8px 0 rgba(0,0,0,.12);background-color: #d9d8d6;padding-top: 0px;padding-bottom: 0px;}
+    .site-header .is-dropdown-submenu>li, .top_mob_nav .dropdown.menu .submenu>li {border-bottom: 1px solid #ecebea;background-color: #d9d8d6;}
+    .site-header .is-dropdown-submenu>li a:hover,.top_mob_nav .dropdown.menu .submenu>li a:hover {background-color: #fdd756;margin-bottom: 0px;color: #fff !important;}
+    .bottom_header .is-dropdown-submenu>li a:hover{background-color: #fdd756;border-bottom: 1px solid #000;margin-bottom: -3px;}
+    .bg-grey-light {background-color: #ecebea;}
+    .bg-grey-light {background-color: #ecebea;}
+    .relative {position: relative;}
+    .bottom_header .dropdown.menu a{color: #000;font-weight: bold; padding: 16px 24px;}
+    .bottom_header .dropdown.menu>li.is-dropdown-submenu-parent>a::after{display: none;}
+    .dropdown.menu>li.opens-right>.is-dropdown-submenu{border:0;}
+    .bottom_header .menu, .menu.horizontal{margin-top: 3px;}
+    .bottom_header .top-bar-left, .top-bar-right{padding-top: 3px;padding-bottom: 2px;}
+    .bottom_header .is-dropdown-submenu>li {width: 310px;border-bottom: 1px solid #000;font-weight: 400;background: #ecebea;}
+    .bottom_header li{border-bottom: 4px solid transparent;}
+    .bottom_header li:hover{border-bottom: 4px solid #fdd756;}
+    .bottom_header.dropdown.menu>li.opens-right>.is-dropdown-submenu{margin-top: 5px;}
+    @media only screen and (max-width: 767px) {
+    .site-header.top-bar{display: none;}
+    .responsive_menu .accordion{display:block;}
+    .top_mob_nav{display:block;}
+    .bottom_header .top-bar-left, .top-bar-right{display: none;}
+    .menu-icon::after{background: #fdd756;box-shadow: 0 7px 0 #fdd756, 0 14px 0 #fdd756; -webkit-box-shadow: 0 7px 0 #fdd756, 0 14px 0 #fdd756;}
+    .menu-icon:hover::after {background: #fdd756;-webkit-box-shadow: 0 7px 0 #fdd756, 0 14px 0 #fdd756;
+    box-shadow: 0 7px 0 #fdd756, 0 14px 0 #fdd756;}
+    .title-bar{background: #fff;}
+    .title-bar img {width: 159px;height: 31px;margin-left: 9px;margin-top: 10px;}
+    .utility-nav li.search svg {width: 22px;height: 22px;}
+    .top_mob_nav .srch_icn {color: #000;font-size: 21px;}
+    .top_btn{display: inline-block; float: right; margin-right: 9px; margin-top: 10px;}
+    .responsive_menu .accordion-title{padding-left: 35px;}
+    .responsive_menu .accordion-title::before {content: "\f078"; font-family: FontAwesome;font-weight: 100;left: 0.75rem; font-size: 12px;top: 50%;}
+    .responsive_menu .is-active>.accordion-title::before {content: "\f077"; font-family: FontAwesome; font-weight: 100;font-size: 12px;top: 50%;}
+    .responsive_menu .accordion{background: #051c2c;}
+    .responsive_menu .accordion-title{color: #fff;font-size: 18px;border: 0;}
+    .responsive_menu .accordion-title:focus, .accordion-title:hover {background: #051c2c;color: #fff;}
+    .responsive_menu .accordion-content{background: #051c2c;border:none; }
+    .responsive_menu .accordion-content li{list-style-type: none;}
+    .responsive_menu .accordion-content a{color: #fff;line-height: 36px;}
+    .responsive_menu .accordion-title-brdr{border-bottom: 1px solid #051c2c;}
+    .responsive_menu .accordion-none{color: #fff;padding-left: 20px;padding: 1.25rem 2rem;font-size: 18px;}
+    .responsive_menu .accordion-none a{color: #fff;}
+    .top_mob_nav{background: #02111b;}
+    .top_mob_nav li{display: inline-block;border-bottom: 1px solid #02111b;}
+    .top_mob_nav .srch_icn{color: #fff;padding-top: 16px;padding-left: 15px;}
+    .top_mob_nav ul{margin-bottom: 0px;}
+    .top_mob_nav li{border-bottom: 1px solid #02111b;}
+    .top_mob_nav ul{margin-left: 75px;}
+    .responsive_menu{position: absolute;top: 0px; z-index: 3000;left: 0;right: 0;}
+    .top_mob_nav .dropdown.menu>li.is-dropdown-submenu-parent>a{color: #fff;}
+    .top_mob_nav .dropdown.menu>li.is-dropdown-submenu-parent>a::after{border: none !important; border-color: #ffffff transparent transparent;}
+    #btn_cls{color: #fff; font-size:30px;padding-top: 10px;padding-left: 23px;}
+    }
+    @media (min-width: 768px) and (max-width: 991px){
+    .title-bar{display: none !important;}
+    .site-header .dropdown.menu a {padding: .7rem 0.5rem;font-size: 16px;}
+    .bottom_header .dropdown.menu a {font-size: 13px; padding: .7rem 0.7rem;}
+    
+    }
+    @media (min-width: 992px) and (max-width: 1199px){
+    
+    }
+    
+     .hero-section {
+         background: url("{!$Resource.PositiveSSLKnowledge}") 50% no-repeat;
+         background-size: cover;
+         height: 20vh;
+         text-align: center;
+         display: -webkit-flex;
+         display: -ms-flexbox;
+         display: flex;
+         -webkit-align-items: center;
+         -ms-flex-align: center;
+         align-items: center;
+         -webkit-justify-content: center;
+         -ms-flex-pack: center;
+         justify-content: center;
+    }
+   </style>
+    <div class="title-bar relative" data-responsive-toggle="responsive_menu1" data-hide-for="large">
+        <img  src="https://www.positivessl.com/uploads/logos/Positive-Logo_nocomodo_large.svg" alt="" />
+        <span class="top_btn"> <!-- <i class="fa fa-search srch_icn" aria-hidden="true"></i> -->
+        <button class="menu-icon" type="button" data-toggle="responsive_menu1"><span class="show-for-sr">Menu</span></button></span>
+    </div>
+    <div class="site-header top-bar" id="main-menu1">
+        <div class="top-bar-left">
+            <a class="site-logo" href="https://www.positivessl.com/"><img src="https://www.positivessl.com/uploads/logos/Positive-Logo_nocomodo_large.svg" alt="Positive SSL" class="hide-for-small-only" /></a>
+        </div>
+        <div class="top-bar-right">
+            <ul class="menu vertical medium-horizontal" data-responsive-menu="drilldown medium-dropdown">
+                <li><a href="https://www.positivessl.com/partner-program"><img src="{!URLFOR($Resource.PS_KnowledgeFiles, 'images/menu_icon1.jpg')}" width="30" height="23"/>Partners</a></li>
+                <li><a href="#chat"><img src="{!URLFOR($Resource.PS_KnowledgeFiles, 'images/menu_icon2.jpg')}" width="30" height="23"/>Chat</a></li> 
+                <li><a href="https://store.positivessl.com"><img src="{!URLFOR($Resource.PS_KnowledgeFiles, 'images/menu_icon3.jpg')}" width="30" height="23"/>Login</a></li>
+                <li class="has-submenu">
+                    <a><img src="{!URLFOR($Resource.PS_KnowledgeFiles, 'images/menu_icon4.jpg')}" width="30" height="23"/>US Dollar <i class="fa fa-chevron-down" style="font-size:12px;"></i></a>
+                        <ul class="submenu menu vertical">
+                            <li><a>US Dollar</a></li>
+                            <li><a>Euro</a></li>
+                            <li><a>British Pound</a></li>
+                        </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="bottom_header bg-grey-light row">
+        <div class="#" id="example-menu" style="margin: 0 auto;">
+            <div class="top-bar-left">
+                <ul class="dropdown menu" data-dropdown-menu="data-dropdown-menu" role="menubar" data-e="b0tv74-e">
+                    <li role="menuitem" class="is-dropdown-submenu-parent opens-left" aria-haspopup="true" aria-label="SSL Certificates" data-is-click="false">
+                        <a href="https://www.positivessl.com/compare-certificates">SSL Certificates</a>
+                            <ul class="menu vertical submenu is-dropdown-submenu first-sub" data-submenu="" role="menu" style="">
+                                <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a href="https://www.positivessl.com/products/positivessl" class="bg-accent-hover">PositiveSSL DV</a></li>
+                                <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a href="https://www.positivessl.com/products/positivessl-multi-domain" class="bg-accent-hover">PositiveSSL DV Multi-Domain</a></li>
+                                <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a href="https://www.positivessl.com/products/positivessl-wildcard" class="bg-accent-hover">PositiveSSL DV Wildcard</a></li>
+                                <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a href="https://www.positivessl.com/products/positive-ssl-ev" class="bg-accent-hover">PositiveSSL EV</a></li>
+                                <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a href="https://www.positivessl.com/products/positive-ssl-ev-multi-domain" class="bg-accent-hover">PositiveSSL EV Multi-Domain</a></li>
+                                <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a href="https://www.positivessl.com/products/free-ssl" class="bg-accent-hover">PositiveSSL DV Trail</a></li>
+                                <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a href="https://www.positivessl.com/compare-certificates" class="bg-accent-hover">Compare PositiveSSL Certificates</a></li> 
+                            </ul>
+                    </li>
+                    <li><a href="https://www.positivessl.com/certificate-management">Certificate Management</a></li>
+                    <li><a href="https://www.positivessl.com/email-smime-certificate">Secure Email (S/MIME)</a></li>
+                    <li><a href="https://www.positivessl.com/code-signing-certificate">Code Signing</a></li>
+                    <li><a href="https://www.positivessl.com/codeguard-website-backup-recovery">Website Backup</a></li>
+                    <li><a href="https://www.positivessl.com/pci-scanning">PCI Scanning</a></li>
+
+                  <!--  <li role="menuitem" class="is-dropdown-submenu-parent opens-left" aria-haspopup="true" aria-label="SSL Certificates" data-is-click="false">
+                        <a href="https://www.positivessl.com/code-signing-certificate">Code Signing &amp; Email Certificates</a>
+                            <ul class="menu vertical submenu is-dropdown-submenu first-sub" data-submenu="" role="menu" style="">
+                                <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a href="https://www.positivessl.com/code-signing-certificate" class="bg-accent-hover">Code Signing Certificates</a></li>
+                                <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a href="https://www.positivessl.com/email-smime-certificate" class="bg-accent-hover">Secure Email (S/MIME) Certificates</a></li>
+                            </ul>
+                    </li>
+                    <li role="menuitem" class="is-dropdown-submenu-parent opens-left" aria-haspopup="true" aria-label="SSL Certificates" data-is-click="false">
+                        <a href="https://www.positivessl.com/certificate-management">Certificate Management</a>
+                            <ul class="menu vertical submenu is-dropdown-submenu first-sub" data-submenu="" role="menu" style="">
+                                <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a href="https://www.positivessl.com/certificate-management" class="bg-accent-hover">Certificate Management</a></li> 
+                            </ul>
+                    </li> -->
+                     <!--  new code start 24th jan-->
+                     <li role="menuitem" class="is-dropdown-submenu-parent opens-left" aria-haspopup="true" aria-label="SSL Certificates" data-is-click="false">
+                        <a href="https://www.positivessl.com/support" >Support</a>
+                                <ul class="menu vertical submenu is-dropdown-submenu first-sub" data-submenu="" role="menu" style="">
+                                    <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a href="https://www.positivessl.com/positivessl-ticketing-system" class="bg-accent-hover">Ticketing System</a></li>
+                                    <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a href="https://support.sectigo.com/PS_KnowledgeMainPage?__hstc=258772373.83e4d45d020448dd0d71aa6b719c4a42.1559802042524.1559811773853.1559816328487.4&__hssc=258772373.1.1559816328487&__hsfp=378147902&_ga=2.203189846.67018823.1559802042-723745154.1559802042" class="bg-accent-hover">Knowledge Base</a></li>
+                                    <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a href="https://secure.comodo.com/utilities/decodeCSR.html" target="_blank" class="bg-accent-hover">CSR Decoder</a></li>
+                                   <!-- <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a href="https://sslanalyzer.comodoca.com" target="_blank" class="bg-accent-hover">Certificate Analyzer</a></li> -->
+                                    <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a href="https://crt.sh/" target="_blank" class="bg-accent-hover">Certificate Search</a></li>
+                                    <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a href="https://secure.trust-provider.com/products/ORDERSTATUSCHECKER" target="_blank" class="bg-accent-hover">Order Status Checker</a>
+                                    </li>
+                                </ul>
+                    </li>
+                   <!-- <li class="accordion-none accordion-title-brdr"><a href="https://www.positivessl.com/support" class="">Support</a></li> -->
+                   <!-- new code end-->
+                   <!-- <li><a href="https://www.positivessl.com/about-positivessl">About PositiveSSL</a></li> -->
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="hero-section">
+      <div class="hero-section-text">
+         <h1 class="font-light">PositiveSSL KnowledgeBase</h1>
+      </div>
+    </div>
+    
+    <div class="responsive_menu" id="responsive_menu1">
+        <div class="top_mob_nav">
+            <ul>
+                <li>
+                    <ul class="dropdown menu" data-dropdown-menu="data-dropdown-menu">
+                        <li>
+                            <a><img src="{!URLFOR($Resource.PS_KnowledgeFiles, 'images/menu_icon5.jpg')}" width="30" height="23"/>&nbsp;&nbsp;US Dollar <i class="fa fa-chevron-down" style="font-size:12px;"></i></a>
+                            <ul class="menu vertical">
+                                <li><a>US Dollar</a></li>
+                                <li><a>Euro</a></li>
+                                <li><a>British Pound</a></li>
+                            </ul>
+                        </li>
+                      <!--  <li><i class="fa fa-search srch_icn" aria-hidden="true"></i></li> -->
+                        <li><div id="btn_cls"><i class="fa fa-times close_icon"></i></div></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="">
+                <ul class="accordion" data-accordion="data-accordion" data-allow-all-closed="true">
+                    <li class="accordion-item" data-accordion-item="data-accordion-item">
+                        <a href="https://www.positivessl.com/compare-certificates" class="accordion-title accordion-title-brdr">SSL Certificates</a>
+                            <div class="accordion-content" data-tab-content="data-tab-content" >
+                                <ul class="">
+                                    <li><a href="https://www.positivessl.com/products/positivessl">PositiveSSL DV</a></li>
+                                    <li><a href="https://www.positivessl.com/products/positivessl-multi-domain">PositiveSSL DV Multi-Domain</a></li>
+                                    <li><a href="https://www.positivessl.com/products/positivessl-wildcard">PositiveSSL DV Wildcard</a></li>
+                                    <li><a href="https://www.positivessl.com/products/positive-ssl-ev">PositiveSSL EV</a></li>
+                                    <li><a href="https://www.positivessl.com/products/positive-ssl-ev-multi-domain">PositiveSSL EV Multi-Domain</a></li>
+                                    <li><a href="https://www.positivessl.com/products/free-ssl">PositiveSSL DV Trial</a></li>
+                                    <li><a href="https://www.positivessl.com/compare-certificates">Compare PositiveSSL Certificates</a></li>
+                                </ul>
+                            </div>
+                    </li>  
+                    <li class="accordion-none accordion-title-brdr"><a href="https://www.positivessl.com/certificate-management" class="">Certificate Management</a></li>
+                    <li class="accordion-none accordion-title-brdr"><a href="https://www.positivessl.com/email-smime-certificate" class="">Secure Email (S/MIME)</a></li>
+
+                    <li class="accordion-none accordion-title-brdr"><a href="https://www.positivessl.com/code-signing-certificate" class="">Code Signing</a></li>
+
+                    <li class="accordion-none accordion-title-brdr"><a href="https://www.positivessl.com/codeguard-website-backup-recovery" class="">Website Backup</a></li>
+
+                    <li class="accordion-none accordion-title-brdr"><a href="https://www.positivessl.com/pci-scanning" class="">PCI Scanning</a></li>
+
+
+  
+                  <!--  <li class="accordion-item" data-accordion-item="data-accordion-item">
+                        <a href="https://www.positivessl.com/code-signing-certificate" class="accordion-title accordion-title-brdr">Code Signing &amp; Email Certificates</a>
+                            <div class="accordion-content" data-tab-content="data-tab-content">
+                                <ul class="">
+                                    <li><a href="https://www.positivessl.com/code-signing-certificate">Code Signing Certificates</a></li>
+                                    <li><a href="https://www.positivessl.com/email-smime-certificate">Secure Email (S/MIME) Certificates</a></li>
+                                </ul>
+                            </div>
+                    </li>
+                    <li class="accordion-item" data-accordion-item="data-accordion-item">
+                        <a href="https://www.positivessl.com/certificate-management" class="accordion-title accordion-title-brdr">Certificate Management</a>
+                            <div class="accordion-content" data-tab-content="data-tab-content">
+                                <ul class="">
+                                    <li><a href="https://www.positivessl.com/certificate-management">Certificate Management</a></li>
+                                </ul>
+                            </div>
+                    </li> -->
+                    <!--  new code start 24 jan-->
+                     <li class="accordion-item" data-accordion-item="data-accordion-item">
+                        <a href="https://www.positivessl.com/support" class="accordion-title accordion-title-brdr">Support</a>
+                            <div class="accordion-content" data-tab-content="data-tab-content">
+                                <ul class="">
+                                    <li><a href="https://www.positivessl.com/positivessl-ticketing-system" >Ticketing System</a></li>
+                                    <li><a href="https://support.sectigo.com/PS_KnowledgeMainPage?__hstc=258772373.83e4d45d020448dd0d71aa6b719c4a42.1559802042524.1559811773853.1559816328487.4&__hssc=258772373.1.1559816328487&__hsfp=378147902&_ga=2.141389685.67018823.1559802042-723745154.1559802042">Knowledge Base</a></li>
+                                    <li><a href="https://secure.comodo.com/utilities/decodeCSR.html" target="_blank" >CSR Decoder</a></li>
+                                   <!-- <li><a href="https://sslanalyzer.comodoca.com" target="_blank" >Certificate Analyzer</a></li> -->
+                                    <li><a href="https://crt.sh/" target="_blank" >Certificate Search</a></li>
+                                    <li><a href="https://secure.trust-provider.com/products/ORDERSTATUSCHECKER" target="_blank" >Order Status Checker</a>
+                                    </li>
+                                </ul>
+                            </div>
+                    </li>
+                   <!-- <li class="accordion-none accordion-title-brdr"><a href="https://www.positivessl.com/support" class="">Support</a></li> -->
+                   <!-- new code end-->
+                    
+                    
+                  <!--  <li class="accordion-none accordion-title-brdr"><a href="https://www.positivessl.com/about-positivessl" class="">About PositiveSSL</a></li> -->
+                </ul>
+            </div>
+        </div>
+    </div>
+     
+      <!--<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/motion-ui/1.2.3/motion-ui.min.js"></script>
+      
+      <script>
+            $(document).foundation();
+            $(document).ready(function(){
+                $("#btn_cls").click(function(){
+                    $("#responsive_menu1").hide(1000);
+                });
+            });
+        </script>
+</apex:component>

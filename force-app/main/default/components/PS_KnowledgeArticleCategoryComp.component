@@ -1,0 +1,151 @@
+<apex:component controller="PS_KnowledgeController">
+<apex:stylesheet value="{!$Page.PS_DesignCss}" />
+
+                        <div class="article-section row">
+                                 <div class="small-12 large-6 columns">
+                                    <div class="kbrightstrip">
+                                       <table class="hlineheader hlinegray">
+                                          <tbody>
+                                             <tr>
+                                                <th rowspan="2" nowrap="">Most popular articles</th>
+                                                <td>&nbsp;</td>
+                                             </tr>
+                                             <tr>
+                                                <td class="hlinelower">&nbsp;</td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                    <ol>
+                                       <knowledge:articleList articleVar="article"
+                                          categories="{!categoryGroupName}:{!rootCategoryName}"
+                                          sortBy="mostViewed"
+                                          pageSize="10"
+                                          language="{!currentLanguage}"
+                                          >
+                                          <li>
+                                             <!--
+                                                <a href="{!URLFOR($Action.KnowledgeArticle.View, article.id) + '&' + languageParameterName + '=' +currentLanguage}">{!article.title}</a>
+                                                
+                                             <apex:outputlink value="{!VF_Apex}/Com_KnowledgeDetailPage1?id={!article.id}" target="_parent">
+                                             
+                                                {!article.title} 
+                                             </apex:outputlink>-->
+                                             <a href="{!URLFOR($Page.PS_KnowledgeDetailPage, null, [Id= article.id])}">{!article.title}</a>
+                                          </li>
+                                       </knowledge:articleList>
+                                    </ol>
+                                 </div>
+                                 <div class="small-12 large-6 columns">
+                                    <div>
+                                       <table class="hlineheader hlinegray">
+                                          <tbody>
+                                             <tr>
+                                                <th rowspan="2" nowrap="">Newest articles</th>
+                                                <td>&nbsp;</td>
+                                             </tr>
+                                             <tr>
+                                                <td class="hlinelower">&nbsp;</td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                    <ol>
+                                       <knowledge:articleList articleVar="article"
+                                          categories="{!categoryGroupName}:{!rootCategoryName}"
+                                          sortBy="lastUpdated"
+                                          pageSize="10"
+                                          language="{!currentLanguage}"
+                                          >
+                                          <li>
+                                             <!--
+                                                <a href="{!URLFOR($Action.KnowledgeArticle.View, article.id) + '&' + languageParameterName + '=' +currentLanguage}">{!article.title}</a>
+                                                
+                                             <apex:outputlink value="{!VF_Apex}/Com_KnowledgeDetailPage?id={!article.id}" target="_parent">
+                                                {!article.title}
+                                             </apex:outputlink>-->
+                                             <a href="{!URLFOR($Page.PS_KnowledgeDetailPage, null, [Id= article.id])}">{!article.title}</a>
+                                          </li>
+                                       </knowledge:articleList>
+                                    </ol>
+                                 </div>
+                        </div>
+                        
+                        
+                        
+<!-- Start the bottom article section -->
+<!--
+                        <table cellpadding="0" cellspacing="0" width="100%" border="0" class="article-section">
+                           <tbody>
+                              <tr>
+                                 <td width="50%" align="left" valign="top">
+                                    <div class="kbrightstrip">
+                                       <table class="hlineheader hlinegray">
+                                          <tbody>
+                                             <tr>
+                                                <th rowspan="2" nowrap="">Most popular articles</th>
+                                                <td>&nbsp;</td>
+                                             </tr>
+                                             <tr>
+                                                <td class="hlinelower">&nbsp;</td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                    <ol>
+                                       <knowledge:articleList articleVar="article"
+                                          categories="{!categoryGroupName}:{!rootCategoryName}"
+                                          sortBy="mostViewed"
+                                          pageSize="10"
+                                          language="{!currentLanguage}"
+                                          >
+                                          <li>
+                                             // commented start
+                                                <a href="{!URLFOR($Action.KnowledgeArticle.View, article.id) + '&' + languageParameterName + '=' +currentLanguage}">{!article.title}</a>
+                                                
+                                             <apex:outputlink value="{!VF_Apex}/Com_KnowledgeDetailPage?id={!article.id}" target="_parent">
+                                             
+                                                {!article.title} 
+                                             </apex:outputlink> //Commented end
+                                             <a href="{!URLFOR($Page.Com_KnowledgeDetailPage, null, [Id= article.id])}">{!article.title}</a>
+                                          </li>
+                                       </knowledge:articleList>
+                                    </ol>
+                                 </td>
+                                 <td width="50%" align="left" valign="top">
+                                    <div>
+                                       <table class="hlineheader hlinegray">
+                                          <tbody>
+                                             <tr>
+                                                <th rowspan="2" nowrap="">Newest articles</th>
+                                                <td>&nbsp;</td>
+                                             </tr>
+                                             <tr>
+                                                <td class="hlinelower">&nbsp;</td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                    <ol>
+                                       <knowledge:articleList articleVar="article"
+                                          categories="{!categoryGroupName}:{!rootCategoryName}"
+                                          sortBy="lastUpdated"
+                                          pageSize="10"
+                                          language="{!currentLanguage}"
+                                          >
+                                          <li>
+                                             // commented start
+                                                <a href="{!URLFOR($Action.KnowledgeArticle.View, article.id) + '&' + languageParameterName + '=' +currentLanguage}">{!article.title}</a>
+                                                
+                                             <apex:outputlink value="{!VF_Apex}/Com_KnowledgeDetailPage?id={!article.id}" target="_parent">
+                                                {!article.title}
+                                             </apex:outputlink> // commented End
+                                             <a href="{!URLFOR($Page.Com_KnowledgeDetailPage, null, [Id= article.id])}">{!article.title}</a>
+                                          </li>
+                                       </knowledge:articleList>
+                                    </ol>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>-->
+</apex:component>

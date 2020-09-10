@@ -1,0 +1,31 @@
+<aura:component implements="lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="URLComponentController" >
+    <aura:handler name = "init" value = "{!this}" action = "{!c.doInit}" />
+    <aura:attribute name="ArticleList" type="List"></aura:attribute>
+    <aura:attribute name="isArticle" type="Boolean" default="false"></aura:attribute>
+    <aura:iteration items="{!v.ArticleList}" var="Article">
+        
+        <div class="slds-border_bottom">
+            <br/><br/>
+            <div class="slds-grid slds-wrap"  >
+                <div class="slds-col slds-size_2-of-12">
+                    <div><ui:outputRichText value="{!Article.Data__c}"/></div>
+                </div>
+                <div class="slds-col slds-size_10-of-12">
+                    <div>
+                        <ui:outputText class="slds-text-title_bold"  value="{!Article.Name}" />
+                    </div>
+                    <p class="">
+                        <aura:unescapedHtml value="{!Article.Description__c}" /></p><br/>
+                    <p> Click <a href = "{!Article.Link__c}" target="_blank">here</a> to learn more</p> <br/>
+                </div>
+                
+            </div>
+        </div>
+        
+    </aura:iteration>
+    <aura:if isTrue="{!v.isArticle}">
+        <div style="font-size: 25px;font-weight: bold;">
+            No article for this month...
+        </div>
+    </aura:if>
+</aura:component>

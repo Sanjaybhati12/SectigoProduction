@@ -1,0 +1,12 @@
+<!--
+	Author      : Agile Cloud Consulting 
+	Date        : 15 Apr- 2019
+	Description : To Show the SCM Login button in lightning community 
+	Modification History :
+-->
+<aura:component description="SCM Login" implements="force:appHostable,force:lightningQuickAction,flexipage:availableForAllPageTypes,lightning:actionOverride,force:hasRecordId,force:hasSObjectName,flexipage:availableForRecordHome,lightning:actionOverride,force:hasRecordId,forceCommunity:availableForAllPageTypes" controller="com_Hyperlinkcntrl" access="global" >
+    <aura:attribute name="SCMLogin" type="String" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <!--class="slds-button_stretch"-->
+    <lightning:button class="widebutton"  variant="brand" label="{!$Label.c.SCM_Button_Label}" onclick="{!c.redirect}" />    
+</aura:component>

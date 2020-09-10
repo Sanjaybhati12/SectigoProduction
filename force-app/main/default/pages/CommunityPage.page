@@ -1,0 +1,4 @@
+<apex:page lightningStylesheets="true">
+    <iframe src="https://comodoca.lightning.force.com/lightning/r/Dashboard/01Z3l000000qtEPEAY/view">
+    </iframe>
+</apex:page>

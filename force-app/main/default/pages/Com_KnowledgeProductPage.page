@@ -1,0 +1,61 @@
+<apex:page showHeader="false" standardStylesheets="false" controller="Com_KnowledgeController" applyBodyTag="false" applyHtmlTag="false">
+    <html>
+
+    <head>
+        <meta name="description" content="Comodo CA is the world's largest certificate authority with over 100,000,000 TLS/SSL certificates issued.As the leading certificate authority, we're here to help you get the best ssl certificate, from purchasing, to setting up, account management, the works. Start your free trial, request a demo, or buy a certificate." /> 
+        <meta charset="UTF-8" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+        <apex:stylesheet value="{!URLFOR($Resource.Com_KnowledgeFiles, '/styles/Styles.css')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.Com_KnowledgeFiles,'/styles/CCAFoundation.css')}" />
+         <link rel="shortcut icon" type="image/png" href="{!$Resource.Favicon}" />
+        <link rel="icon" type="image/png" href="{!$Resource.Favicon}" /> 
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" crossorigin="anonymous" />
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.js"></script>
+        <apex:includeScript value="{!$Resource.pkb_js_base}" /> 
+        <title>Sectigo Knowledge Base</title>
+    </head>
+
+    <body>
+       <c:Com_KnowledgeHeader /> 
+        
+ <div class="body">
+            <div class="widgets">
+              <!--  <div id="p_lt_ctl03_pageplaceholder_p_lt_ctl01_sys_pnlUpdate">
+                    <div class="widget interior-hero-widget">
+                        <div id="p_lt_ctl03_pageplaceholder_p_lt_ctl01_CCAInteriorHero_InteriorHero" data-parallax="scroll" data-image-src="sectigo-homepage-hero.jpg" style="background:url('{!$Resource.Sectigo_Main_photo}');" class="interior-hero cover">
+                            <div class="row">
+                                <div class="small-12 columns">
+                                    <h1 class="white"><span id="p_lt_ctl03_pageplaceholder_p_lt_ctl01_CCAInteriorHero_Title"></span>Knowledge Base</h1>
+                                    <h6  >
+                                    <div style="color:white;">We encourage you to use the search feature and filters on the left side of the</div>
+                                    <div style="color:white;">screen to locate specific resources of interest (search by organization, author,</div>
+                                    <div style="color:white;">keyword, etc.)</div>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>  -->
+
+
+                <div class="widget" id="comodoMainCntainer">
+                    
+                    <!--<c:Com_KnowledgeHomeComp />-->
+                    <c:Com_KnowledgeProductComp />
+                    <!--<c:Com_KnowledgeSearchComp />--> 
+                    <!--<c:Com_KnowledgeDetailsComp r/>-->
+                </div>
+
+
+            </div>
+        </div>
+
+
+      <c:Com_KnowledgeFooter /> 
+
+    </body>
+
+
+    </html>
+</apex:page>

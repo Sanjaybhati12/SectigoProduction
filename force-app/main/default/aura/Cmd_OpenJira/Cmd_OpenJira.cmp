@@ -1,0 +1,11 @@
+<!-- 
+    /**
+    * Dazeworks.
+    * @category  Lightning component
+    * @author    Dazeworks
+    **/
+    -->
+<aura:component implements="forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader,force:hasRecordId,lightning:actionOverride" access="global">
+
+	
+</aura:component>

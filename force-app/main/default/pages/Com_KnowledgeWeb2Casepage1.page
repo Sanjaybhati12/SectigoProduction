@@ -1,0 +1,201 @@
+<apex:page showHeader="false" standardStylesheets="false"> 
+    <html>
+
+    <head>
+        <title>Comodo Knowledge Base</title>
+        <meta name="description" content="Comodo CA is the world's largest certificate authority with over 100,000,000 TLS/SSL certificates issued.As the leading certificate authority, we're here to help you get the best ssl certificate, from purchasing, to setting up, account management, the works. Start your free trial, request a demo, or buy a certificate." /> 
+        <meta charset="UTF-8" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+        <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8"/>
+        <apex:stylesheet value="{!$Page.Comodo_DesignCss}" />
+        <apex:stylesheet value="{!URLFOR($Resource.Com_KnowledgeFiles, '/styles/Styles.css')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.Com_KnowledgeFiles,'/styles/CCAFoundation.css')}" />
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" crossorigin="anonymous" />
+        <!--
+        <script src="https://code.jquery.com/jquery-1.8.3.min.js"></script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>-->
+        
+        <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
+        
+        <!-- <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/additional-methods.js"></script> -->
+        
+        <apex:includeScript value="{!$Resource.pkb_js_base}" /> 
+        
+     
+    </head>
+
+    <body>
+        <c:Com_KnowledgeHeader />
+
+        <div class="body">
+            <div class="widgets">
+                <div id="p_lt_ctl03_pageplaceholder_p_lt_ctl01_sys_pnlUpdate">
+                    <div class="widget interior-hero-widget">
+                        <div id="p_lt_ctl03_pageplaceholder_p_lt_ctl01_CCAInteriorHero_InteriorHero" data-parallax="scroll" data-image-src="Comodo-1200-Header-Images-1.jpg" style="background:url({!URLFOR($Resource.Com_KnowledgeFiles,'/images/Comodo-1200-Header-Images-1.jpg')});" class="interior-hero text-center cover">
+                            <div class="row">
+                                <div class="small-12 columns">
+                                    <h1 class="white"><span id="p_lt_ctl03_pageplaceholder_p_lt_ctl01_CCAInteriorHero_Title"></span>COMODO CA SUPPORT</h1>
+                                    <h4 id="p_lt_ctl03_pageplaceholder_p_lt_ctl01_CCAInteriorHero_Subtitle" class="white"> </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="widget" id="comodoMainCntainer">
+                    <div id="maincore">
+                        <div class="innerwrapper row">
+                         
+                         <div id="web2CaseForm" class="small-12 columns">
+                             <div id="leftloginsubscribebox">
+                            <!--  ----------------------------------------------------------------------  -->
+                            <!--  NOTE: Please add the following <FORM> element to your page.             -->
+                            <!--  ----------------------------------------------------------------------  -->
+                    
+                            <form action="https://webto.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8" method="POST" id="webToCaseFormVal">
+                                <h5 class="form-title">Please fill the details to submit a case </h5>
+                                <h6 class="form-subheading">All fields marked <span class='star'>*</span> are mandatory</h6>
+                                <input type="hidden" name="orgid" value="00D1N000002Ljih"/>
+                                <input type="hidden" name="retURL" value="https://www.comodoca.com/en-us/thank-you/?ref=support"/>
+                    
+                                <!--  ----------------------------------------------------------------------  -->
+                                <!--  NOTE: These fields are optional debugging elements. Please uncomment    -->
+                                <!--  these lines if you wish to test in debug mode.                          -->
+                                <!--  <input type="hidden" name="debug" value=1>                              -->
+                                <!--  <input type="hidden" name="debugEmail"                                  -->
+                                <!--  value="vinay@agilecloudconsulting.com">                                 -->
+                                <!--  ----------------------------------------------------------------------  -->
+                                <div class="row">
+                                    <div class="small-12 columns">
+                                      <label>Contact Name<span class="star">*</span>
+                                        <input  id="name" maxlength="80" name="name" size="20" type="text" placeholder="Contact Name"/>
+                                      </label>
+                                    </div>
+                                  </div>
+                                  
+                                  <div class="row">
+                                    <div class="small-12 columns">
+                                      <label>Email<span class="star">*</span>
+                                        <input  id="email" maxlength="80" name="email" size="20" type="email" placeholder="Email" />
+                                      </label>
+                                    </div>
+                                  </div>
+                                  
+                                  <div class="row">
+                                    <div class="small-12 columns">
+                                      <label>Phone<span class="star">*</span>
+                                        <input  id="phone" maxlength="40" name="phone" size="20" type="text" placeholder="Phone" />
+                                      </label>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="small-12 columns">
+                                      <label>Company Name<span class="star">*</span>
+                                        <input  id="00N1N00000Oyzqk" maxlength="40" name="00N1N00000Oyzqk" size="20" type="text" placeholder="Company Name" />
+                                      </label>
+                                    </div>
+                                  </div>
+                                  
+                                  <div class="row">
+                                    <div class="small-12 columns">
+                                      <label>Reason for the ticket<span class="star">*</span>
+                                        <select  id="reason" name="reason">
+                                        <option value="Account Changes">Account Changes</option>
+                                          <option value="Billing">Billing</option>                                    
+                                            <option value="Certificates">Technical Support</option>                                            
+                                             <option value="Customer Feedback">Customer Feedback</option>
+                                            <option value="Certificate Manager">Comodo Certificate Manager</option>
+                                             <option value="Partner Validation">Partners/Resellers</option>
+                                            <option value="SSL Abuse & Malware"> SSL Abuse and Malware</option>
+                                            <option value="Sales">Sales</option>
+                                            <option value="Validation">Validation</option>
+                                              
+                                                
+                                        </select>
+                                      </label>
+                                    </div>
+                                  </div>
+                                  
+                                  <div class="row">
+                                    <div class="small-12 columns">
+                                      <label>Order Number
+                                        <input  id="00N1N00000OyUSa" maxlength="20" name="00N1N00000OyUSa" size="20" type="text" placeholder="Order Number"/>
+                                      </label>
+                                    </div>
+                                  </div>
+                                  
+                                  <div class="row">
+                                    <div class="small-12 columns">
+                                      <label>Subject<span class="star">*</span>
+                                        <input  id="subject" maxlength="80" name="subject" size="20" type="text" placeholder="Subject"/>
+                                      </label>
+                                    </div>
+                                  </div>
+                                 
+                                  <div class="row">
+                                    <div class="small-12 columns">
+                                      <label>Description<span class="star">*</span>
+                                        <textarea placeholder="Description" name="description" rows="8"></textarea>
+                                      </label>
+                                    </div>
+                                  </div>
+                                  
+                                  <div class="row">
+                                    <div class="small-12 small-centered text-center columns">
+                                        <input type="submit" name="submit"  value="submit" class="button large" id="webcase_submit"/>
+                                    </div>
+                                  </div>
+                                
+                            </form>
+                         </div>
+                        </div>
+                     </div>
+                 </div>
+                    
+                </div>
+            </div>
+        </div>
+
+
+        <c:Com_KnowledgeFooter />
+        
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.0/jquery.validate.min.js"></script>
+      <!--  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.0/additional-methods.js"></script> -->
+        <script type="text/javascript">
+            $('#webToCaseFormVal').validate({
+                rules: {
+                    name: {
+                        required: true,
+                        minlength: 3
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    phone: {
+                        required: true,
+                        minlength: 3
+                    },                    
+                    reason: { 
+                        required: true
+                    },
+                    subject: {
+                        required: true,
+                        minlength: 3
+                    },
+                    description: {
+                        required: true,
+                        minlength: 3
+                    }
+                },
+            });
+            $( "#00N1N00000Oyzqk").rules( "add", {required: true});
+        </script>
+    </body>
+
+
+    </html>
+</apex:page>

@@ -1,0 +1,42 @@
+<apex:component >
+
+    <head>
+        <apex:stylesheet value="{!URLFOR($Resource.Com_KnowledgeFiles, '/styles/Styles.css')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.Com_KnowledgeFiles,'/styles/CCAFoundation.css')}" />
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" crossorigin="anonymous" />
+    </head>
+
+    
+    <div class="pre-footer black background top-shadow">
+        <div class="row">
+            <div class="small-6 column footer-logo">
+                <a class="branding" title="Comodo CA - Home" >
+
+                    <apex:image url="{!URLFOR($Resource.Com_KnowledgeFiles,'/images/ComodoCA-Logo-White.svg')}" />
+                </a>
+            </div>
+            <div class="small-6 column footer-social">
+                <ul class="socials">
+                    <li>
+                        <a class="white" href="https://www.facebook.com/comodoca" title="Comodo CA on Facebook" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <span class="show-for-sr">Comodo CA on Facebook</span>
+          </a>
+                    </li>
+                    <li>
+                        <a class="white" href="https://twitter.com/comodo_ssl" title="Comodo CA on Twitter" target="_blank">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span class="show-for-sr">Comodo CA on Twitter</span>
+          </a>
+                    </li>
+                    <li>
+                        <a class="white" href="https://www.linkedin.com/company/comodo-ca/?trk=similar-companies_org_title" title="Comodo CA on LinkedIn" target="_blank">
+            <i class="fa fa-linkedin" aria-hidden="true"></i>
+            <span class="show-for-sr">Comodo CA on LinkedIn</span>
+          </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</apex:component>

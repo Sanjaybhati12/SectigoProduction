@@ -1,0 +1,61 @@
+<apex:component >
+   <!-- <script src="https://www.comodoca.com/CMSPages/GetResource.ashx?scriptfile=/CMSScripts/Custom/jquery-3.2.1.min.js"></script> -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var a, u, t, f, v, e, o, r, s, h, n, c, i, l, p, w;
+            $(".tabs").length && $(document).foundation();
+            $("#main-menu > li").each(function() {
+                if ($(this).children().length > 1) {
+                    $(this).addClass("has-subnav");
+                    //$(this).append('<span class="arrow mobile-only"><img alt="Right Arrow Icon" src="/ComodoCA/images/white-arrow-right.png" /><\/a><\/span>');
+                    var n = $(this).find("a").eq(0).text();
+                    //$(this).find("ul").prepend('<li class="mobile-only subnav-title"><img alt="Left Arrow Icon" src="/ComodoCA/images/white-arrow-left.png" />' + n + "<\/a>")
+                }
+                $(this).children().first().text() == "IoT" && $(this).children().first().addClass("no-case")
+            });
+            $(".hamburger").on("click", function() {
+                $(".search-wrap").removeClass("open");
+                $(this).closest(".main-nav").toggleClass("open")
+            });
+            $("#main-menu .arrow").on("click", function() {
+                $("#main-menu li.has-subnav").removeClass("open");
+                $(this).closest("li.has-subnav").addClass("open")
+            });
+            $("#main-menu .subnav-title").on("click", function() {
+                $(this).closest("li.has-subnav").removeClass("open")
+            });
+            $(".search-wrap .search-icon, .search-wrap .search-box a.close").on("click", function() {
+                $(".main-nav").removeClass("open");
+                $(".search-wrap").toggleClass("open")
+            });
+            
+            
+            $(".landing-hero-wrap").length && (p = parseInt($(".landing-hero-wrap .landing-hero").css("padding-top")), w = $(".landing-hero-wrap .landing-hero").outerHeight() - p, $(".landing-hero-wrap .landing-form .large-5 > div").css({
+                top: "-" + w + "px"
+            }), $(window).resize(function() {
+                var n = parseInt($(".landing-hero-wrap .landing-hero").css("padding-top")),
+                    t = $(".landing-hero-wrap .landing-hero").outerHeight() - n;
+                $(".landing-hero-wrap .landing-form .large-5 > div").css({
+                    top: "-" + t + "px"
+                })
+            }))
+        })
+        </script>
+    <header>
+        
+        <div class="nav-branding-wrap black background">
+            <div class="row">
+                <div class="small-12 medium-4 large-3 columns">
+                    <div class="branding">
+                        <a title="Comodo CA - Home" >
+                            <apex:image url="{!URLFOR($Resource.Com_KnowledgeFiles,'/images/ComodoCA-Logo-White.svg')}" />
+                        </a>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </header>
+</apex:component>

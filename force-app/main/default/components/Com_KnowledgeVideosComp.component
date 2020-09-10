@@ -1,0 +1,97 @@
+<apex:component controller="Com_KnowledgeController">
+<apex:stylesheet value="{!$Page.Comodo_DesignCss}" />
+
+<!-- Start the bottom article section -->
+
+                        <div class="video-section article-section row">
+                           
+                                 <div class="columns small-12">
+                                    <div class="kbrightstrip">
+                                       <table class="hlineheader hlinegray">
+                                          <tbody>
+                                             <tr>
+                                                <th rowspan="2" nowrap="">Comodo Videos</th>
+                                                <td>&nbsp;</td>
+                                             </tr>
+                                             <tr>
+                                                <td class="hlinelower">&nbsp;</td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                    <ol>
+                                          <li>
+                                             <a href="https://www.youtube.com/watch?v=zUd-HWDGXeY" target="_blank">Web Host Resellers: How to Get Certificates Issued Faster</a>
+                                          </li>
+                                           <li>
+                                             <a href="https://www.youtube.com/watch?v=AwkJ-ESAM-g" target="_blank">Web Host Resellers: How to Add, Manage, and Delete Users</a>
+                                          </li>
+                                          <li>
+                                             <a href="https://www.youtube.com/watch?v=gejZ3ARX9BY" target="_blank">Web Host Resellers: Introduction to the Reseller Management Center</a>
+                                          </li>
+                                          <li>
+                                             <a href="https://www.youtube.com/watch?v=2sX4xZKWOgc" target="_blank">How and When to Revoke a Security Certificate</a>
+                                          </li>
+                                          <li>
+                                             <a href="https://www.youtube.com/watch?v=x_QJLjC66-g" target="_blank">How and When to Replace and Reissue a Security Certificate</a>
+                                          </li>
+                                          <li>
+                                             <a href="https://www.youtube.com/watch?v=u5JhjKRFspw" target="_blank">How to Issue a New Security Certificate</a>
+                                          </li>
+                                          <li>
+                                             <a href="https://www.youtube.com/watch?v=n2KorSZ3NyY" target="_blank">How to Purchase a Security Certificate</a>
+                                          </li>
+                                    </ol>
+                                 </div>
+                                 </div>
+                        
+                        
+                        <!--
+                        
+                        <table cellpadding="0" cellspacing="0" width="100%" border="0" class="video-section article-section">
+                           <tbody>
+                              <tr>
+                                 <td width="100%" align="left" valign="top">
+                                    <div class="kbrightstrip">
+                                       <table class="hlineheader hlinegray">
+                                          <tbody>
+                                             <tr>
+                                                <th rowspan="2" nowrap="">Comodo Videos</th>
+                                                <td>&nbsp;</td>
+                                             </tr>
+                                             <tr>
+                                                <td class="hlinelower">&nbsp;</td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                    <ol>
+                                       
+                                          <li>
+                                             <a href="https://www.youtube.com/watch?v=zUd-HWDGXeY" target="_blank">Web Host Resellers: How to Get Certificates Issued Faster</a>
+                                          </li>
+                                           <li>
+                                             <a href="https://www.youtube.com/watch?v=AwkJ-ESAM-g" target="_blank">Web Host Resellers: How to Add, Manage, and Delete Users</a>
+                                          </li>
+                                          <li>
+                                             <a href="https://www.youtube.com/watch?v=gejZ3ARX9BY" target="_blank">Web Host Resellers: Introduction to the Reseller Management Center</a>
+                                          </li>
+                                          <li>
+                                             <a href="https://www.youtube.com/watch?v=2sX4xZKWOgc" target="_blank">How and When to Revoke a Security Certificate</a>
+                                          </li>
+                                          <li>
+                                             <a href="https://www.youtube.com/watch?v=x_QJLjC66-g" target="_blank">How and When to Replace and Reissue a Security Certificate</a>
+                                          </li>
+                                          <li>
+                                             <a href="https://www.youtube.com/watch?v=u5JhjKRFspw" target="_blank">How to Issue a New Security Certificate</a>
+                                          </li>
+                                          <li>
+                                             <a href="https://www.youtube.com/watch?v=n2KorSZ3NyY" target="_blank">How to Purchase a Security Certificate</a>
+                                          </li>
+                                    </ol>
+                                 </td>
+                                 
+                              </tr>
+                           </tbody>
+                        </table> -->
+</apex:component>

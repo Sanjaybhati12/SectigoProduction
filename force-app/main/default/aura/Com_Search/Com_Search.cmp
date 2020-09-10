@@ -1,0 +1,249 @@
+<!--
+@Author : AgileCloudConsulting    
+@name : Com_Search 
+@Created Date : 19/09/2018.
+@Description : This component used to show the global search results in community
+@Version : 1.0
+@reference : none
+-->
+<aura:component implements="forceCommunity:availableForAllPageTypes"  controller="Com_SearchCntrl">
+    <aura:attribute name="searchString" type="String" />
+    <aura:attribute name="myResults" type="sobjectwrapperclass"  />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <ltng:require styles="/resource/SLDSW17/assets/styles/salesforce-lightning-design-system-ltng.css"/>
+    <!-- Added on 19th Sep -->    
+    <!--The Salesforce Lightning Design System Wrapping Div with Scoping Class -->
+    <div class="minerva18 slds-scope">
+        <div class="slds-m-around--medium"> 
+            <div class="slds-vertical-tabs">
+                <ul class="slds-vertical-tabs__nav" role="tablist" aria-orientation="vertical">
+                    <li  aura:id="firstId" class="slds-vertical-tabs__nav-item slds-text-title--caps slds-is-active" title="First Tab" role="presentation" >
+                        <a class="slds-vertical-tabs__link" href="javascript:void(0);" onclick="{!c.firstTab}" role="tab" tabindex="0" aria-selected="false" aria-controls="tab-vertical-1" id="tab-vertical-1__item">All</a>
+                    </li>
+                    <li  aura:id="secondId"  class="slds-vertical-tabs__nav-item slds-text-title--caps " title="Second Tab" role="presentation">
+                        <a class="slds-vertical-tabs__link" href="javascript:void(0);" onclick="{!c.secondTab}" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-vertical-2" id="tab-vertical-2__item">Articles</a>
+                    </li>    
+                    <li  aura:id="thridId" class="slds-vertical-tabs__nav-item slds-text-title--caps" title="Third Tab" role="presentation">
+                        <a class="slds-vertical-tabs__link" href="javascript:void(0);" onclick="{!c.thirdTab}" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-vertical-3" id="tab-vertical-3__item">Cases</a>
+                    </li>
+                </ul>
+                <div aura:id="firstContentId" id="tab-vertical-1" class="slds-vertical-tabs__content slds-show" role="tabpanel" aria-labelledby="tab-vertical-1__item">
+                    <!--Case title code start-->
+                    <div class="slds-page-header">
+                        <div class="slds-page-header__row">
+                            <div class="slds-page-header__col-title">
+                                <div class="slds-media">
+                                    <div class="slds-media__body">
+                                        <div class="slds-page-header__name">
+                                            <div class="slds-page-header__name-title">
+                                                <h1>
+                                                    <span class="slds-page-header__title slds-truncate" title="Rohde Corp - 80,000 Widgets">Cases</span>
+                                                </h1>
+                                            </div>
+                                        </div>
+                                        <p class="slds-page-header__name-meta">{!v.myResults.caseCount} Result</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Case title code end -->
+                    <!--Case table code start -->
+                    <table class="slds-table slds-table_cell-buffer">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Case number">Case number</div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Status">Status</div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Subject">Subject</div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Order Number">Order Number</div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="dateopen">Date/Time Opened</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <aura:if isTrue="{!!empty(v.myResults.cases)}">
+                                <aura:iteration var="position" items="{!v.myResults.cases}" >
+                                    <tr class="slds-hint-parent">
+                                        <th data-label="Case number" scope="row">
+                                            <div class="slds-truncate" title="{!position.CaseNumber}">
+                                                <a  tabindex="-1">
+                                                    <li style="list-style: none;"
+                                                        onclick="{!c.getSelectedName}"
+                                                        data-value="{!position.Id}">
+                                                        <span>{!position.CaseNumber}</span>
+                                                    </li>
+                                                </a>
+                                            </div>
+                                        </th>
+                                        <td data-label="Status">
+                                            <div class="slds-truncate" title="Status">{!position.Status}</div>
+                                        </td>
+                                        <td data-label="Subject">
+                                            <div class="slds-truncate" title="Subject ">{!position.Subject}</div>
+                                        </td>
+                                        <td data-label="Order Number">
+                                            <div class="slds-truncate" title="Email">{!position.Order_Number__c}</div>
+                                        </td>
+                                        <td data-label="dateopen">
+                                            <div class="slds-truncate" title="Email">{!position.CreatedDate}</div>
+                                        </td>
+                                    </tr>
+                                </aura:iteration>
+                            </aura:if>
+                        </tbody>
+                    </table>
+                    <!--Case table code end -->  
+                    
+                    <!--Articles title code start-->
+                    <div class="slds-page-header">
+                        <div class="slds-page-header__row">
+                            <div class="slds-page-header__col-title">
+                                <div class="slds-media">
+                                    <div class="slds-media__body">
+                                        <div class="slds-page-header__name">
+                                            <div class="slds-page-header__name-title">
+                                                <h1>
+                                                    <span class="slds-page-header__title slds-truncate" title="Rohde Corp - 80,000 Widgets">Articles</span>
+                                                </h1>
+                                            </div>
+                                        </div>
+                                        <p class="slds-page-header__name-meta">{!v.myResults.knowCount} Result</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Articles title code end -->
+                    <!--Article table start -->
+                    <table class="slds-table slds-table_cell-buffer">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Case number">Article Title</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <aura:if isTrue="{!!empty(v.myResults.knowArtles)}">
+                                <aura:iteration var="position1" items="{!v.myResults.knowArtles}" >
+                                    <tr class="slds-hint-parent">
+                                        <th data-label="Case number" scope="row">
+                                            <div class="slds-truncate" title="00123434">
+                                                <a  tabindex="-1">
+                                                    <li style="list-style: none;"
+                                                        onclick="{!c.getSelectedName1}"
+                                                        data-value="{!position1.UrlName}">
+                                                        <span>{!position1.Title}</span>
+                                                    </li>
+                                                </a>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </aura:iteration>
+                            </aura:if>
+                        </tbody>
+                    </table>
+                    <!-- Article table end -->
+                </div>
+                <div aura:id="secondContentId" id="tab-vertical-2" class="slds-vertical-tabs__content slds-hide" role="tabpanel" aria-labelledby="tab-vertical-2__item">
+                    <!--Article table start -->
+                    <table class="slds-table slds-table_cell-buffer">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Case number">Article Title</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <aura:if isTrue="{!!empty(v.myResults.knowArtles)}">
+                                <aura:iteration var="position1" items="{!v.myResults.knowArtles}" >
+                                    <tr class="slds-hint-parent">
+                                        <th data-label="Case number" scope="row">
+                                            <div class="slds-truncate" title="00123434">
+                                                <a  tabindex="-1">
+                                                    <li style="list-style: none;"
+                                                        onclick="{!c.getSelectedName1}"
+                                                        data-value="{!position1.UrlName}">
+                                                        <span>{!position1.Title}</span>
+                                                    </li>
+                                                </a>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </aura:iteration>
+                            </aura:if>
+                        </tbody>
+                    </table>
+                    <!-- Article table end -->
+                </div>
+                <div aura:id="thirdContentId" id="tab-vertical-3" class="slds-vertical-tabs__content slds-hide" role="tabpanel" aria-labelledby="tab-vertical-3__item">
+                    <!-- table code start -->
+                    <table class="slds-table slds-table_cell-buffer">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Case number">Case number</div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Status">Status</div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Subject">Subject</div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Order Number">Order Number</div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="dateopen">Date/Time Opened</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <aura:if isTrue="{!!empty(v.myResults.cases)}">
+                                <aura:iteration var="position" items="{!v.myResults.cases}" >
+                                    <tr class="slds-hint-parent">
+                                        <th data-label="Case number" scope="row">
+                                            <div class="slds-truncate" title="{!position.CaseNumber}">
+                                                <a  tabindex="-1">
+                                                    <li style="list-style: none;"
+                                                        onclick="{!c.getSelectedName}"
+                                                        data-value="{!position.Id}">
+                                                        <span>{!position.CaseNumber}</span>
+                                                    </li>
+                                                </a>
+                                            </div>
+                                        </th>
+                                        <td data-label="Status">
+                                            <div class="slds-truncate" title="Status">{!position.Status}</div>
+                                        </td>
+                                        <td data-label="Subject">
+                                            <div class="slds-truncate" title="Subject ">{!position.Subject}</div>
+                                        </td>
+                                        <td data-label="Order Number">
+                                            <div class="slds-truncate" title="Email">{!position.Order_Number__c}</div>
+                                        </td>
+                                        <td data-label="dateopen">
+                                            <div class="slds-truncate" title="Email">{!position.CreatedDate}</div>
+                                        </td>
+                                    </tr>
+                                </aura:iteration>
+                            </aura:if>
+                        </tbody>
+                    </table>
+                    <!-- table code end --> 
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End on 19th Sep -->
+</aura:component>

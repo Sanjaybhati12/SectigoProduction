@@ -1,0 +1,50 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global">
+    
+    <!--Public Attributes-->
+    <aura:attribute name="showHeader"
+                    type="Boolean"
+                    description="Show/Hide the Card Header"
+                    default="true"
+                    access="public"></aura:attribute>
+    
+    <aura:attribute name="editLinesPage"
+                    type="String"
+                    description="SBQQ VF Page that facilitates the Editing of Quote Line Items"
+                    default="/apex/SBQQ__sb?id="
+                    access="public"></aura:attribute>
+    
+    <!--Markup-->
+    <lightning:card>
+        
+        <!--Card Header-->
+        <aura:set attribute="title">
+
+            <aura:if isTrue="{! v.showHeader }">
+                  
+                <lightning:icon iconName="standard:quotes"
+                                size="x-small"/>
+
+                <span class="slds-m-left_small">Quote Line Actions</span>
+                
+            </aura:if>
+
+        </aura:set>
+        
+        <!--Card Body-->
+        <div class="slds-p-around_small slds-text-align_center">
+            
+            <lightning:buttonGroup>
+                
+                <!--Edit Lines Button-->
+                <lightning:button iconName="action:edit"
+                                  iconPosition="left"
+                                  label="Edit Lines"
+                                  onclick="{! c.editLines }"/>
+                
+            </lightning:buttonGroup>
+            
+        </div>
+        
+    </lightning:card>
+    
+</aura:component>

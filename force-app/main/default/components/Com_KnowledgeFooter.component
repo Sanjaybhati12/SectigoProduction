@@ -1,0 +1,186 @@
+<apex:component >
+    <style>
+        body footer a:hover {
+            color: #00B373;
+        }
+        
+        footer {
+            padding: 3rem 1rem;
+        }
+        
+        footer .footer-nav>ul>li {
+            text-transform: inherit;
+        }
+        
+        footer .footer-nav>ul h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 1rem 0rem 0.5rem 0rem;
+        }
+        
+        footer li,
+        footer p {
+            font-size: 14px;
+            /*font-size: 1.8rem;*/
+            font-weight: 400;
+        }
+        
+        @media print,
+        screen and (min-width: 40em) {
+            footer .footer-nav>ul>li {
+                width: 25%;
+                padding-right: 50px;
+            }
+        }
+        
+        footer .footer-nav ul ul li {
+            display: block;
+            padding: 5px 0px;
+            font-size: 16px;
+            font-weight: 400;
+        }
+        
+        .footer-social ul.socials {
+            text-align: left;
+        }
+        
+        .footer-social ul.socials li a {
+            padding: 2px;
+        }
+        
+        .footer-social [class*="fa fa-"] {
+            background-color: #000;
+            border-radius: 32px;
+            color: #fff;
+            display: inline-block;
+            height: 32px;
+            line-height: 32px;
+            margin: auto 3px;
+            width: 32px;
+            font-size: 20px;
+            text-align: center;
+        }
+        
+        .footer-social [class*="fa fa-"]:hover {
+            background-color: #00b373;
+        }
+        
+        .footer-certificates a {
+            margin-left: .5rem;
+            margin-right: .5rem;
+        }
+    </style>
+    <footer class="black background">
+        <div class="row">
+            <div class="small-12 columns">
+                <div class="footer-nav">
+                    <ul id="menuElem" class="">
+                        <li>
+                            <h3>About Sectigo</h3>
+                            <ul>
+                                <li class=""><a href="https://sectigo.com/about">About</a></li>
+                                <li class=""><a href="https://sectigo.com/support">Support</a></li>
+                                <li class=""><a href="https://support.sectigo.com/Com_KnowledgeMainPage?_ga=2.96377755.621088591.1541171631-865305006.1520542114" target="_blank">Knowledgebase</a></li>
+                                <li class=""><a href="https://sectigo.com/about/careers">Careers</a></li>
+                                <li class=""><a href="https://sectigo.com/blog">Blog</a></li>
+                            </ul>
+                        </li>
+                        <li class="Highlighted">
+                            <h3>Products</h3>
+                            <ul>
+                                <li class=""><a href="https://sectigo.com/products/ssl-certificates-tls">SSL Certificates | TLS Certificates</a></li>
+                                <li class=""><a href="https://sectigo.com/products/management-solutions/sectigo-certificate-manager">Certificate Manager</a></li>
+                                <li class=""><a href="https://sectigo.com/products/signing-certificates/code-signing">Code Signing Certificates</a></li>
+                                <li class=""><a href="https://sectigo.com/products/signing-certificates/email-smime-certificate">Secure Email (S/MIME) Certificates</a></li>
+                                <li class=""><a href="https://sectigo.com/products/code-guard-website-backup">CodeGuard Website Backup &amp; Recovery</a></li>
+                              <!--  <li class=""><a href="https://sectigo.com/products/management-solutions/iot">IoT Manager</a></li> -->
+                                <li class=""><a href="https://sectigo.com/products/pci-scanning">PCI Scanning</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <h3>Solutions</h3>
+                            <ul>
+                                <li class=""><a href="https://sectigo.com/solutions/enterprise">Enterprise</a></li>
+                                <li class=""><a href="https://sectigo.com/solutions/small-business">Small &amp; Medium Business</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <h3>Legal</h3>
+                            <ul>
+                                <li class=""><a href="https://sectigo.com/terms-of-use">Terms and Conditions</a></li>
+                                <li class=""><a href="https://sectigo.com/privacy-policy">Privacy Policy</a></li>
+                                <li class=""><a href="https://sectigo.com/legal/cookie-policy">Cookie Policy</a></li>
+                                <li class=""><a href="https://sectigo.com/privacy-portal">Privacy Portal</a></li>
+                                <li class=""><a href="https://sectigo.com/legal">Legal</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="align-items: center;">
+            <div class="small-12 medium-6 columns footer-social">
+                <ul class="socials">
+                    <li>
+                        <a class="black" href="https://twitter.com/sectigohq" title="Sectigo on Twitter" target="_blank">
+                            <i class="fa fa-twitter" aria-hidden="true"></i>
+                            <span class="show-for-sr"> Sectigo on Twitter</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="black" href="https://www.linkedin.com/company/sectigo/?trk=similar-companies_org_title" title="Sectigo on LinkedIn" target="_blank">
+                            <i class="fa fa-linkedin" aria-hidden="true"></i>
+                            <span class="show-for-sr"> Sectigo on LinkedIn</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="black" href="https://www.youtube.com/channel/UCpBIBygkjPsEdrGkkWNGOsQ/featured?disable_polymer=1" title="Sectigo on Facebook" target="_blank">
+                            <i class="fa fa-youtube" aria-hidden="true"></i>
+                            <span class="show-for-sr"> Sectigo on Youtube</span>
+                        </a>
+                    </li>
+                  <!--  <li>
+                        <a class="black" href="https://www.facebook.com/Sectigo" title="Sectigo on Facebook" target="_blank">
+                            <i class="fa fa-facebook" aria-hidden="true"></i>
+                            <span class="show-for-sr"> Sectigo on Facebook</span>
+                        </a>
+                    </li> -->
+                </ul>
+            </div>
+            <div class="small-12 medium-6 columns footer-certificates" style="text-align: right;">
+                <a href="https://sectigo.com/uploads/files/ComodoCA_SOC3_Report.pdf" target="_blank" class="inline-block mx-1 sm:mx-2">
+                    <!--  <img src="https://sectigo.com/_ui/img/soc3-EY.879551206.jpg" alt="SOC3 EY" /> -->
+                    <apex:image value="{!$Resource.Com_FooterImage6}" alt="SOC3 EY" />
+                </a>
+                <a href="https://www.cpacanada.ca/webtrustseal?sealid=10006" target="_blank" class="inline-block mx-1 sm:mx-2">
+                    <apex:image value="{!$Resource.Com_FooterImage4}" alt="WebTrust for Certification Authorities" />
+                    <!-- <img src="https://staging-sectigo.matternow.com/_ui/img/webtrust-logo-small.393860728.png"  /> -->
+                </a>
+                <a href="https://www.cpacanada.ca/webtrustseal?sealid=10007" target="_blank" class="inline-block mx-1 sm:mx-2">
+                    <apex:image value="{!$Resource.Com_FooterImage2}" alt="WebTrust for CA - Extended Validation" />
+                    <!--  <img src="https://staging-sectigo.matternow.com/_ui/img/webtrust-logo-small.393860728.png" alt="WebTrust for CA - Extended Validation" /> -->
+                </a>
+                <a href="https://www.cpacanada.ca/webtrustseal?sealid=10008" target="_blank" class="inline-block mx-1 sm:mx-2">
+                    <apex:image value="{!$Resource.Com_FooterImage3}" alt="WebTrust for CA - Extended Validation Code Signing" />
+                    <!--  <img src="https://staging-sectigo.matternow.com/_ui/img/webtrust-logo-small.393860728.png" alt="WebTrust for CA - Extended Validation Code Signing" /> -->
+                </a>
+                <a href="https://www.cpacanada.ca/webtrustseal?sealid=10009" target="_blank" class="inline-block ml-1 sm:ml-2 md:mx-2">
+                    <apex:image value="{!$Resource.Com_FooterImage1}" alt="WebTrust for CA - SSL Baseline with Network Security" />
+                    <!--  <img src="https://staging-sectigo.matternow.com/_ui/img/webtrust-logo-small.393860728.png" alt="WebTrust for CA - SSL Baseline with Network Security" /> -->
+                </a>
+            </div>
+            <div class="small-12 column" style="border-bottom: 2px solid #000; margin-top: 1.5rem;"></div>
+            <div class="small-12 medium-6 columns" style="margin-top: 1.5rem;">
+                <a href="https://sectigo.com/trust-seal" style="margin-top:-10px;">
+                    <!-- <img src="https://sectigo.com/images/seals/sectigo_trust_seal_lg.png" srcset="https://sectigo.com/images/seals/sectigo_trust_seal_lg.png, https://sectigo.com/images/seals/sectigo_trust_seal_lg_2x.png 2x" width="140" height="54" alt="Protected by Sectigo SSL" border="0" />
+                  -->
+                    <apex:image value="{!$Resource.Com_FooterImage5}" width="140" height="54" alt="Protected by Sectigo SSL" />
+                </a>
+            </div>
+            <div class="small-12 medium-6 columns legal light" style="font-size: 18px; font-weight: 400; text-align: right; ">© 2019 Sectigo Limited. All Rights Reserved.</div>
+            <script type="application/ld+json">
+                { "@context": "http://schema.org", "@type": "Organization", "name": "Comodo CA", "legalName": "Comodo CA", "url": "https://comodoca.com", "logo": "http://www.comodoca.com/ComodoCA/media/comodoca/comodo-logo.png?ext=.png", "foundingDate": "2001", "address": { "@type": "PostalAddress", "streetAddress": "1255 Broad Street", "addressLocality": "Clifton", "addressRegion": "NJ", "postalCode": "07013", "addressCountry": "US" }, "contactPoint": { "@type": "ContactPoint", "contactType": "customer support", "telephone": "+1-888-266-6361", "email": "support@comodoca.com" }, "sameAs": ["https://twitter.com/comodo_ssl", "https://www.linkedin.com/company/comodo-ca-limited/"] }
+            </script>
+        </div>
+    </footer>
+</apex:component>

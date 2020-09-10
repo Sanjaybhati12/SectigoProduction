@@ -1,0 +1,708 @@
+<apex:page standardController="Case" extensions="CustomWebToCaseController1" showHeader="false" standardStylesheets="false" applyBodyTag="false" applyHtmlTag="false">
+    <apex:form id="frm">
+    <head>
+        <script type="text/javascript">
+           
+        </script>
+        <script src="/soap/ajax/40.0/connection.js" type="text/javascript"></script>
+        <title>Sectigo Knowledge Base</title>
+        <meta name="description" content="Comodo CA is the world's largest certificate authority with over 100,000,000 TLS/SSL certificates issued.As the leading certificate authority, we're here to help you get the best ssl certificate, from purchasing, to setting up, account management, the works. Start your free trial, request a demo, or buy a certificate." />
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />            
+        <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8"/>
+        <link rel="shortcut icon" type="image/png" href="{!$Resource.Favicon}" />
+        <link rel="icon" type="image/png" href="{!$Resource.Favicon}" />
+        <apex:stylesheet value="{!$Page.Comodo_DesignCss}" />
+        <apex:stylesheet value="{!URLFOR($Resource.Com_KnowledgeFiles, '/styles/Styles.css')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.Com_KnowledgeFiles,'/styles/CCAFoundation.css')}" />
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" crossorigin="anonymous" />
+        <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>            
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/additional-methods.js"></script>
+       
+        <style>
+            .leftnavboxcontent a {
+                color: red !important;
+            }
+            .error,.errorChar{
+                color: red;
+                display: block;
+            }
+           
+            .searchbutton.button.large{
+                background-color:#00b073;
+                border-radius:999px;
+                font-size: 1.50rem;
+                font-weight:bold;
+            }
+            .searchbutton.button.large:hover{
+                background-color: #008e5d;
+                border-color: #008e5d;
+            }
+           
+            .button {
+                background-color: #00b073; /* Green */
+                border: none;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+                border-radius: 999px;
+                font-size: 1.50rem;
+                font-weight: bold;
+            }
+           
+            .button:hover{
+                background-color: #008e5d;
+                border-color: #008e5d;
+            }
+            /* The Modal (background) */
+            .modal {
+                display: none; /* Hidden by default */
+                position: fixed; /* Stay in place */
+                z-index: 1; /* Sit on top */
+                padding-top: 100px; /* Location of the box */
+                left: 0;
+                top: 0;
+                width: 100%; /* Full width */
+                height: 100%; /* Full height */
+                overflow: auto; /* Enable scroll if needed */
+                background-color: rgb(0,0,0); /* Fallback color */
+                background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            }
+           
+            /* Modal Content */
+            .modal-content {
+                background-color: #fefefe;
+                margin: auto;
+                padding: 20px;
+                border: 1px solid #888;
+                width: 28%;
+            }
+           
+            /* The Close Button */
+            .close {
+                color: #aaaaaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
+           
+            .close:hover,
+                .close:focus {
+                    color: #000;
+                    text-decoration: none;
+                    cursor: pointer;
+                }
+            .thanks{
+                color:seagreen;font-weight:bold;font-size:20px;margin-top: 15px;
+            }
+            .attchError{
+                color:red;
+                font-weight:bold;
+                margin-left:1%;
+            }
+            .orderButton{
+                padding: 10px;
+                background-color: white;
+                border-radius: 4px;
+                float: right;
+            }
+        </style>
+        <style type="text/css">
+        .custPopup{
+            background-color: white;
+            border-width: 2px;
+            border-style: solid;
+            z-index: 9999;
+            left: 50%;
+            padding:10px;
+            position: absolute;
+            width: 500px;
+            margin-left: -250px;
+            top:100px;
+        }
+        .popupBackground{
+            background-color:black;
+            opacity: 0.20;
+            filter: alpha(opacity = 20);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9998;
+        }
+
+    </style>
+        <script type="text/javascript">
+           
+            Visualforce.remoting.timeout = 120000;
+            var attachmentList = new Array();
+            var isOderValidation = false;
+            var ipAddress = '';
+            var maxFileSize= 4500000;
+            var MAX_FILE_SIZE= 4500000;
+            var CHUNK_SIZE= 750000;
+           
+            function redirecttoOrder(){
+                window.top.location.href = "https://secure.trust-provider.com/products/ORDERSTATUSCHECKER";
+            }
+           function redirecttoOrder1(){
+               window.top.location.href = "https://ssl.comodo.com/return-or-exchange";
+            }
+       
+            function uploadFileRemoting() {
+              $("#attchmentErrorMessage").text('');  
+              $("#spinner").css('display','block');
+           
+              var file = document.getElementById('attachmentFile').files[0];
+              $("#spinner").css('display','none');
+              if(file != undefined) {
+                  console.log(file.size);
+                if(file.size <= maxFileSize) {
+                      document.getElementById('attachmentFile').value = "";
+                      attachmentList.push(file);
+                      displayAttachmentName(attachmentList);
+                } else {
+                      $("#attchmentErrorMessage").addClass("attchError");  
+                      $("#attchmentErrorMessage").text('File must be under 4 MB in size.  Your file is too large.  Please try again.');
+                }
+              } else {
+                alert("You must choose a file before trying to upload it");
+              }
+            }
+           
+            function displayAttachmentName(attachmentList){
+                var attchChar = '<ul>';
+                for(var i=0;i<attachmentList.length;i++){
+                    attchChar += '<li>'+attachmentList[i].name+' <a onclick="removeAttachment('+i+')">X</a></li>';
+                }
+                attchChar += '</ul>';
+                $("#attchmentList").html(attchChar);
+                $("#spinner").css('display','none');
+            }
+            function readSubject(subjectValue){
+                fetchArticles(subjectValue);
+            }            
+           
+            function removeAttachment(index){
+                attachmentList.splice(index,1);
+                displayAttachmentName(attachmentList);
+            }
+            function getIpAddress(){
+               
+                $.get("https://ipinfo.io", function(response) {
+                    ipAddress = response.ip;
+                   
+                }, "json");
+               
+            }
+            function closeOrderWarning(){
+                // $("#orderWarning").css('display','none');
+            }
+            function confirmOrderNumber(){
+                closeOrderWarning();
+                isOderValidation = true;
+                validateForm();
+            }
+            function validateForm(){
+               
+                var fir_name = $('[id$=first_name]').val();
+                var last_name = $('[id$=last_name]').val();
+                var email = $('[id$=com_email]').val();
+                var webcompany = $('[id$=com_webcompany]').val();
+                var phone =  $('[id$=com_phone]').val();
+                var reason =  $('[id$=ReasonforTicket1]').val();
+                var subject = $('[id$=com_subject]').val();
+                var description =  $('[id$=com_description]').val();
+                var ordernumber =  $('[id$=ordernumber]').val();              
+                var checkValidation=true;
+                $("#orderWarning").css('display','none');
+                $(".error").remove();
+                if(fir_name.length < 1){                      
+                    $('[id$=first_name]').before('<span class="error">Please enter first name</span>');  
+                    checkValidation=false;                          
+                }                
+                if(last_name.length < 1){                      
+                    $('[id$=last_name]').before('<span class="error">Please enter last name</span>');  
+                    checkValidation=false;                          
+                }
+                if(email.length < 1){                      
+                    $('[id$=com_email]').before('<span class="error">Please enter email</span>');  
+                    checkValidation=false;                        
+                }
+                if(webcompany.length < 1){                      
+                    $('[id$=com_webcompany]').before('<span class="error">Please enter Company or Individual Name</span>');  
+                    checkValidation=false;                          
+                }
+                if(phone.length < 1){                      
+                    $('[id$=com_phone]').before('<span class="error">Please enter phone number</span>');    
+                    checkValidation=false;                        
+                }
+                if(reason.length < 1){                      
+                    $('[id$=ReasonforTicket1]').before('<span class="error">Please select Reason for the Ticket</span>');    
+                    checkValidation=false;                        
+                }
+                if(subject.length < 1){                      
+                    $('[id$=com_subject]').before('<span class="error">Please enter Subject</span>');
+                    checkValidation=false;                            
+                }
+                if(description.length < 1){                      
+                    $('[id$=com_description]').before('<span class="error">Please enter description</span>');
+                    checkValidation=false;                          
+                }
+               
+                if(checkValidation){
+                   
+                        $("#spinner").css('display','block');
+                        saveJsDataRemote(fir_name,last_name,email,webcompany,phone,reason,ordernumber,subject,description);
+                   
+                }      
+               
+               
+                return false;
+            }
+            function saveJsDataRemote(fir_name,last_name,email,webcompany,phone,reason,ordernumber,subject,description){
+                $("#spinner").css('display','block');
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.CustomWebToCaseController1.saveDataRemoting}',
+                    fir_name,last_name,email,webcompany,phone,reason,ordernumber,subject,description,ipAddress,
+                    function(result, event){
+                        $("#spinner").css('display','none');
+                        if (event.status) {
+                            console.log(result);
+                            $("#displayMessage").css('display','block');
+                            afterSaveMessage(result);
+                            if(result.caseId && attachmentList.length > 0){
+                                attachFile(result);
+                            }
+                        } else if (event.type === 'exception') {
+                           
+                        } else {
+                           
+                        }
+                    },
+                    {escape: true}
+                );
+            }
+            function attachFile(result){
+                 $("#spinner").css('display','block');
+                fileReaderList = new Array();
+                for(var i=0;i<attachmentList.length;i++){
+                    (function(file) {
+                        $("#spinner").css('display','block');
+                        var objFileReader = new FileReader();
+                        // set onload function of FileReader object  
+                        objFileReader.onload = function() {
+                            var fileContents = objFileReader.result;
+                            var base64 = 'base64,';
+                            var dataStart = fileContents.indexOf(base64) + base64.length;
+                 
+                            fileContents = fileContents.substring(dataStart);
+                            // call the uploadProcess method
+                            uploadProcess(file, fileContents,result);
+                        };
+                        objFileReader.readAsDataURL(file);
+                    })(attachmentList [i]);
+                }
+                 
+                console.log(fileReaderList);
+            }
+            function uploadProcess(file, fileContents,result) {
+                var startPosition = 0;  
+                var endPosition = Math.min(fileContents.length, startPosition + this.CHUNK_SIZE);
+                uploadInChunk(file, fileContents, startPosition, endPosition, '',result);
+            }
+           
+            function uploadInChunk(file, fileContents, startPosition, endPosition, attachId,result) {
+                $("#spinner").css('display','block');
+                var getchunk = fileContents.substring(startPosition, endPosition);
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.CustomWebToCaseController1.saveChunk}',
+                     result.caseId,file.name,encodeURIComponent(getchunk),file.type,attachId,
+                    function(response, event){
+                        $("#spinner").css('display','none');
+                        if (event.status) {
+                            attachId = response;
+                            startPosition = endPosition;
+                            endPosition = Math.min(fileContents.length, startPosition + CHUNK_SIZE);
+                            if (startPosition < endPosition) {
+                                uploadInChunk(file, fileContents, startPosition, endPosition, attachId,result);
+                            } else {
+                                console.log('your File is uploaded successfully');
+                            }
+                        } else if (event.type === 'exception') {
+                           
+                        } else {
+                           
+                        }
+                    },
+                    {escape: true}
+                );
+            }
+            function afterSaveMessage(result){
+                console.log(result);
+                $("#successBtnMessage1").css('display','block');
+                $("#successBtnMessage1").text(result.message);
+                $("#ticketSubmitted1").css('display','none');
+                $("#ticketSubmitted").css('display','none');
+                if(result.type == 'Order Number'){
+                    console.log('order message');
+                    $("#ticketSubmitted1").css('display','block');
+                }else if(result.type == 'Ip Address'){
+                    console.log('Ip Address Message');
+                    $("#ticketSubmitted1").css('display','none');
+                }else if(result.type == 'Created'){
+                    console.log('Created message');
+                    $("#ticketSubmitted1").css('display','block');
+                    $("#ticketSubmitted").css('display','block');
+                }
+                $("#spinner").css('display','none');
+                reFreshPage();
+            }
+            function closeThankYou(){
+                $("#thankYouModal").css('display','none');
+            }
+            function redirectMainPage(){
+                window.open("{!($Label.KnowledgeMainPage)}");
+            }
+            function redirectSupportPage(){
+                window.open("{!($Label.SupportPage)}");
+            }
+            $( document ).ready(function() {
+                getIpAddress();
+                $("[id$=first_name]").keyup(function(){
+                    var len= $(this).val().length;
+                    if(len>39){
+                        //$("#info").text("Done!");
+                        $(this).next('.errorChar').text("You cannot use more than 39 characters ");
+                    }else if(len<=39){
+                        $(this).next('.errorChar').text("");
+                    }
+                });
+                $("[id$=last_name]").keyup(function(){
+                    var len= $(this).val().length;
+                    if(len>39){
+                        //$("#info").text("Done!");
+                        $(this).next('.errorChar').text("You cannot use more than 39 characters ");
+                    }else if(len<=39){
+                        $(this).next('.errorChar').text("");
+                    }
+                });
+                $("[id$=com_phone]").keyup(function(){
+                    var len= $(this).val().length;
+                    if(len>39){
+                        //$("#info").text("Done!");
+                        $(this).next('.errorChar').text("You cannot use more than 39 characters ");
+                    }else if(len<=39){
+                        $(this).next('.errorChar').text("");
+                    }
+                });
+                $("[id$=com_webcompany]").keyup(function(){
+                    var len= $(this).val().length;
+                    if(len>254){
+                        //$("#info").text("Done!");
+                        $(this).next('.errorChar').text("You cannot use more than 255 characters ");
+                    }else if(len<=254){
+                        $(this).next('.errorChar').text("");
+                    }
+                });
+                $("[id$=com_subject]").keyup(function(){
+                    var len= $(this).val().length;
+                    if(len>254){
+                        //$("#info").text("Done!");
+                        $(this).next('.errorChar').text("You cannot use more than 255 characters ");
+                    }else if(len<=254){
+                        $(this).next('.errorChar').text("");
+                    }
+                });
+                $("[id$=com_description]").keyup(function(){
+                    var len= $(this).val().length;
+                    if(len>31999){
+                        //$("#info").text("Done!");
+                        $(this).next('.errorChar').text("You cannot use more than 32000 characters ");
+                    }else if(len<=31999){
+                        $(this).next('.errorChar').text("");
+                    }
+                });
+               
+            });
+            </script>
+    </head>
+        <apex:actionFunction name="reFreshPage" action="{!cleardata}" reRender="formData,formData1"/>
+        <apex:actionFunction action="{!fetchKnowledgeArticles}" name="fetchArticles" reRender="knowledgeSection">
+            <apex:param name="subjectValue" value="" />
+        </apex:actionFunction>
+        <!-- Spinner Start -->
+        <div id="spinner" style="display:none;">
+            <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.75; z-index: 1000; background-color: grey;">
+                &nbsp;
+            </div>
+            <div style="position: fixed; left: 0; top: 0; bottom: 0; right: 0; z-index: 1001; margin: 22% 42%">
+                <img src="{!$Resource.Loading}" width="130" height="170" / >
+            </div>
+        </div>
+        <apex:outputPanel id="detailForm">
+            <div class="body">
+                <div align="left">
+                    <button id="create-button" type="submit" onclick="redirecttoOrder();"  class="searchbutton button large" >{!$Label.Check_my_Order_Status}</button>
+                </div>
+                <div align="right" style="margin-top: -4%;margin-right: 33%;">
+                    <button id="create-button" type="submit" onclick="redirecttoOrder1();"  class="searchbutton button large" >{!$Label.Ticket_Return_or_Exchange}</button>
+                </div>
+                <div class="widgets">
+                    <div class="widget" id="comodoMainCntainer">
+                        <div id="maincore">
+                            <div class="innerwrapper row">                                
+                                <div id="web2CaseForm" class="small-12 medium-8 columns leftnavboxcontent">
+                                   <apex:outputPanel id="formData">
+                                     <div class="row">
+                                        <div class="small-12 columns">
+                                            <label>First Name<span class="star">*</span>
+                                                <apex:inputText id="first_name" maxlength="40" value="{!FirstNameC}"   />
+                                                <span class="errorChar"></span>
+                                            </label>
+                                        </div>
+                                        </div>                                            
+                                        <div class="row">
+                                            <div class="small-12 columns">
+                                                <label>Last Name<span class="star">*</span>
+                                                    <apex:inputText id="last_name" maxlength="40" value="{!LastNameC}"  />
+                                                    <span class="errorChar"></span>
+                                                </label>
+                                            </div>
+                                        </div>                                            
+                                        <div class="row">
+                                            <div class="small-12 columns">
+                                                <label>Email<span class="star">*</span>
+                                                    <apex:inputText id="com_email"  value="{!emailIdC}"/>
+                                                    <span class="errorChar"></span>
+                                                </label>
+                                            </div>
+                                        </div>                                            
+                                        <div class="row">
+                                            <div class="small-12 columns">
+                                                <label>Company or Individual Name<span class="star">*</span>
+                                                    <apex:inputText id="com_webcompany" maxlength="255" value="{!WebCompanyName }"/>
+                                                    <span class="errorChar"></span>
+                                                </label>
+                                            </div>
+                                        </div>                                            
+                                        <div class="row">
+                                            <div class="small-12 columns">
+                                                <label>Phone<span class="star">*</span>
+                                                    <apex:inputText html-type="number" id="com_phone" maxlength="40" value="{!phoneNoC}"/>
+                                                    <span class="errorChar"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="small-12 columns">
+                                                <label>Reason for the ticket<span class="star">*</span>
+                                                    <apex:selectList id="ReasonforTicket1" value="{!ReasonforTicket1}" size="1">
+                                                        <apex:selectOptions value="{!reasonValues}"/>
+                                                    </apex:selectList>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="small-12 columns">
+                                                <label>Order Number
+                                                    <input type="number" id="ordernumber"/>
+                                                    <!-- <apex:inputText id="ordernumber" value="{!OrderNumber }"/> -->
+                                                    <span class="errorChar"></span>
+                                                </label>
+                                            </div>
+                                        </div>                                            
+                                        <div class="row">
+                                            <div class="small-12 columns">
+                                                <label>Subject<span class="star">*</span>
+                                                    <!--onkeyup="readSubject(this.value);"-->
+                                                    <apex:inputText id="com_subject" maxlength="255" value="{!Subjects}" onkeyup="readSubject(this.value);" />
+                                                    <span class="errorChar"></span>
+                                                </label>
+                                            </div>
+                                        </div>                                            
+                                        <div class="row">
+                                            <div class="small-12 columns">
+                                                <label>Description<span class="star">*</span>
+                                                    <apex:inputTextArea id="com_description" value="{!Descriptions}" style="height:150px;" />
+                                                </label>
+                                            </div>
+                                        </div>
+                                     </apex:outputPanel>
+                                    <div class="row">
+                                        <div class="small-2 columns">
+                                            <apex:commandButton id="saveButton" onclick="validateForm();return false;"  value="Submit" styleClass="button large" >                                                
+                                            </apex:commandButton>
+                                            <div id="displayMessage" style="display:none;">
+                                              <p id="ticketSubmitted1" style="font-size: 20px;color: seagreen;">Thank You!</p>
+                                              <p id="successBtnMessage1" style="width: 670%;font-size: 18px;color: seagreen;"></p>
+                                              <p id="ticketSubmitted" style="width: 680%;font-size: 18px;color: seagreen;">Please review your email for instructions on how to connect with your Sectigo representative.</p>  
+                                            </div>
+                                        </div>
+                                     
+                                    </div>
+                                    <apex:outputPanel id="formData1">
+                                        <div class="row">
+                                            <div class="small-12 columns">
+                                                <input type="file" id="attachmentFile"/>
+                                                <input type="button" onclick="uploadFileRemoting();"  value="Upload" />
+                                            </div>                                              
+                                        </div>
+                                        <div class="row"><div style="margin-left:1%;margin-top: 15px;"> <b> Related Files </b></div></div>
+                                        <div class="row">
+                                           
+                                            <div id="attchmentList"></div>
+                                        </div>
+                                        <div class="row">
+                                            <div id="attchmentErrorMessage"></div>
+                                        </div>
+                                         </apex:outputPanel>
+                                        <div class="row">
+                                            <div class="small-12 columns">
+                                                <div  style="color:red;font-size: 12px;"> Max File Size 4 MB</div>                                                
+                                                <div  style="color:red;font-size: 12px;"> Please <b>upload </b> one attachment at a time by clicking on "Choose File" then clicking on "Upload" for each file.</div>
+                                               
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="small-12 columns message">
+                                                <div class="newmessage" style="font-size: 12px;"><i>By submitting this ticket you consent to allow Sectigo to store and process the personal information submitted, to provide you with support and to share a survey with you about your experience.</i></div>                                                
+                                            </div>
+                                        </div>
+                                       
+                                    </div>
+                                     <!-- Knowledge Base -->
+                                        <div id="maincorecontent" class="small-12 medium-4 columns">
+                                            <apex:outputPanel id="knowledgeSection">
+                                                    <apex:outputPanel >   <!--rendered="{!knowledgeArticleList.size>0}" -->
+                                                        <!-- Most Recent Articels Start for desktops-->
+                                                        <div class="hide-for-small-only">
+                                                            <div class="medium-12 columns custom-web2case custom-web2case-mostview" id="CustomWebToCaseKAShow1">
+                                                                <apex:outputPanel styleClass="pkbColumnPanel" layout="block">
+                                                                    <apex:outputPanel styleClass="pkbColumnTop" layout="block" >Most Viewed Articles </apex:outputPanel>
+                                                                    <apex:outputPanel styleClass="pkbColumnInner" layout="block">
+                                                                        <ul>
+                                                                           
+                                                                            <knowledge:articleList articleVar="article" categories="{!categoryGroupName}:{!rootCategoryName}" sortBy="mostViewed" pageSize="10" >
+                                                                                <li>                                                                    
+                                                                                    <a href="{!URLFOR($Action.KnowledgeArticle.View, article.id)}">{!article.title}</a>
+                                                                                </li>
+                                                                            </knowledge:articleList>
+                                                                           
+                                                                        </ul>                                                                
+                                                                    </apex:outputPanel>
+                                                                </apex:outputPanel>
+                                                            </div>                                                    
+                                                        </div>
+                                                        <!--   Most Recent Articels End desktops-->
+                                                        <!-- Subject Search Articles start-->
+                                                        <div class="medium-12 columns custom-web2case custom-web2case-related" id="CustomWebToCaseKAShow">
+                                                            <apex:outputPanel styleClass="pkbColumnPanel" layout="block">
+                                                                <apex:outputPanel styleClass="pkbColumnTop" layout="block"> Related Articles</apex:outputPanel>
+                                                                <apex:outputPanel styleClass="pkbColumnInner" layout="block">
+                                                                    <ul>    
+                                                                        <knowledge:articleList articleVar="article"  rendered="{!if(knowledgeQuery != null, true, false)}" keyword="{!knowledgeQuery}" pageSize="10">
+                                                                            <li>
+                                                                                <a href="{!URLFOR('https://support.sectigo.com/articles/Knowledge/'+article.UrlName, null, null)}"  >{!article.title}</a>
+                                                                            </li>
+                                                                            <div class="pkbColumnArticleAbstract">{!article.abstract}</div>
+                                                                        </knowledge:articleList>
+                                                                    </ul>
+                                                                </apex:outputPanel>
+                                                            </apex:outputPanel>
+                                                        </div>
+                                                        <!-- Subject Search Articles End -->
+                                                        <!-- Most Recent Articels Start for Mobiles only-->
+                                                        <div class="show-for-small-only">
+                                                            <div class="medium-12 columns custom-web2case custom-web2case-mostview" id="CustomWebToCaseKAShow1">
+                                                                <apex:outputPanel styleClass="pkbColumnPanel" layout="block">
+                                                                    <apex:outputPanel styleClass="pkbColumnTop" layout="block" >Most Viewed Articles </apex:outputPanel>
+                                                                    <apex:outputPanel styleClass="pkbColumnInner" layout="block">
+                                                                        <ul>        
+                                                                           
+                                                                            <knowledge:articleList articleVar="article" categories="{!categoryGroupName}:{!rootCategoryName}" sortBy="mostViewed" pageSize="10" >
+                                                                                <li>                                                                    
+                                                                                    <a  href="{!URLFOR($Action.KnowledgeArticle.View, article.id)}">{!article.title}</a>
+                                                                                </li>
+                                                                            </knowledge:articleList>
+                                                                           
+                                                                        </ul>                                                                
+                                                                    </apex:outputPanel>
+                                                                </apex:outputPanel>
+                                                            </div>                                                    
+                                                        </div>
+                                                        <!--   Most Recent Articels End Mobiles only-->
+                                                    </apex:outputPanel>
+                                                </apex:outputPanel>
+                                        </div>
+                                    </div>
+                               
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </apex:outputPanel>
+        <!-- Thank you modal -->
+        <div id="thankYouModal" class="modal">
+           
+            <!-- Modal content -->
+           <!-- <div class="modal-content" style="width:57%;padding:0px;margin-top:25%">
+                <div style="display:flex;width: 113%;height: 350px">
+                    <div style="width:19%;background-color:#111E29;color:white;">
+                        <apex:image url="{!$Resource.sectigoThankyoupopupLogo}" style="margin-top:30%;width:100%;"/>
+                    </div>
+                    <div style="width:70%;background-color:white;position: relative;">
+                        <div>
+                            <p style="margin-left: 2%;color:seagreen;font-weight:bold;font-size: 30px;margin-top: 15px;">Thank You!</p>
+                            <div style="margin-left: 2%;font-size:20px;font-weight:bold;line-height: 30px;">
+                                <p id="modalMessage"></p>
+                            </div>
+                            <p style="margin-left: 2%;" id="ticketSubmitted">Please review your email for instructions on how to connect with your Sectigo representative.</p>
+                               
+                        </div>
+                        <div style="margin-left: 2%;">
+                            <p style="font-size:12px;color: grey;">
+                                Click OK to Search the Knowledgebase<br/>
+                                Click RETURN to create another Ticket<br/>
+                                Click DONE to exit<br/>
+                            </p>
+                        </div>
+                        <button onclick="redirectMainPage();return false;" style="background-color: #FFC300;width: 33.3%;border-right:solid 1px #0000002e;font-weight:bold;padding:6px;position:absolute;bottom:0px;">OK</button>  
+                        <button onclick="closeThankYou();return false;" style="background-color: #FFC300;width: 33.3%;border-right:solid 1px #0000002e;font-weight:bold;width: 33.4%;padding:6px;position:absolute;bottom:0px;margin-left: 33.3%;">RETURN</button>
+                        <button onclick="redirectSupportPage();return false;" style="background-color: #FFC300;width: 33.3%;border-right:solid 1px #0000002e;font-weight:bold;padding:6px;position:absolute;bottom:0px;margin-left: 66.6%;">DONE</button>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+       
+        <!-- Warning Popup -->
+          <div id="orderWarning" class="modal">
+            <!-- Modal content -->
+           
+         <!--   <div class="modal-content" style="width:40%;padding:0px;color:white;margin-top:30%">
+                <div style="padding:5px;font-weight:bold;">Order Warning</div>
+                <div style="background-color: #111E29;padding:10px;height: 170px">
+                    <div style="color:white;">{!($Label.Tickting_Order_Warning)}</div>
+                    <div style="color:white;margin-top:40px;display:flex;">
+                        <div style="width:50%">
+                            <button onclick="closeOrderWarning();return false;" class="orderButton" style="float:left">Return to Case</button>
+                        </div>
+                        <div style="width:50%;text-align:right;color:white">
+                            <button onclick="confirmOrderNumber();return false;" class="orderButton"> Continue</button>
+                             <br/><br/>(I do not have an Order Number)
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+       
+    </apex:form>
+   
+</apex:page>

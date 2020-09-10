@@ -1,0 +1,114 @@
+<apex:page showHeader="false" standardStylesheets="false" controller="Com_KnowledgeController1" applyBodyTag="false" applyHtmlTag="false">
+    <html>
+
+    <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+
+})(window,document,'script','dataLayer','GTM-TLDP6LF');</script>
+        <title>Comodo Knowledge Base</title>
+        <meta name="description" content="Comodo CA is the world's largest certificate authority with over 100,000,000 TLS/SSL certificates issued.As the leading certificate authority, we're here to help you get the best ssl certificate, from purchasing, to setting up, account management, the works. Start your free trial, request a demo, or buy a certificate." /> 
+        <meta charset="UTF-8" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <apex:stylesheet value="{!URLFOR($Resource.Com_KnowledgeFiles, '/styles/Styles.css')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.Com_KnowledgeFiles,'/styles/CCAFoundation.css')}" />
+        <link rel="shortcut icon" type="image/png" href="{!$Resource.Favicon}" />
+        <link rel="icon" type="image/png" href="{!$Resource.Favicon}" /> 
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,900" rel="stylesheet"/>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" crossorigin="anonymous" />
+      <!--  <script src="https://www.comodoca.com/CMSPages/GetResource.ashx?scriptfile=/CMSScripts/Custom/jquery-3.2.1.min.js"></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <apex:includeScript value="{!$Resource.pkb_js_base}" /> 
+        
+        <!--
+        <link href="https://www.comodoca.com/CMSPages/GetResource.ashx?stylesheetname=Styles" type="text/css" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://use.typekit.net/pgx3iwc.css" />
+        <link href="https://www.comodoca.com/CMSPages/GetResource.ashx?stylesheetname=CCAFoundation" type="text/css" rel="stylesheet"/>
+        <link href="https://www.comodoca.com/CMSPages/GetResource.ashx?stylesheetname=CCAslick" type="text/css" rel="stylesheet"/>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" crossorigin="anonymous" />
+       
+        <script src="https://www.comodoca.com/CMSPages/GetResource.ashx?scriptfile=/CMSScripts/Custom/jquery-3.2.1.min.js"></script>
+        <script src="https://www.comodoca.com/CMSPages/GetResource.ashx?scriptfile=/CMSScripts/Custom/is.min.js"></script>
+        <script src="https://www.comodoca.com/CMSPages/GetResource.ashx?scriptfile=/CMSScripts/Custom/DetectZoom.js"></script>
+        <script src="https://www.comodoca.com/CMSPages/GetResource.ashx?scriptfile=/CMSScripts/Custom/parallax.min.js"></script>
+        <script src="https://www.comodoca.com/CMSPages/GetResource.ashx?scriptfile=/CMSScripts/Custom/products.js?v=2"></script>
+        <script src="https://www.comodoca.com/CMSPages/GetResource.ashx?scriptfile=/CMSScripts/Custom/slick.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+        
+        
+        
+        <link href="https://www.comodoca.com/ComodoCA/images/favicon.png" type="image/png" rel="shortcut icon"/>
+        <link href="https://www.comodoca.com/ComodoCA/images/favicon.png" type="image/png" rel="icon"/>
+        <link href="https://www.comodoca.com/CMSPages/GetResource.ashx?stylesheetfile=/App_Themes/Styles/video.css" type="text/css" rel="stylesheet" />
+        <link href="https://www.comodoca.com/CMSPages/GetResource.ashx?stylesheetfile=/App_Themes/Styles/videos.css" type="text/css" rel="stylesheet" />
+        <link href="https://www.comodoca.com/CMSPages/GetResource.ashx?_webparts=677" type="text/css" rel="stylesheet"/> -->
+
+        
+    </head>
+
+    <body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TLDP6LF"
+
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+     <!--   <c:Com_KnowledgeHeader />  -->
+
+       <!-- <div class="body">
+            <div class="widgets">
+                <div id="p_lt_ctl03_pageplaceholder_p_lt_ctl01_sys_pnlUpdate">
+                    <div class="widget interior-hero-widget">
+                        <div id="p_lt_ctl03_pageplaceholder_p_lt_ctl01_CCAInteriorHero_InteriorHero" data-parallax="scroll" data-image-src="sectigo-homepage-hero.jpg" style="background:url(https://staging-sectigo.matternow.com/uploads/backgrounds/_backgroundImage/sectigo-homepage-hero.jpg);" class="interior-hero cover">
+                            <div class="row">
+                                <div class="small-12 columns">
+                                    <h1 class="white"><span id="p_lt_ctl03_pageplaceholder_p_lt_ctl01_CCAInteriorHero_Title"></span>Secure Today</h1>
+                                    <h1 class="green" id="p_lt_ctl03_pageplaceholder_p_lt_ctl01_CCAInteriorHero_Subtitle">Seize Your Tomorrow. </h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                
+                 <div class="body">
+            <div class="widgets">
+              <!--  <div id="p_lt_ctl03_pageplaceholder_p_lt_ctl01_sys_pnlUpdate">
+                    <div class="widget interior-hero-widget">
+                        <div id="p_lt_ctl03_pageplaceholder_p_lt_ctl01_CCAInteriorHero_InteriorHero" data-parallax="scroll" data-image-src="sectigo-homepage-hero.jpg" style="background:url('{!$Resource.Sectigo_Main_photo}');" class="interior-hero cover">
+                            <div class="row">
+                                <div class="small-12 columns">
+                                    <h1 class="white"><span id="p_lt_ctl03_pageplaceholder_p_lt_ctl01_CCAInteriorHero_Title"></span>Knowledge Base</h1>
+                                    <h6  >
+                                    <div style="color:white;">We encourage you to use the search feature and filters on the left side of the</div>
+                                    <div style="color:white;">screen to locate specific resources of interest (search by organization, author,</div>
+                                    <div style="color:white;">keyword, etc.)</div>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="widget" id="comodoMainCntainer">
+                    
+                    <c:Com_KnowledgeHomeCompSectigo />
+                    <!--<c:Com_KnowledgeProductComp /> -->
+                    <!--<c:Com_KnowledgeSearchComp /> -->
+                    <!--<c:Com_KnowledgeDetailsComp />-->
+                </div>
+
+
+            </div>
+        </div>
+
+
+      <!--   <c:Com_KnowledgeFooter /> -->
+
+    </body>
+
+
+    </html>
+</apex:page>

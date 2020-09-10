@@ -1,0 +1,33 @@
+<aura:component controller="Com_CommunityButtonsController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <!-- Scm Login -->
+    <aura:attribute name="user" type="Object" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <lightning:layout multipleRows="true">
+        <aura:if isTrue="{!v.user.Show_SCM_Login__c}">
+            <lightning:layoutItem size="4" padding="around-small">
+                <div data-url="{!v.user.SCM_Login__c}" onclick="{!c.redirect}" class="mainBox">
+                    <div class="slds-text-body_regular Title" >{!$Label.c.SCM_Button_Label}</div>
+                    <span> <img src="{!$Resource.CommunityScmLogin}" class="Logo" style=""/></span>
+                </div>   
+            </lightning:layoutItem>
+        </aura:if>
+        <aura:if isTrue="{!v.user.Show_SCM_Dev_Login__c}">
+            <lightning:layoutItem size="4" padding="around-small">
+                <div data-url="{!v.user.SCM_Dev_Login__c}" onclick="{!c.redirect}" class="mainBox">
+                    <div class="slds-text-body_regular Title" >{!$Label.c.SCM_Dev_Button_Label}</div>
+                    <span> <img src="{!$Resource.CommunityScmDevLogin}" class="Logo"/></span>
+                    
+                </div>
+            </lightning:layoutItem>
+        </aura:if>
+        <aura:if isTrue="{!v.user.Show_Reseller_Portal__c}">
+            <lightning:layoutItem size="4" padding="around-small">
+                <div data-url="{!v.user.Reseller_Portal__c}" onclick="{!c.redirect}" class="mainBox">
+                    <div class="slds-text-body_regular Title" >{!$Label.c.Reseller_Button_Portal}</div>
+                    <span> <img src="{!$Resource.CommunityReseller}" class="Logo"/></span>
+                    
+                </div>
+            </lightning:layoutItem>
+        </aura:if>
+    </lightning:layout>
+</aura:component>

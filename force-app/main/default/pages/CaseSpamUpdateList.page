@@ -1,0 +1,83 @@
+<apex:page standardController="Case" recordSetVar="CaseName" extensions="spamlistButton" action="{!doSubmit}">
+   <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+       <head>
+       <script type="text/javascript">
+            
+               window.onload = function() { document.body.innerHTML = document.body.innerHTML.replace(/\u2028/g, ''); }
+               
+               function gotoCaseView(){
+                window.location.href="https://comodoca.lightning.force.com/lightning/o/Case/list?filterName=Recent";
+               }
+            
+            </script>
+       </head>
+      <apex:slds />
+      
+      
+      <button class="slds-button slds-button_button_brand slds-align_absolute-center " style="background-color: green;font-style: inherit;color: white;" onclick="gotoCaseView();return false;">  Go to case view</button>
+      <!-- <div class="slds-align_absolute-center" style="height: 5rem;"> <button type="Button" >
+         Go to case view</button></div>--> 
+         
+      <apex:outputPanel rendered="{! If(Message=='error1' ,true,false) }" >
+         <div class="demo-only" style="height: 4rem;">
+            <div class="slds-notify_container slds-is-relative">
+               <div class="slds-notify slds-notify_toast slds-theme_warning" role="status">
+                  <span class="slds-assistive-text">warning</span>
+                
+                     <svg aria-hidden="true" class="slds-icon slds-icon_small">
+                          
+                        <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#warning')}"></use>
+                     </svg>
+                       
+                     <span class="slds-assistive-text">Icon Assistive Text</span> 
+                
+                 
+                  <div class="slds-notify__content">
+                     <h2 class="slds-text-heading_small ">Please select at least one record to process.</h2>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </apex:outputPanel>
+      <apex:outputPanel rendered="{! If(Message=='Success' ,true,false) }" >
+         <div class="demo-only" style="height: 4rem;">
+            <div class="slds-notify_container slds-is-relative">
+               <div class="slds-notify slds-notify_toast slds-theme_success" role="status">
+                  <span class="slds-assistive-text">success</span>
+               
+                     <svg aria-hidden="true" class="slds-icon slds-icon_small">
+                          
+                        <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#success')}"></use>
+                     </svg>
+                       
+                     <span class="slds-assistive-text">Icon Assistive Text</span> 
+               
+                 
+                  <div class="slds-notify__content">
+                     <h2 class="slds-text-heading_small ">        {!succRec} Records Closed Successfully!</h2>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </apex:outputPanel>
+      <apex:outputPanel rendered="{! If(Message=='error2' ,true,false) }" >
+         <div class="demo-only" style="height: 4rem;">
+            <div class="slds-notify_container slds-is-relative">
+               <div class="slds-notify slds-notify_toast slds-theme_error" role="status">
+                  <span class="slds-assistive-text">error</span>
+             <svg aria-hidden="true" class="slds-icon slds-icon_small">
+                          
+                        <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#success')}"></use>
+                     </svg>
+                       
+                     <span class="slds-assistive-text">Icon Assistive Text</span> 
+             
+                  <div class="slds-notify__content">
+                     <h2 class="slds-text-heading_small ">DML Error Occured!.</h2>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </apex:outputPanel>
+   </html>
+</apex:page>

@@ -1,0 +1,124 @@
+<apex:component controller="Com_KnowledgeController1">
+    <apex:stylesheet value="{!$Page.Comodo_DesignCss}" />
+
+    <div id="maincore">
+        <div class="innerwrapper row">
+            <!--Start Mobile Search Box Top view --->
+              <div class="show-for-small-only">
+                  <c:Com_KnowledgeSearchBoxCompSectigo />
+              </div>
+              <!--End Mobile Search Box Top view --->
+                      
+                      
+            <!--Start Left side Box --->
+            <div id="maincoreleft" class="small-12 medium-4 large-3 columns">
+
+                <div class="leftnavboxbox">
+                    <div class="leftnavboxtitle">
+                        <span class="leftnavboxtitleleftgap">&nbsp;</span>
+                        <span class="leftnavboxtitlebulk">
+                           <span class="leftnavboxtitletext">SECTIGO Articles</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="leftnavboxcontent">
+                    <!-- mosteviewed part-->
+                    <c:knowledgeCategoriesSectigo />
+                </div>
+            </div>
+            <!--End Left side Box --->
+            <!--Start Main content Box --->
+            <div id="maincorecontent" class="small-12 medium-8 large-9 columns">
+                <!--Will main content will come  ---->
+                <div class="hide-for-small-only">
+                  <c:Com_KnowledgeSearchBoxCompSectigo />
+                </div>
+                        
+                <apex:outputPanel styleClass="pkbResultPanel" layout="block">
+                    <apex:outputPanel styleClass="pkbResultTop" layout="block" />
+                    <apex:outputPanel styleClass="pkbResultInner" layout="block">
+                        <apex:outputPanel styleClass="pkbResultSelectedCategories" layout="block">
+                            <knowledge:categoryList categoryGroup="{!categoryGroupName}" ancestorsOf="{!currentCategory}" rootCategory="{!rootCategoryName}" categoryVar="parentCategory">
+                                <!-- modified from ProductUrl to ProductUrlcomodo -->
+                                <apex:outputLink value="{!ProductUrlcomodo}">
+                                    {!parentCategory.label}&nbsp;
+                                    <apex:param name="{!categoryParameterName}" value="{!parentCategory.name}" />
+                                    <apex:param name="{!languageParameterName}" value="{!currentLanguage}" />
+                                </apex:outputLink>
+                                <apex:outputText value=" &gt;&gt; " rendered="{!currentCategory!=parentCategory.name}" escape="false" />
+                            </knowledge:categoryList>
+                            <apex:outputPanel rendered="{!currentArticleType!=''}" layout="none">
+                                >> {!currentArticleTypeLabel}
+                            </apex:outputPanel>
+                        </apex:outputPanel>
+                        <apex:outputPanel layout="block" rendered="{!currentArticleType==''}">
+                            <h2>{!PKB_Last_Updated}</h2>
+                            <apex:variable var="anyDocument" value="false" />
+                            <apex:variable var="hasMore" value="" />
+                            <ul>
+                                <knowledge:articleList articleVar="article" hasMoreVar="hasMore" pageSize="10" pageNumber="{!currentPageNumber}" categories="{!categoryGroupName}:{!currentCategory}" language="{!currentLanguage}">
+                                    <li class="pkbArticle">
+                                        <!--<a href="{!URLFOR($Action.KnowledgeArticle.View, article.id) + '&' + languageParameterName + '=' +currentLanguage}">{!article.title}</a>-->
+                                        <!--<apex:outputlink value="/Com_KnowledgeDetailPage?id={!article.id}">
+                                            {!article.title}
+                                        </apex:outputlink>-->
+                                        <a href="{!URLFOR($Page.Com_KnowledgeDetailPageSectigo, null, [Id= article.id])}">{!article.title}</a>
+                                        <apex:outputLink value="{!ProductUrlcomodo}">
+                                            <span class="pkbArticleType" title="See all {!article.articleTypeLabel}"></span>
+                                            <apex:param name="{!categoryParameterName}" value="{!currentCategory}" />
+                                            <apex:param name="{!articleTypeParameterName}" value="{!article.articleTypeName}" />
+                                            <apex:param name="{!articleTypeLabelParameterName}" value="{!article.articleTypeLabel}" />
+                                            <apex:param name="{!languageParameterName}" value="{!currentLanguage}" />
+                                        </apex:outputLink>
+                                    </li>
+                                    <apex:variable var="anyDocument" value="true" />
+                                </knowledge:articleList>
+                            </ul>
+                            <apex:outputText value="{!PKB_No_Result}" rendered="{!anyDocument=='false'}" />
+                            <!-- modified  from ProductUrl to ProductUrlcomodo -->
+                            <c:knowledgePagination isNextAvailable="{!hasMore}" urlLink="{!ProductUrlcomodo}" />
+                            <br /><br /> 
+                            <knowledge:articleTypeList articleTypeVar="articleType">
+                                <!-- modified from producturl to ProductUrlcomodo -->
+                                <apex:outputLink value="{!ProductUrlcomodo}">
+                                    <span class="pkbArticleType" title="See all {!articleType.label}"></span>
+                                    <apex:param name="{!categoryParameterName}" value="{!currentCategory}" />
+                                    <apex:param name="{!articleTypeParameterName}" value="{!articleType.name}" />
+                                    <apex:param name="{!articleTypeLabelParameterName}" value="{!articleType.label}" />
+                                    <apex:param name="{!languageParameterName}" value="{!currentLanguage}" />
+                                </apex:outputLink>
+                                
+                            </knowledge:articleTypeList>
+                        </apex:outputPanel>
+                        <apex:outputPanel layout="block" rendered="{!currentArticleType!=''}">
+                            <apex:variable var="anyDocument" value="false" />
+                            <apex:variable var="hasMore" value="" />
+                            <br />
+                            <ul>
+                                <knowledge:articleList articleVar="article" hasMoreVar="hasMore" pageSize="10" pageNumber="{!currentPageNumber}" articleTypes="{!currentArticleType}" categories="{!categoryGroupName}:{!currentCategory}" language="{!currentLanguage}">
+                                    <!--<li class="pkbArticle"><a href="{!URLFOR($Action.KnowledgeArticle.View, article.id) + '&' + languageParameterName + '=' +currentLanguage}">{!article.title}</a></li>-->
+                                    <div class="Quesandans">
+                                        <!-- <a href="{!URLFOR($Action.KnowledgeArticle.View, article.id) + '&' + languageParameterName + '=' +currentLanguage}">{!article.title}</a> -->
+                                        <!--<apex:outputlink value="/Com_KnowledgeDetailPage?id={!article.id}">
+                                            {!article.title}
+                                        </apex:outputlink>-->
+                                        <a href="{!URLFOR($Page.Com_KnowledgeDetailPageSectigo, null, [Id= article.id])}">{!article.title}</a>
+
+                                        <div class="pkbResultArticleAbstract">{!article.abstract}</div>
+                                    </div>
+                                    <apex:variable var="anyDocument" value="true" />
+                                </knowledge:articleList>
+                            </ul>
+                            <apex:outputText value="{!PKB_No_Result}" rendered="{!anyDocument=='false'}" />
+                            <!-- modified from productUrl to ProductUrlcomodo -->
+                            <c:knowledgePagination isNextAvailable="{!hasMore}" urlLink="{!ProductUrlcomodo}" />
+                        </apex:outputPanel>
+                    </apex:outputPanel>
+                </apex:outputPanel>
+
+
+            </div>
+            <!--End Main content Box--->
+        </div>
+    </div>
+</apex:component>

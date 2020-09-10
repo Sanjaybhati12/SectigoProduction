@@ -1,0 +1,86 @@
+<apex:component controller="Com_KnowledgeControllerFaq">
+    <apex:stylesheet value="{!$Page.Comodo_DesignCss}" />
+     <script type="text/javascript">
+   function createCase(){
+       location.href = "https://sectigo.com/support-ticket";
+ } 
+ function redirecttoOrder(){
+       location.href = "https://secure.trust-provider.com/products/ORDERSTATUSCHECKER";
+ } 
+   
+</script>
+    <div id="maincore">
+        <div class="innerwrapper row">
+             <!--Start Mobile Search Box Top view --->
+              <div class="show-for-small-only">
+                  <c:Com_KnowledgeSearchBoxCompFaq />
+              </div>
+              <!--End Mobile Search Box Top view ---> 
+                      
+            <!--Start Left side Box --->
+            <div id="maincoreleft" class="small-12 medium-4 large-3 columns">
+             <div class="hide-for-small-only">
+                     <button id="create-button" type="submit" onclick="redirecttoOrder();"  class="searchbutton button large" >{!$Label.Check_my_Order_Status}</button>
+
+                    <button id="create-button" type="submit" onclick="createCase();"  class="searchbutton button large" >{!$Label.Submit_a_Ticket}</button>
+                </div>
+                <div class="leftnavboxbox">
+                    <div class="leftnavboxtitle">
+                        <span class="leftnavboxtitleleftgap">&nbsp;</span>
+                        <span class="leftnavboxtitlebulk">
+                           <span class="leftnavboxtitletext">SECTIGO Articles</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="leftnavboxcontent">
+                    <!-- mosteviewed part-->
+                    <c:knowledgeCategoriesFaq />
+                </div>
+                
+               
+            </div>
+            <!--End Left side Box --->
+            <!--Start Main content Box --->
+            <div id="maincorecontent" class="small-12 medium-8 large-9 columns">
+                <!--Will main content will come  ---->
+                <div class="hide-for-small-only">
+                  <c:Com_KnowledgeSearchBoxCompFaq />
+                </div>
+                <apex:outputPanel styleClass="pkbResultPanel" layout="block">
+                    <apex:outputPanel styleClass="pkbResultTop" layout="block" />
+                    <apex:outputPanel styleClass="pkbResultInner" layout="block">
+                        <apex:outputPanel styleClass="pkbResultSummary" layout="block">
+                            {!PKB_Search_Result}&nbsp;<i>{!currentKeyword}</i>
+                        </apex:outputPanel>
+                        <ul>
+                            <apex:variable var="anyDocument" value="false" />
+                            <apex:variable var="hasMore" value="" />
+                            <knowledge:articleList articleVar="article" hasMoreVar="hasMore" pageSize="10" pageNumber="{!currentPageNumber}" keyword="{!currentKeyword}" categories="{!categoryGroupName}:{!currentCategory}" language="{!currentLanguage}">
+
+                                <li>
+                                    <a href="{!URLFOR($Page.Com_KnowledgeDetailPageFaq, null, [Id= article.id])}">{!article.title}</a>
+                                </li>
+                              <!--  <div class="pkbResultArticleAbstract">{!article.abstract}</div> -->
+                              
+                             <apex:outputText styleClass="pkbResultArticleAbstract" value="{!article.abstract}" escape="false"/>
+
+                                <apex:variable var="anyDocument" value="true" />
+                            </knowledge:articleList>
+                        </ul>
+                        <c:knowledgePagination isNextAvailable="{!hasMore}" urlLink="{!SearchUrlComodo}" rendered="{!anyDocument!='false'}" />
+
+                        <apex:outputText value="{!PKB_Search_No_Result} '{!currentKeyword}'" rendered="{!anyDocument=='false'}" />&nbsp;
+                    </apex:outputPanel>
+                </apex:outputPanel>
+
+  <div class="show-for-small-only" style="padding-top:20px;">
+                                                   <button id="create-button" type="submit" onclick="redirecttoOrder();"  class="searchbutton button large" >{!$Label.Check_my_Order_Status}</button>
+
+                    <button id="create-button" type="submit" onclick="createCase();"  class="searchbutton button large" >{!$Label.Submit_a_Ticket}</button>
+                </div>
+
+            </div>
+            <!--End Main content Box--->
+        </div>
+    </div>
+</apex:component>

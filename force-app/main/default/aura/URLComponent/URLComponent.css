@@ -1,0 +1,19 @@
+.THIS.gbc{
+    font-size: 20px;
+}
+.THIS.bor{
+    border-style: solid;
+    border-width: 80px;
+}
+
+.THIS.slds-border_top{
+    border-top : 1px solid;
+    border-width: 1px;
+}
+.THIS.slds-text-title_bold{
+    margin-left:396px;
+    
+}
+.THIS .uiOutputRichText img{
+    height:95px !Important;
+}

@@ -1,0 +1,20 @@
+<design:component>
+    
+    <design:attribute   name="showHeader"
+                        label="Show Header"
+                        description="Show/Hide the Card Header"
+    ></design:attribute>
+    
+    <design:attribute   name="genDocPage"
+                        label="SBQQ Generate Document VF Page Path"
+                        default="/apex/SBQQ__GenerateDocument?id="
+                        description="SBQQ VF Page that faciliates the Generation of Quote Document"
+    ></design:attribute>
+    
+    <design:attribute   name="prevDocPage"
+                        label="SBQQ Preview Document VF Page Path"
+                        default="/apex/SBQQ__PreviewDocument?id="
+                        description="SBQQ VF Page that faciliates the Preview of Quote Document"
+    ></design:attribute>
+    
+</design:component>

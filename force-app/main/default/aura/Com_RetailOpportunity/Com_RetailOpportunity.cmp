@@ -1,0 +1,26 @@
+<!--
+ Author      : AgileCloudConsulting
+ Description :  It is used to create Retail Opportunity from case
+
+-->
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader" controller="Com_RetailOppCntrl" access="global" >
+    <lightning:button variant="brand" label="Create Retail Opportunity" onclick="{! c.doInit }" aura:id="disablebuttonid" />
+        <aura:attribute name="loaded" type="Boolean" default="true" />
+
+    <div class="exampleHolder">
+        <aura:if isTrue="{! v.loaded }">
+            <aura:set attribute="else">
+                <lightning:spinner alternativeText="Loading" />
+            </aura:set>
+        </aura:if>
+    </div>
+    
+    <!-- <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+     <div data-reactroot="" class="demo-only" style="height: 6rem;">
+        <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+            <span class="slds-assistive-text">Loading</span>
+            <div class="slds-spinner__dot-a"></div>
+            <div class="slds-spinner__dot-b"></div>
+        </div>
+    </div> -->
+</aura:component>

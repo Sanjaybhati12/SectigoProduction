@@ -1,0 +1,19 @@
+.THIS .Title {
+    
+    text-align: center;
+    font-family: Roboto;
+    font-size: 1rem;
+    text-transform: none;
+    background-color: #088756;
+    color: #ffffff;
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: all .8s ease;
+}
+.THIS .Logo{
+   width:100%;
+    
+}

@@ -1,0 +1,58 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" controller="Com_closecaseWithSCntrl" access="global" >
+    <aura:attribute name="ClosingNote"  type="String"  default=" "/>
+    <!--<aura:attribute name="Solutiondesc"  type="String" /> -->
+    <aura:attribute name="refundTypeVal" type="String" default=" "/>
+    <aura:attribute name="caseId" type="ID" />
+    <lightning:overlayLibrary aura:id="overlayLib"/> 
+    <aura:attribute name="refundMaps" type="Map"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/> 
+    <aura:attribute name="cas" type="Case" default="{'sobjectType':'Case', 'Refund_Type__c':''}" />
+    
+    
+    <!-- Spinner Code Starts -->
+    <aura:attribute name="loaded" type="Boolean" default="true" />
+    <div class="exampleHolder">
+        <aura:if isTrue="{!v.loaded }">
+            <aura:set attribute="else">
+                <lightning:spinner alternativeText="Loading" size="medium" />
+            </aura:set>
+        </aura:if>
+    </div> 
+    <!-- Spinner Code Ends -->
+    
+    
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_12-of-12">
+            <!--  <lightning:input aura:id="FormVal" label="Solution Title"
+                             name="Solution"
+                             type="String"
+                             maxlength="255"
+                             class="slds-align_absolute-center slds-p-around_xx-small"
+                             placeholder="Solution Title"
+                             value="{!v.Solutiontitle}"
+                             required="true" />  -->
+        </div>
+        <div class="slds-col slds-size_12-of-12">
+            <lightning:textarea aura:id="FormVal" label="Closing Note"
+                                name="Closing Note"
+                                type="String"
+                                maxlength="255"
+                                class="slds-align_absolute-center slds-p-around_xx-small"
+                                placeholder="Closing Note"
+                                value="{!v.ClosingNote}"
+                                onblur="{!c.checkValidity}" /> 
+        </div>
+        <div class="slds-col slds-size_12-of-12">
+            <lightning:select class="slds-align_absolute-center slds-p-around_xx-small"
+                              aura:id="fieldSelect" label="Refund Type" name="Refund Type" onblur="{!c.checkValidity}"  onchange="{!c.toggle}" >
+                <option value="">--None--</option>
+                <aura:iteration items="{!v.refundMaps}" var="ind" indexVar="key">
+                    <option text="{!ind.value}" value="{!ind.key}" selected="{!ind.key==v.cas.Refund_Type__c}" />
+                </aura:iteration>
+            </lightning:select>           
+        </div>
+        <div class="slds-col slds-size_12-of-12">
+            <lightning:button class="slds-align_absolute-center slds-m-top_large" variant="brand" label="Submit" onclick="{!c.closeCase}" aura:id="disablebuttonid" />
+        </div>
+    </div>
+</aura:component>

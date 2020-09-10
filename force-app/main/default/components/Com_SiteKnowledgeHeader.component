@@ -1,0 +1,186 @@
+<apex:component >
+    <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var a, u, t, f, v, e, o, r, s, h, n, c, i, l, p, w;
+            $(".tabs").length && $(document).foundation();
+            $("#main-menu > li").each(function() {
+                if ($(this).children().length > 1) {
+                    $(this).addClass("has-subnav");
+                    //$(this).append('<span class="arrow mobile-only"><img alt="Right Arrow Icon" src="/ComodoCA/images/white-arrow-right.png" /><\/a><\/span>');
+                    var n = $(this).find("a").eq(0).text();
+                    //$(this).find("ul").prepend('<li class="mobile-only subnav-title"><img alt="Left Arrow Icon" src="/ComodoCA/images/white-arrow-left.png" />' + n + "<\/a>")
+                }
+                $(this).children().first().text() == "IoT" && $(this).children().first().addClass("no-case")
+            });
+            $(".hamburger").on("click", function() {
+                $(".search-wrap").removeClass("open");
+                $(this).closest(".main-nav").toggleClass("open")
+            });
+            $("#main-menu .arrow").on("click", function() {
+                $("#main-menu li.has-subnav").removeClass("open");
+                $(this).closest("li.has-subnav").addClass("open")
+            });
+            $("#main-menu .subnav-title").on("click", function() {
+                $(this).closest("li.has-subnav").removeClass("open")
+            });
+            $(".search-wrap .search-icon, .search-wrap .search-box a.close").on("click", function() {
+                $(".main-nav").removeClass("open");
+                $(".search-wrap").toggleClass("open")
+            });
+            
+            
+            $(".landing-hero-wrap").length && (p = parseInt($(".landing-hero-wrap .landing-hero").css("padding-top")), w = $(".landing-hero-wrap .landing-hero").outerHeight() - p, $(".landing-hero-wrap .landing-form .large-5 > div").css({
+                top: "-" + w + "px"
+            }), $(window).resize(function() {
+                var n = parseInt($(".landing-hero-wrap .landing-hero").css("padding-top")),
+                    t = $(".landing-hero-wrap .landing-hero").outerHeight() - n;
+                $(".landing-hero-wrap .landing-form .large-5 > div").css({
+                    top: "-" + t + "px"
+                })
+            }))
+        })
+        </script>
+    <header>             
+        <div class="utility-nav">
+            <div class="row">
+                <div class="small-12 columns">
+                    <ul class="utility-links text-right">
+                        <li class="call-cta uppercase">
+                            <a class="green" href="tel:+1-888-266-6361" title="Call Us">
+                                <!--<img alt="Telephone Icon" height="18" src="icon-phone-a.svg" title="Call Support +1-888-266-6361" width="18" />-->
+                                <apex:image url="{!URLFOR($Resource.Com_KnowledgeFiles,'/images/icon-phone-a.svg')}" /> (US) +1-888-266-6361</a> <span class="white">|</span> <a class="green" href="tel:+1-703-581-6361" title="Call Us International"> (Int) +1-703-581-6361</a></li>
+                        <li><a href="https://www.comodoca.com/en-us/about/contact-us/" title="Contact Us">Contact Us</a></li>
+                        <li><a href="https://www.comodoca.com/en-us/about/careers/" title="Careers">Careers</a></li>
+                        <li><a href="https://secure.comodo.net/products" target="_blank" title="Sign In">Log In</a></li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+        <div class="nav-branding-wrap white background">
+            <div class="row">
+                <div class="small-12 medium-4 large-3 columns">
+                    <div class="branding">
+                        <a title="Sectigo - Home" href="{!URLFOR($Page.Com_KnowledgeMainPage)}"> 
+                       <!-- <apex:image url="{!URLFOR($Resource.Com_KnowledgeFiles, 'images/sectigo-formerly-logo.png')}" /> -->
+                       <apex:image id="theImage" value="{!'/servlet/servlet.FileDownload?file=' & '0151N000004taHg'}" />
+                        </a>
+                    </div>
+                </div>
+                <div class="small-12 medium-8 large-9 columns">
+                    <div class="main-nav">
+                        <div class="hamburger mobile-only"></div>
+                        <ul id="main-menu">
+                            <li class="has-subnav">
+                                <a title="Enterprise" href="https://sectigo.com/solutions/enterprise">Enterprise</a>
+                                <ul>
+                                    <li class="mobile-only subnav-title"><img alt="Left Arrow Icon" src="{!URLFOR($Resource.Com_KnowledgeFiles,'/images/white-arrow-left.png')}" />Enterprise</li>
+                                    <li>
+                                        <a title="PKI vs Passwords" href="https://www.comodoca.com/en-us/enterprise/pki-vs-passwords/">PKI vs Passwords</a>
+                                    </li>
+                                    <li>
+                                        <a title="Why Comodo CA for Enterprise" href="https://www.comodoca.com/en-us/enterprise/why-comodo-ca-for-enterprise/">Why Comodo CA for Enterprise</a>
+                                    </li>
+
+                                </ul>
+                                <span class="arrow mobile-only"><img alt="Right Arrow Icon" src="{!URLFOR($Resource.Com_KnowledgeFiles,'/images/white-arrow-right.png')}" /></span></li>
+                            <li class="has-subnav">
+                                <a title="Solutions" href="https://www.comodoca.com/en-us/solutions/">Solutions</a>
+                                <ul>
+                                    <li class="mobile-only subnav-title"><img alt="Left Arrow Icon" src="{!URLFOR($Resource.Com_KnowledgeFiles,'/images/white-arrow-left.png')}" />Solutions</li>
+                                    <li>
+                                        <a title="TLS/SSL Certificates" href="https://www.comodoca.com/en-us/solutions/tls-ssl-certificates/">TLS/SSL Certificates</a>
+                                    </li>
+                                    <li>
+                                        <a title="Signing Certificates" href="https://www.comodoca.com/en-us/solutions/signing-certificates/">Signing Certificates</a>
+                                    </li>
+                                    <li>
+                                        <a title="Certificate Management" href="https://www.comodoca.com/en-us/solutions/certificate-management/">Certificate Management</a>
+                                    </li>
+                                    <li>
+                                        <a title="Comodo CA TrustLogo" href="https://www.comodoca.com/en-us/solutions/comodo-site-seal/">Comodo CA TrustLogo</a>
+                                    </li>
+                                    <li>
+                                        <a title="Internet of Things" href="https://www.comodoca.com/en-us/solutions/internet-of-things/">Internet of Things</a>
+                                    </li>
+
+                                </ul>
+                                <span class="arrow mobile-only"><img alt="Right Arrow Icon" src="{!URLFOR($Resource.Com_KnowledgeFiles,'/images/white-arrow-right.png')}" /></span></li>
+                            <li>
+                                <a title="IoT" href="https://www.comodoca.com/en-us/solutions/internet-of-things/" class="no-case">IoT</a>
+                            </li>
+                            <li class="has-subnav">
+                                <a title="Partners" href="https://www.comodoca.com/en-us/partners/">Partners</a>
+                                <ul>
+                                    <li class="mobile-only subnav-title"><img alt="Left Arrow Icon" src="{!URLFOR($Resource.Com_KnowledgeFiles,'/images/white-arrow-left.png')}" />Partners</li>
+                                    <li>
+                                        <a title="Partner IoT Solutions" href="https://www.comodoca.com/en-us/partners/partners/">Partner IoT Solutions</a>
+                                    </li>
+
+                                </ul>
+                                <span class="arrow mobile-only"><img alt="Right Arrow Icon" src="{!URLFOR($Resource.Com_KnowledgeFiles,'/images/white-arrow-right.png')}"/></span></li>
+                            <li class="has-subnav">
+                                <a title="About" href="https://www.comodoca.com/en-us/about/">About</a>
+                                <ul>
+                                    <li class="mobile-only subnav-title"><img alt="Left Arrow Icon" src="{!URLFOR($Resource.Com_KnowledgeFiles,'/images/white-arrow-left.png')}" />About</li>
+                                    <li>
+                                        <a title="Leadership" href="https://www.comodoca.com/en-us/about/leadership/">Leadership</a>
+                                    </li>
+                                    <li>
+                                        <a title="Newsroom" href="https://www.comodoca.com/en-us/about/newsroom/">Newsroom</a>
+                                    </li>
+                                    <li>
+                                        <a title="Blog" href="https://www.comodoca.com/en-us/about/blog/">Blog</a>
+                                    </li>
+                                    <li>
+                                        <a title="Resources" href="https://www.comodoca.com/en-us/about/resources/case-studies/">Resources</a>
+                                    </li>
+                                    <li>
+                                        <a title="Careers" href="https://www.comodoca.com/en-us/about/careers/">Careers</a>
+                                    </li>
+                                    <li>
+                                        <a title="Contact Us" href="https://www.comodoca.com/en-us/about/contact-us/">Contact Us</a>
+                                    </li>
+
+                                </ul>
+                                <span class="arrow mobile-only"><img alt="Right Arrow Icon" src="{!URLFOR($Resource.Com_KnowledgeFiles,'/images/white-arrow-right.png')}"/></span></li>
+                            <li class="Highlighted has-subnav">
+                                <a title="Support" href="https://www.comodoca.com/en-us/support/">Support</a>
+                                <ul>
+                                    <li class="mobile-only subnav-title"><img alt="Left Arrow Icon" src="{!URLFOR($Resource.Com_KnowledgeFiles,'/images/white-arrow-left.png')}" />Support</li>
+                                    <li>
+                                        <a title="Report Abuse" href="https://www.comodoca.com/en-us/support/report-abuse/">Report Abuse</a>
+                                    </li>
+
+                                </ul>
+                                <span class="arrow mobile-only"><img alt="Right Arrow Icon" src="{!URLFOR($Resource.Com_KnowledgeFiles,'/images/white-arrow-right.png')}"/></span></li>
+
+                        </ul>
+
+
+                        <div class="search-wrap">
+                            <a href="javascript:void(0)" class="search-icon"></a>
+                            <div class="search-box black background top-shadow">
+                                <div id="p_lt_ctl02_CCASmartSearchBox_pnlSearch" class="searchBox" onkeypress="javascript:return WebForm_FireDefaultButton(event, 'p_lt_ctl02_CCASmartSearchBox_btnImageButton')">
+
+                                    <label for="p_lt_ctl02_CCASmartSearchBox_txtWord" id="p_lt_ctl02_CCASmartSearchBox_lblSearch" style="display:none;">Search for:</label>
+                                    <input type="hidden" name="p$lt$ctl02$CCASmartSearchBox$txtWord_exWatermark_ClientState" id="p_lt_ctl02_CCASmartSearchBox_txtWord_exWatermark_ClientState" /><input name="p$lt$ctl02$CCASmartSearchBox$txtWord" type="text" maxlength="1000" id="p_lt_ctl02_CCASmartSearchBox_txtWord" class="form-control" />
+
+                                    <input type="image" name="p$lt$ctl02$CCASmartSearchBox$btnImageButton" id="p_lt_ctl02_CCASmartSearchBox_btnImageButton" src="/ComodoCA/images/arrow-right.png" alt="Search" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;p$lt$ctl02$CCASmartSearchBox$btnImageButton&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" />
+                                    <div id="p_lt_ctl02_CCASmartSearchBox_pnlPredictiveResultsHolder" class="predictiveSearchHolder">
+
+                                    </div>
+
+                                </div>
+
+                                <a href="javascript:void(0)" class="close">X</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="global-alert"></div>
+    </header>
+</apex:component>

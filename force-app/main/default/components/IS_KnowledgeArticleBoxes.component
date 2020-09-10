@@ -1,0 +1,47 @@
+<apex:component controller="IS_KnowledgeController">
+<apex:stylesheet value="{!$Page.IS_DesignCss}" />
+<style>
+.Quesandans{
+background-color:#f3f3f2 !important;
+}
+.heaTitle{
+font-size: 1.5rem !important;
+color: #051c2c !important;
+font-family: Roboto,-apple-system,BlinkMacSystemFont,Segoe UI,Lato,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+color: #051c2c !important;
+font-weight: 400 !important;
+}
+.pkbResultArticleAbstract{
+font-size: 1.1 rem !important;
+font-family: Roboto,-apple-system,BlinkMacSystemFont,Segoe UI,Lato,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+color: #051c2c !important;
+font-weight: 300 !important;
+line-height: 1.6 !important;
+}
+</style>
+<apex:outputPanel styleClass="pkbColumnInner" layout="block">
+                              <div class="kbarticlecontainer kbarticlefeatured" >
+                                 <div class="wrapper" >
+                                    <ul >
+                                       <apex:variable var="anyDocument" value="false" />
+                                       <apex:variable var="hasMore" value="" />
+                                       <knowledge:articleList articleVar="article"  hasMoreVar="hasMore"
+                                          pageSize="10"
+                                          pageNumber="{!currentPageNumber}"
+                                          keyword="{!currentKeyword}"
+                                          categories="{!categoryGroupName}:{!currentCategory}"
+                                          language="{!currentLanguage}"
+                                          sortBy="mostViewed"
+                                          >
+                                          <div class="Quesandans">
+                                             
+                                             <a class="heaTitle"  href="{!URLFOR($Page.IS_KnowledgeDetailPage, null, [Id= article.id])}">{!article.title}</a>
+                                             <div class="pkbResultArticleAbstract">{!article.abstract}</div>
+                                          </div>
+                                          <apex:variable var="anyDocument" value="true" />
+                                       </knowledge:articleList>
+                                    </ul>
+                                 </div>
+                              </div>
+                           </apex:outputpanel>
+</apex:component>

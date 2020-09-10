@@ -1,0 +1,154 @@
+<!--
+@Author : Agile Cloud Consulting  
+@name : com_CreateContact 
+@Created Date : 02/05/2019.
+@Description : This component used for to create contact on case detail page.
+@Version : 1.0
+@reference : none
+-->
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" controller="com_CreateContactCntrl" access="global" >   
+    <aura:attribute name="isOpen" type="boolean" default="false"/>
+    <aura:attribute name="myCse" type="com_CreateAccContWrapper" default=""/>
+    <aura:attribute name="loaded" type="Boolean" default="true" />
+    <aura:attribute name="Case" type="Case" default="{'sobjectType':'Case'}"/> 
+    <aura:attribute name="selectedRecordId" type="String"/>
+    
+    
+    <!--Use "slds-m-around_xx-large" class to add standard X-Large padding to the component--> 
+    <div class="slds-m-around_xx-small">
+        <lightning:button variant="brand" label="New Contact" onclick="{!c.doInit}" />
+        <!--Use aura:if tag to display Model Box, on the bese of conditions. [isOpen boolean attribute] -->   
+        <aura:if isTrue="{!v.isOpen}">
+            <!--###### MODAL BOX Start######--> 
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <!-- ###### MODAL BOX HEADER Start ######-->
+                    <header class="slds-modal__header">
+                        <lightning:buttonIcon iconName="utility:close"
+                                              onclick="{!c.closeModel }"
+                                              alternativeText="close"
+                                              variant="bare-inverse"
+                                              class="slds-modal__close"/>
+                    </header>
+                    <!--###### MODAL BOX BODY Part Start######-->
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <p><b> <!-- NEW FORM -->
+                            <lightning:layout >
+                                <lightning:layoutItem padding="around-medium" size="12" class="main-wrapper">
+                                    <div aria-labelledby="newform">
+                                        <!-- BOXED AREA -->
+                                        
+                                        <!--  <aura:if isTrue="{!not(empty(v.myCse.ContactId))}"> -->
+                                        <!-- Contact Header Start -->
+                                        <div class="slds-page-header">
+                                            <div class="slds-page-header__row">
+                                                <div class="slds-page-header__col-title">
+                                                    <div class="slds-media">
+                                                        <div class="slds-media__figure">
+                                                            <span class="slds-icon_container slds-icon-standard-opportunity" title="opportunity">
+                                                                <lightning:icon iconName="standard:contact" class="slds-icon slds-page-header__icon" alternativeText="Approved" />
+                                                                <span class="slds-assistive-text">Contact</span>
+                                                            </span>
+                                                        </div>
+                                                        <div class="slds-media__body">
+                                                            <div class="slds-page-header__name">
+                                                                <div class="slds-page-header__name-title">
+                                                                    <h1>
+                                                                        <span class="slds-page-header__title slds-truncate" title="NEW CONTACT">NEW CONTACT</span>
+                                                                    </h1>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Contact Header End -->
+                                        <!-- CREATE NEW Contact FORM -->
+                                        <!-- first row -->
+                                        <div class="slds-form__row slds-m-around_x-small">
+                                            <div class="slds-form__item" role="listitem">
+                                                <div class="slds-form-element slds-form-element_horizontal slds-is-editing">
+                                                    
+                                                    <div class="slds-form-element">
+                                                        <lightning:input aura:id="conAcc" required="true" label="First Name" name="form5" value="{!v.myCse.ConFirst}"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="slds-form__item" role="listitem">
+                                                <div class="slds-form-element slds-form-element_horizontal slds-is-editing">
+                                                    
+                                                    <div class="slds-form-element">
+                                                        <lightning:input aura:id="conAcc" required="true"  label="Last Name" name="form6" value="{!v.myCse.ConSecond}"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- first row  end-->
+                                        
+                                        <!-- Second row -->
+                                        <div class="slds-form__row slds-m-around_x-small">
+                                            <div class="slds-form__item" role="listitem">
+                                                <div class="slds-form-element slds-form-element_horizontal slds-is-editing">
+                                                    
+                                                    <div class="slds-form-element">
+                                                        <lightning:input aura:id="conAcc" required="true" label="Email" name="form7" value="{!v.myCse.ConEmail}"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="slds-form__item" role="listitem">
+                                                <div class="slds-form-element slds-form-element_horizontal slds-is-editing">
+                                                    
+                                                    <div class="slds-form-element">
+                                                        <lightning:input label="Phone" name="form8" value="{!v.myCse.ConPhone}"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="slds-form__item" role="listitem">
+                                                <div class="slds-form-element slds-form-element_horizontal slds-is-editing">
+                                                    
+                                                    <div class="slds-form-element">
+                                                        <!-- Account Name:<force:inputField aura:id="lookup" value="{!v.Case.Accountid}"/>-->
+                                                        <l_lookup:Lookup aura:id="myLookup"
+                                                                         objectType="Account" 
+                                                                         label="Account Name"
+                                                                         pluralLabel="Account Names"
+                                                                         selectedRecordId="{!v.selectedRecordId}" />
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Second row  end-->
+                                        
+                                        <!-- </aura:if>  -->
+                                        
+                                        <lightning:button label="Submit" 
+                                                          class="slds-m-top--medium slds-align_absolute-center"
+                                                          variant="brand"
+                                                          aura:id="disablebuttonid"
+                                                          onclick="{!c.submitModel}"/>
+                                        <!-- </fieldset> -->
+                                        <!-- / BOXED AREA -->
+                                    </div>
+                                    <div class="exampleHolder">
+                                        <aura:if isTrue="{! v.loaded }">
+                                            <aura:set attribute="else">
+                                                <lightning:spinner alternativeText="Loading" />
+                                            </aura:set>
+                                        </aura:if>
+                                    </div>
+                                    <!-- / CREATE NEW FORM -->
+                                </lightning:layoutItem>
+                            </lightning:layout>
+                            <!-- / NEW FORM -->
+                            </b>
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+            <!--###### MODAL BOX Part END Here ######-->
+        </aura:if>
+    </div>
+</aura:component>

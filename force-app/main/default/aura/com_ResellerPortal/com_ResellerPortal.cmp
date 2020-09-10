@@ -1,0 +1,6 @@
+<aura:component controller="com_Hyperlinkcntrl2" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="ResellerportalLogin" type="String" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <!--class="slds-button_stretch"-->
+    <lightning:button class="widebutton" variant="brand" label="{!$Label.c.Reseller_Button_Portal}" onclick="{!c.redirect}" />
+</aura:component>

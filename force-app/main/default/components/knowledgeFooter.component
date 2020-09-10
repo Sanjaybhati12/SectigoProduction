@@ -1,0 +1,17 @@
+<apex:component controller="ComodoKnowledgeController">
+
+
+<apex:outputPanel styleClass="pkbFooter" layout="block">
+   <!-- <apex:outputPanel styleClass="pkbPoweredBySFDC">
+        <a href="http://www.salesforce.com/crm/customer-service-support/"><apex:image value="{!$Resource.pkb_image_poweredBySfdc}" alt="Customer Service Software"/>
+        <apex:outputPanel styleClass="pkbPoweredBySFDCText">salesforce.com</apex:outputPanel></a>
+    </apex:outputPanel>-->
+    <apex:outputPanel styleClass="pkbFooterNavigation">
+        <apex:outputLink value="{!homeUrl}">{!PKB_Tab_Home}<apex:param name="{!languageParameterName}" value="{!currentLanguage}" /></apex:outputLink>&nbsp;
+       <!--commented by me -->
+        <!-- <apex:outputLink value="{!productUrl}">{!PKB_Tab_Product}<apex:param name="{!languageParameterName}" value="{!currentLanguage}" /></apex:outputLink>-->
+    </apex:outputPanel>
+    <br class="pkbClearfloat"/>
+</apex:outputPanel>
+
+</apex:component>

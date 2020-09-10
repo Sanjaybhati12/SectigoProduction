@@ -1,0 +1,36 @@
+<apex:page showHeader="false" standardStylesheets="false" controller="Com_KnowledgeControllerFaq" applyBodyTag="false" applyHtmlTag="false" >
+    <html>
+
+    <head>
+        <apex:stylesheet value="{!URLFOR($Resource.Com_KnowledgeFiles, '/styles/Styles.css')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.Com_KnowledgeFiles,'/styles/CCAFoundation.css')}" />
+         <link rel="shortcut icon" type="image/png" href="{!$Resource.Favicon}" />
+        <link rel="icon" type="image/png" href="{!$Resource.Favicon}" /> 
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" crossorigin="anonymous" />
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.js"></script>
+        <apex:includeScript value="{!$Resource.pkb_js_base}" />
+        <title>Sectigo Knowledge Base</title>
+    </head>
+
+    <body >
+      <c:Com_KnowledgeHeaderFaq /> 
+
+        <div class="body">
+            <div class="widgets">
+
+                <div class="widget" id="comodoMainCntainer">
+                    
+                    <c:Com_KnowledgeDetailsCompFaq />
+                </div>
+
+
+            </div>
+        </div>
+
+        <c:Com_KnowledgeFooter /> 
+
+    </body>
+
+
+    </html>
+</apex:page>

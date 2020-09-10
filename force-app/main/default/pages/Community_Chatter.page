@@ -1,0 +1,61 @@
+<apex:page showHeader="false" controller="Community_ChatCntrl">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 60%;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+
+.column1 {
+  float: left;
+  width: 40%;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.example_e {
+border: none;
+background: #404040;
+color: #ffffff !important;
+padding: 10px;
+text-transform: uppercase;
+display: inline-block;
+border-radius: 999px;
+width: 7rem;
+}
+#publisherAttachTextPost,#publisherDropdown,#publisherAttach09D1N000007PysF{
+display: none;
+}
+.publisherattachtext truncateLabel{
+display: none;
+
+}
+</style>
+
+
+<div class="row">
+  <div class="column" >
+    <h2></h2>
+    <p> <chatter:feed entityId="{!currentchatId}"/> </p>
+  </div>
+  <div class="column1" >
+    <h2></h2>
+    <p><apex:outputLink value="/Community_Case_Detail?id={!currentchatId}" > 
+    <button style="background-color: #00B373;border: none;"  class="example_e" >Go To Case</button>
+    <!-- <apex:outputField value="{!a.caseNumber}"/> -->
+    </apex:outputLink> </p>
+  </div>
+</div>
+</apex:page>

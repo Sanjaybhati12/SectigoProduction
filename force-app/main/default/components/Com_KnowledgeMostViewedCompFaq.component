@@ -1,0 +1,65 @@
+<apex:component controller="Com_KnowledgeControllerFaq">
+    <apex:stylesheet value="{!$Page.Comodo_DesignCss}" />
+   <script type="text/javascript">
+   function createCase(){
+       location.href = "https://sectigo.com/support-ticket";
+      //alert('test');
+ }
+   function redirecttoOrder(){
+       location.href = "https://secure.trust-provider.com/products/ORDERSTATUSCHECKER";
+ } 
+   
+</script>
+    <div class="leftnavboxbox">
+      <!-- End Added on 5 Feb 2019 --> 
+        <button id="create-button" type="submit" onclick="redirecttoOrder();"  class="searchbutton button large" >{!$Label.Check_my_Order_Status}</button>
+
+        <button id="create-button" type="submit" onclick="createCase();"  class="searchbutton button large" >{!$Label.Submit_a_Ticket}</button>
+ 
+    
+        <div class="leftnavboxtitle">
+            <span class="leftnavboxtitleleftgap">&nbsp;</span>
+            <span class="leftnavboxtitlebulk">
+              <span class="leftnavboxtitletext">Most Viewed</span>
+            </span>
+        </div>
+    </div>
+    <div class="leftnavboxcontent">
+        <!-- mosteviewed part-->
+        <ul>
+            <knowledge:articleList articleVar="article" categories="{!categoryGroupName}:{!rootCategoryName}" sortBy="mostViewed" pageSize="10" language="{!currentLanguage}">
+                <li>
+                    <!--  
+                       <a href="{!URLFOR($Action.KnowledgeArticle.View, article.id) + '&' + languageParameterName + '=' +currentLanguage}">{!article.title}</a>
+                       
+                    <apex:outputlink value="{!VF_Apex}/Com_KnowledgeDetailPage?id={!article.id}" target="_parent">
+                        {!article.title}
+                    </apex:outputlink>-->
+                    <a href="{!URLFOR($Page.Com_KnowledgeDetailPageFaq, null, [Id= article.id])}">{!article.title}</a>
+                </li>
+            </knowledge:articleList>
+        </ul>
+    </div>
+    <!-- Added on 5 Feb 2019 --> 
+     <div class="leftnavboxbox">
+        <div class="leftnavboxtitle">
+            <span class="leftnavboxtitleleftgap">&nbsp;</span>
+            <span class="leftnavboxtitlebulk">
+              <span class="leftnavboxtitletext">Newest articles</span>
+            </span>
+        </div>
+    </div>
+    <div class="leftnavboxcontent">
+        <!-- mosteviewed part-->
+        <ul>
+            <knowledge:articleList articleVar="article" categories="{!categoryGroupName}:{!rootCategoryName}"  sortBy="lastUpdated" pageSize="10" language="{!currentLanguage}">
+                <li>
+                   
+                    <a href="{!URLFOR($Page.Com_KnowledgeDetailPageFaq, null, [Id= article.id])}">{!article.title}</a>
+                </li>
+            </knowledge:articleList>
+        </ul>
+    </div>
+      
+
+</apex:component>

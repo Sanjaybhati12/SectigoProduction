@@ -1,0 +1,35 @@
+<apex:page showHeader="false" id="SiteTemplate" applyBodyTag="false" applyHtmlTag="false">
+    <head>
+        <apex:stylesheet value="{!URLFOR($Resource.Com_KnowledgeFiles, '/styles/Styles.css')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.Com_KnowledgeFiles,'/styles/CCAFoundation.css')}" />
+        <apex:stylesheet value="{!$Page.Comodo_DesignCss}" />
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" crossorigin="anonymous" />
+        <link rel="shortcut icon" type="image/png" href="{!$Resource.Favicon}" />
+        <link rel="icon" type="image/png" href="{!$Resource.Favicon}" />
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.js"></script>
+        <apex:includeScript value="{!$Resource.pkb_js_base}" />
+        <title>Comodo Knowledge Base</title>
+        <style type="text/css">
+            .ptBreadcrumb,.pbHeader,.knowledgeTOCRenderer-body>div:nth-child(3),.knowledgeTOCRenderer-body>div:nth-child(2),.knowledgeTOCRenderer-body>div:first-child,.knowledgeTOCRenderer-body>div:nth-child(4) .detailList th.first.last, hr {display:none;}
+             body .bPageTitle .ptBody .links {display:none;}
+             .bPageTitle .ptBody .content{width: 100% !important;}
+             table.htmlDetailElementTable {table-layout: fixed;}
+             .bPageBlock {border-top: 4px solid #f3f3f5;}
+             table tbody, table tfoot, table thead {
+                border: transparent;
+                background-color: #fff;
+            }
+            .sfdc_richtext{line-height: 26px; }
+        </style>
+    </head>    
+    <apex:insert name="header"> 
+    <!-- <c:Com_KnowledgeHeader /> -->
+    <hr/>
+  </apex:insert>
+  <apex:insert name="body"/>
+ <apex:insert name="footer"> 
+    <hr/>
+   <!-- <c:Com_KnowledgeFooter /> -->
+    <site:googleAnalyticsTracking />
+  </apex:insert>   
+</apex:page>

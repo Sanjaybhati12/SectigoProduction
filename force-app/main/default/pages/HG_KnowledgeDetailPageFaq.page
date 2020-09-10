@@ -1,0 +1,36 @@
+<apex:page showHeader="false" standardStylesheets="false" controller="HG_KnowledgeControllerFaq" applyBodyTag="false" applyHtmlTag="false" >
+    <html>
+
+    <head>
+        <apex:stylesheet value="{!URLFOR($Resource.HG_KnowledgeFiles, '/styles/Styles.css')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.HG_KnowledgeFiles,'/styles/CCAFoundation.css')}" />
+         <link rel="shortcut icon" type="image/png" href="{!$Resource.IS_FavIcon}" />
+        <link rel="icon" type="image/png" href="{!$Resource.IS_FavIcon}" /> 
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" crossorigin="anonymous" />
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.js"></script>
+        <apex:includeScript value="{!$Resource.pkb_js_base}" />
+        <title>HackerGuardian Faq</title>
+    </head>
+
+    <body >
+      <c:HG_KnowledgeHeaderFaq /> 
+
+        <div class="body">
+            <div class="widgets">
+
+                <div class="widget" id="comodoMainCntainer">
+                    
+                    <c:HG_KnowledgeDetailsCompFaq />
+                </div>
+
+
+            </div>
+        </div>
+
+        <c:HG_KnowledgeFooter /> 
+
+    </body>
+
+
+    </html>
+</apex:page>

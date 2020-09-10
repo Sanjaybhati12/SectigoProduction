@@ -1,0 +1,63 @@
+<apex:component controller="ES_KnowledgeController">
+<apex:stylesheet value="{!$Page.ES_DesignCss}" />
+<apex:form id="selectCategory" >
+<apex:variable var="cpt" value="{!0}" />
+ <script>
+ $( document ).ready(function() {
+     jQuery('span[id$=knowledgeCategoryBoxes]' ).addClass('row');
+ });
+ </script>                          
+                           
+                           <div class="">
+                                 <knowledge:categoryList id="knowledgeCategoryBoxes"  categoryGroup="{!categoryGroupName}" rootCategory="{!rootCategoryName}" categoryVar="category" >
+                                   
+                                    <div class="small-12 large-4 columns">
+                                       <apex:outputPanel styleClass="pkbColumnPanel" layout="block">
+                                          <apex:outputPanel styleClass="pkbColumnTop" layout="block">
+                                             <apex:outputLink value="{!ProductUrlcomodo}" >
+                                                {!category.label}
+                                                <apex:param name="{!categoryParameterName}" value="{!category.name}" />
+                                                <apex:param name="{!languageParameterName}" value="{!currentLanguage}" />
+                                             </apex:outputLink>
+                                          </apex:outputPanel>
+                                          <apex:outputPanel styleClass="pkbColumnInner" layout="block">
+                                             <apex:variable var="innerCpt" value="{!0}" />
+                                             <apex:repeat var="description" value="{!categoryDescriptions}" >
+                                                <apex:outputPanel rendered="{!innerCpt = cpt}">
+                                                   {!description}
+                                                </apex:outputPanel>
+                                                <apex:variable var="innerCpt" value="{!innerCpt+1}" />
+                                             </apex:repeat>
+                                             <apex:variable var="cpt" value="{!cpt+1}" />
+                                             <ul>
+                                                 <!--loop for child categories of non-video categories -->
+                                                <knowledge:categoryList categoryGroup="{!categoryGroupName}" rootCategory="{!category.name}" rendered="{!category.name!='Support_Videos'}" categoryVar="subCategory" >
+                                                   <li>
+                                                      <apex:outputLink value="{!ProductUrlcomodo}" >
+                                                         {!subCategory.label}
+                                                         <apex:param name="{!categoryParameterName}" value="{!subCategory.name}" />
+                                                         <apex:param name="{!languageParameterName}" value="{!currentLanguage}" />
+                                                      </apex:outputLink>
+                                                   </li>
+                                                </knowledge:categoryList>
+                                                
+                                                <!--loop for child videos -->
+                                                <knowledge:articleList articleVar="article" categories="Support_Categories:Support_Videos" pageSize="10" sortBy="mostViewed" rendered="{!category.name='Support_Videos'}">
+                                                    <li class="video-list">
+                                                        <a href="{!URLFOR($Page.ES_KnowledgeDetailPage, null, [Id= article.id])}">{!article.title}</a>
+                                                    </li>
+                                                </knowledge:articleList>
+                                                <apex:outputLink value="/Com_KnowledgeProductPageSectigo?c=Support_Videos" target="" rendered="{!category.name='Support_Videos'}">more...</apex:outputLink>
+                                                
+                                                
+                                             </ul>
+                                          </apex:outputPanel>
+                                       </apex:outputPanel>
+                                    </div>
+                                   
+                                 </knowledge:categoryList>
+                           </div>
+                          
+                           <c:ES_KnowledgeArticleBoxes / >
+                        </apex:form>
+</apex:component>

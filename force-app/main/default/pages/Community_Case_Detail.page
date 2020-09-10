@@ -1,0 +1,542 @@
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0"  controller="communityCaseCtrl">
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+        <head>
+            <meta charset="utf-8" />
+            <meta http-equiv="x-ua-compatible" content="ie=edge" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />            
+ <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" crossorigin="anonymous" />
+            <link rel="shortcut icon" type="image/png" href="{!$Resource.Favicon}" />
+            <link rel="icon" type="image/png" href="{!$Resource.Favicon}" /> 
+            <title></title>
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <!-- Import the Design System style sheet -->
+            <apex:slds />
+             <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+            <script>                
+                function discardText(){
+                    console.log('Insidde console>>>');
+                    document.getElementById('{!$Component.form.com_comment}').value ='Test value';
+                }
+            </script>
+            <script>
+            
+            function ModalView(Id){
+             var msgbody = document.getElementById(Id).title;
+             
+             document.getElementById('{!$Component.theText}').innerHTML = msgbody ;
+             $('#backdrop').addClass('slds-backdrop--open');
+             $('#modal').addClass('slds-fade-in-open');
+            }
+                //Modal Open
+                function openModal(htBdy){
+                  console.log('$$$$$$'+htBdy);
+                  document.getElementById('{!$Component.theText}').innerHTML = htBdy ;
+                    $('#backdrop').addClass('slds-backdrop--open');
+                    $('#modal').addClass('slds-fade-in-open');
+                }
+                
+                //Modal Close
+                function closeModal(){
+                    $('#modal').removeClass('slds-fade-in-open');
+                    $('#backdrop').removeClass('slds-backdrop--open');
+                }
+                
+                  
+            </script>
+            <style>
+                .justify{text-align:justify;word-break:break-all;}
+                .description-scroll-x {
+                    height: 200px;overflow-x: scroll;overflow: auto;
+                   // margin-bottom: 1rem;
+                }
+                .attachment-scroll-x,.email-scroll-x{
+                   height: 200px;overflow-x: scroll;overflow: auto;
+                }
+                 .comment-scroll-x{
+                    height: 200px;overflow-x: scroll;overflow: auto; 
+                 }
+            </style>
+        </head>
+        <body>
+            <!-- REQUIRED SLDS WRAPPER -->
+            <div class="slds-scope">
+                
+                <div class="slds-modal" aria-hidden="false" role="dialog" id="modal">
+                    <div class="slds-modal__container">
+                        <div class="slds-modal__header">
+                            <button class="slds-button slds-button--icon-inverse slds-modal__close" onclick="closeModal()">
+                                <svg aria-hidden="true" class="slds-button__icon slds-button__icon--large">
+                                <use xlink:href="/assets/icons/action-sprite/svg/symbols.svg#close"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+                            <h2 class="slds-text-heading--medium">Full View</h2>
+                        </div>
+                        <div class="slds-modal__content slds-p-around--medium">
+                            <div>
+                                <p><apex:outputLabel id="theText" value=""/></p>
+                            </div>
+                        </div>
+                        <div class="slds-modal__footer">
+                        <button style="background-color: #00B373;border: none;border-radius: 999px;color:white;" class="slds-button slds-button--neutral" onclick="closeModal()">Cancel</button>
+                           <!-- 6 may <button class="slds-button slds-button--neutral" onclick="closeModal()">Cancel</button> -->
+                          <!--  <button class="slds-button slds-button--neutral slds-button--brand">Save</button> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-backdrop" id="backdrop"></div>
+            
+                
+                <!-- PAGE HEADER -->
+                <div class="slds-page-header">
+                    <!-- PAGE HEADER TOP ROW -->
+                    <div class="slds-grid">
+                        <!-- PAGE HEADER / ROW 1 / COLUMN 1 -->
+                        <div class="slds-col slds-has-flexi-truncate">
+                            <!-- HEADING AREA -->
+                            <!-- MEDIA OBJECT = FIGURE + BODY -->
+                            <div class="slds-media slds-no-space slds-grow">
+                                <div class="slds-media__figure">
+                                    <svg aria-hidden="true" class="slds-icon slds-icon-standard-user">
+                                        <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/standard-sprite/svg/symbols.svg#user')}"></use>
+                                    </svg>
+                                </div>
+                                <div class="slds-media__body">
+                                    <p class="slds-text-title_caps slds-line-height_reset">Case</p>
+                                    <h1 class="slds-page-header__title slds-m-right_small slds-align-middle slds-truncate" >{!c.casenumber}</h1>
+                                </div>
+                            </div>
+                            <!-- / MEDIA OBJECT -->
+                            <!-- HEADING AREA -->
+                        </div>
+                        <!-- / PAGE HEADER / ROW 1 / COLUMN 1 -->
+                        <!-- PAGE HEADER / ROW 1 / COLUMN 2 -->
+                        <div class="slds-col slds-no-flex slds-grid slds-align-top">
+                            <div class="slds-button-group" role="group">
+                                <!--<button class="slds-button slds-button_neutral">
+                                    Contact
+                                    </button>
+                                    <button class="slds-button slds-button_neutral">
+                                    More
+                                    </button> -->
+                            </div>
+                        </div>
+                        <!-- / PAGE HEADER / ROW 1 / COLUMN 2 -->
+                        <apex:form >
+                             <apex:commandButton style="background-color: #00B373;border: none;border-radius: 999px;"  value="Close Case" action="{!CloseCase}" rendered="{!c.status !='Closed'}"   styleClass="slds-button slds-button_brand"/>
+                             <apex:commandButton style="background-color: #00B373;border: none;border-radius: 999px;"  value="Re-Open Case" action="{!ReopenCase}" rendered="{!c.status =='Closed'}"   styleClass="slds-button slds-button_brand"/>
+                        </apex:form>
+                    </div>
+                    <!-- / PAGE HEADER TOP ROW -->
+                    <!-- PAGE HEADER DETAIL ROW -->
+                    <ul class="slds-grid slds-page-header__detail-row">
+                        <!-- PAGE HEADER / ROW 2 / COLUMN 1 -->
+                        <li class="slds-page-header__detail-block">
+                            <p class="slds-text-title slds-truncate slds-m-bottom_xx-small" title="Status">Status</p>
+                            <p class="slds-text-body_regular slds-truncate" title="status">{!c.status}</p>
+                        </li>
+                        <!-- PAGE HEADER / ROW 2 / COLUMN 2 -->
+                        <li class="slds-page-header__detail-block">
+                            <p class="slds-text-title slds-truncate slds-m-bottom_xx-small" title="subject">Subject
+                                <button class="slds-button slds-button_icon" aria-haspopup="true" title="More Actions">
+                                    <svg class="slds-button__icon slds-button__icon_small" aria-hidden="true">
+                                        <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+                                    </svg>
+                                    <span class="slds-assistive-text">More Actions</span>
+                                </button>
+                            </p>
+                            <p class="slds-text-body--regular">{!c.subject}</p>
+                        </li>
+                        <!-- PAGE HEADER / ROW 2 / COLUMN 1 -->
+                        <li class="slds-page-header__detail-block">
+                            <p class="slds-text-title slds-truncate slds-m-bottom_xx-small" title="Reason">Reason</p>
+                            <p class="slds-text-body_regular slds-truncate" title="status">{!c.Reason}</p>
+                        </li>
+                        <!-- PAGE HEADER / ROW 2 / COLUMN 2 -->
+                        <li class="slds-page-header__detail-block">
+                            <p class="slds-text-title slds-truncate slds-m-bottom_xx-small" title="subject">CreatedDate
+                                <button class="slds-button slds-button_icon" aria-haspopup="true" title="More Actions">
+                                    <svg class="slds-button__icon slds-button__icon_small" aria-hidden="true">
+                                        <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+                                    </svg>
+                                    <span class="slds-assistive-text">More Actions</span>
+                                </button>
+                            </p>
+                            <apex:outputText value="{0,date,dd' 'MMMMM' 'yyyy' 'HH':'MM}" styleClass="slds-text-body--regular" >
+                                  <apex:param value="{!c.CreatedDate}" /> 
+                            </apex:outputText>
+                            <!--<p class="slds-text-body--regular">{!c.CreatedDate}</p>-->
+                        </li>
+                         <li class="slds-page-header__detail-block ">
+                       <p class="slds-text-title slds-truncate slds-m-bottom_xx-small" title="Status">Account Name</p>
+                            <p class="slds-text-body_regular slds-truncate" title="status">{!c.Account.Name}</p>
+                        
+                        </li>
+                        <li class="slds-page-header__detail-block ">
+                       <p class="slds-text-title slds-truncate slds-m-bottom_xx-small" title="Status">Contact Name</p>
+                            <p class="slds-text-body_regular slds-truncate" title="status">{!c.Contact.Name}</p>
+                        </li>
+                        
+                    </ul>
+                    <!-- / PAGE HEADER DETAIL ROW -->
+                    
+                    
+                </div>
+                
+                <!-- / PAGE HEADER -->
+                
+                
+                <!-- PRIMARY CONTENT WRAPPER -->
+                <div class="myapp">
+                    <!-- RELATED LIST CARDS-->
+                    <div class="slds-grid slds-m-vertical_large">
+                        <!-- MAIN CARD -->
+                        <div class="slds-col slds-col_rule-right slds-size_6-of-12">
+                            <!-- PRIMARY CONTENT WRAPPER -->
+                            <div class="slds-card slds-m-top_xx-small">
+                                <fieldset class="slds-form--compound">
+                                    <div class="form-element__group slds-p-around_small description-scroll-x">
+                                        <div class="slds-form-element__row">
+                                            <div class="slds-form-element slds-size--2-of-2">
+                                                <span class="slds-form-element__label">Description</span>
+                                                <div class="slds-form-element__control justify">
+                                                    <span class="slds-form-element__static">{!c.description}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            
+                               <div class="slds-card slds-m-top_xx-small slds-p-around_small attachment-scroll-x">
+                                <h3 class="slds-section-title--divider">Attachements</h3>
+                                <apex:form id="attchformid">
+                                    <apex:variable var="count" value="{!0}"   />
+                                        <apex:pageblock id="CustomList">
+                                    <div class="slds-col slds-col_rule-right slds-size_12-of-12">  
+                                    <div class="slds-card slds-m-top_xx-small slds-p-around_small">
+                                        <div class="slds-form-element__row slds-m-bottom_large">
+                                            <div class="slds-form-element slds-size_1-of-1">
+                                               <label class="slds-form-element__label">Upload Attachment</label>
+                                          
+                                    
+                                     <!--<apex:inputFile onchange="checkFiles(this.value);" title="All file types supported" filename="{!Attachment.name}" filesize="1000" size="50" value="{!Attachment.body}" contentType="{!Attachment.ContentType}" styleClass="slds-button"/>-->
+                                                <apex:actionRegion >
+                                                    <apex:outputPanel id="fileid">
+                                                        <apex:inputFile filename="{!fileName}" contentType="{!contentType}" value="{!fileBody}" styleClass="" id="inputid" />
+                                                    </apex:outputPanel>
+                                                </apex:actionRegion>
+                                    <!--<apex:actionRegion>-->
+                                    <input type="button" style="background-color: #00B373;border: none;border-radius: 999px;"  class="slds-button slds-button_brand" onClick="SavendUpload();" value="Upload"/> <span style="color:red;">upload files up to 25 MB</span>
+                                   <apex:actionFunction action="{!saveAttachment}" name="SavendUpload" status="fetchStatus" />     
+                                  <!--</apex:actionRegion> -->
+                                   <apex:outputpanel >
+                                        <apex:actionstatus id="fetchStatus">
+                                            <apex:facet name="start">
+                                                <div class="waitingSearchDiv" id="el_loading" style="background-color: #DCD6D6;
+                                                       height: 100%;opacity:0.65;width:100%;"> 
+                                                    <div class="waitingHolder" style="top: 74.2px; width: 91px;">
+                                                        <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                                                        <span class="waitingDescription">Saving Attachment...</span>
+                                                    </div>
+                                                </div>
+                                            </apex:facet>
+                                        </apex:actionstatus>
+                                    </apex:outputpanel>
+                                  
+                                   
+                                    </div>
+                                    </div> 
+                                   
+                                       <!--<div class="slds-section-title--divider" > Attachments </div>-->
+                                            <table class="slds-table slds-table_bordered slds-table_fixed-layout">
+                                                 <thead>
+                                                 <tr class="slds-text-title_caps">
+                                                  <th>
+                                                      <div class="slds-truncate" title="Name">FileName</div>
+                                                   </th>
+                                                   <th>
+                                                      <div class="slds-truncate" title="Action">Action</div>
+                                                   </th>
+                                               </tr>
+                                             </thead>
+                                             <tbody>
+                                                 <apex:repeat value="{!myAttach}" var="o" rendered="{!NOT(ISNULL(myAttach))}" id="attid" >
+                                                    <tr>
+                                                         <td>
+                                                              <div class="slds-truncate">
+                                                              <apex:commandLink action="{!viewAttach}" value="{!o.Name}" target="_blank">
+                                                                     <apex:param id="viewId" name="ViewAttach" value="{!o.id}"/>
+                                                                 </apex:commandLink>
+                                                              </div> 
+                                                         </td>
+                                                          <td>
+                                                          <div class="slds-truncate">
+                                                              <apex:commandLink value="Delete" action="{!deleteAttachment}" status="fetchStatus" onclick="if(!confirm('Are you sure to Delete?')) return false;" >
+                                                                    <apex:param name="recordId"
+                                                                                value="{!count}"
+                                                                                assignTo="{!recordId}"/>
+                                                               </apex:commandLink>
+                                                             <apex:variable var="count" value="{!count+1}" /> 
+                                                          </div>
+                                                          </td>
+                                                         
+                                                      </tr>
+                                                 </apex:repeat>
+                                             </tbody>
+                                             
+                                            </table>
+                                            
+                                       </div>
+                                       </div>
+                                    </apex:pageblock>
+                                </apex:form>
+                                <br/> 
+                                </div>
+                                
+                            
+                            
+                        </div>
+                        
+                        <div class="slds-col slds-col_rule-right slds-size_6-of-12"> 
+                        
+                            
+                                
+                             <div class="slds-card slds-m-top_xx-small slds-p-around_small email-scroll-x">
+                               <div class="slds-section-title--divider" > Email Messages </div>
+                                 <table class="slds-table slds-table_bordered slds-table_fixed-layout">
+                                    <thead>
+                                      <tr class="slds-text-title_caps">
+                                           <th>
+                                              <div class="slds-truncate" title="EmailText">EmailText</div>
+                                           </th>
+                                           <th>
+                                              <div class="slds-truncate" title="CreatedDate">CreatedDate</div>
+                                           </th>
+                                       </tr>
+                                     </thead>
+                                   <tbody>
+                                <apex:repeat value="{!myEmailmess}" var="singleMess" id="theRepeat">                         
+                                  <tr>
+                                     <td>
+                                          <div class="slds-truncate" >
+                                          <a onclick="ModalView('{!singleMess.Id}');" id="{!singleMess.id}" title="{!singleMess.HTMLbody}">                                        
+                                            <apex:outputText value="{!HTMLENCODE(singleMess.Subject)}" title="{!singleMess.TEXTbody}" styleClass="slds-m-bottom_small" escape="true"> 
+                                            </apex:outputText>
+                                            </a>
+                                          </div> 
+                                     </td>
+                                      <td>
+                                      <div class="slds-truncate">
+                                           <apex:outputText value="{0,date,dd' 'MMMMM' 'yyyy' 'HH':'MM}" styleClass="slds-m-bottom_small" >
+                                              <apex:param value="{!singleMess.CreatedDate}" /> 
+                                           </apex:outputText>
+                                          <!--<apex:outputText value="{!singleMess.CreatedDate}" id="theValue1" styleClass="slds-m-bottom_small"/><br/>-->
+                                      </div>
+                                      </td>
+                                     
+                                  </tr>
+                                </apex:repeat> 
+                                </tbody>
+                              </table>    
+                               
+                            </div>
+                            
+                               <!-- <div class="slds-col slds-col_rule-right slds-size_12-of-12"> --> 
+                            <div class="slds-card slds-m-top_xx-small slds-p-around_small comment-scroll-x">
+                            <div class="slds-section-title--divider" > Public case Comments </div>
+                                  <table class="slds-table slds-table_bordered slds-table_fixed-layout">
+                                      <thead>
+                                      <tr class="slds-text-title_caps">
+                                           <th style="width:18%;">
+                                              <div class="slds-truncate" title="CreatedDate">CreatedDate</div>
+                                           </th>
+                                           <th style="width: 82%;">
+                                              <div class="slds-truncate" title="CommentBody">Comment Body</div>
+                                           </th>
+                                       </tr>
+                                     </thead>
+                                     <tbody>
+                                          <apex:repeat value="{!newLstCmt}" var="o1" rendered="{!NOT(ISNULL(newLstCmt))}" >
+                                                 <tr>
+                                                     <td >
+                                                          <div class="slds-truncate">
+                                                                <apex:outputText value="{0,date,dd' 'MMMMM' 'yyyy' 'HH':'MM}" styleClass="slds-m-bottom_small" >
+                                                                <apex:param value="{!o1.caseComm.CreatedDate}" /> 
+                                                                </apex:outputText>
+                                                             <!-- <apex:outputText value="{!o1.CreatedDate}" styleClass="slds-m-bottom_small"  />
+                                                              -->
+                                                              <br/> 
+                                                          </div> 
+                                                     </td>
+                                                      <td >
+                                                      <div class="slds-truncate" >
+                                                        <a onclick="ModalView('{!o1.caseComm.Id}');" id="{!o1.caseComm.id}" title="{!o1.caseComm.Comment_Body__c}">                             
+                                                          <apex:outputLabel value="{!o1.casecommTitle}" title="{!o1.caseFullcomment}" />
+                                                        </a>
+                                                      </div>
+                                                      <!--    
+                                                      <apex:outputText value="{!HTMLENCODE(o1.Comment_Body__c)}" styleClass="slds-m-bottom_small" escape="false"> 
+                                                          </apex:outputText>
+                                                      <div class="slds-truncate">   
+                                                           
+                                                           <apex:outputLabel value="{!o1.Comment_Body__c}" escape="false" title="{!o1.Comment_Body__c}" />
+                                                              
+                                                              <apex:inputtextarea label="RichText"  richtext="true" value="{!o1.Comment_Body__c}"  id="Body" cols="100" rows="15"/>
+                                                              
+                                                              
+                                                              <br/>  
+                                                          </div> -->
+                                                      </td>
+                                                  </tr>
+                                          </apex:repeat>
+                                     </tbody>
+                                  </table> 
+                                  
+                            </div>
+                            <!--</div>-->
+                            
+                        </div>
+                        <!-- / MAIN CARD -->
+                    </div>
+                    <!-- / RELATED LIST CARDS -->
+                    <div class="">
+                         
+                        <h3 class="slds-section-title--divider">Public Case Comments</h3> 
+                        <apex:form styleClass="slds-form--compound slds-m-vertical_small" id="formid">
+                        <apex:actionRegion > 
+                           <apex:actionFunction action="{!resetTextAr}" name="methodOneInJavascript" reRender="com_comment"/>
+                             <div class="slds-form-element__row">
+                                <div class="slds-form-element slds-size--1-of-1">
+                                    <span class="slds-form-element__label">Write Comment</span>
+                                    <div class="slds-form-element__control">
+                                        <apex:inputTextArea id="com_comment" value="{!comment}" style="height:150px; width:100%" />
+                                    </div>
+                                </div>
+                             </div>
+                          </apex:actionRegion>
+                          <apex:actionRegion >
+                            <div class="slds-form-element__row">
+                                <div class="slds-form-element slds-size--1-of-1">
+                                    <button style="background-color: #00B373;border: none;border-radius: 999px;"  class="slds-button slds-button_brand" onclick="methodOneInJavascript();return false;" >Discard</button>
+                                    
+                                    <apex:commandButton style="background-color: #00B373;border: none;border-radius: 999px;"  value="Add Comment" action="{!AddCaseComment}" styleClass="slds-button slds-button_brand" />
+                                   
+                                 </div>
+                             </div>
+                             </apex:actionRegion> 
+                             
+                             
+                                                         <!--------Big Attachments----------->
+                            <div class="slds-grid slds-m-vertical_large">
+                                <div class="slds-col slds-col_rule-right slds-size_6-of-12">
+                                    <!-- PRIMARY CONTENT WRAPPER -->
+                                    <div class="slds-card slds-m-top_xx-small slds-p-around_small attachment-scroll-x">
+                                        
+                                        <div class="slds-grid slds-gutters slds-section-title--divider">
+                                            <div class="slds-col">
+                                                <span>                                        
+                                                    <h3 class="slds-section-title--divider">Big Attachements</h3>
+                                                </span>
+                                            </div>
+                                            <div class="slds-col">
+                                                <span>
+                                                    <div>
+                                                        
+                                                        <div class="slds-truncate">
+                                                            
+                                                            <button style="background-color: #00B373;border: none;border-radius: 999px;" >
+                                                                <apex:outputLink style="font-size: 18px !important;color: white !important; text-decoration: none;padding: 13px;margin: 5px;font-weight: 3 !important;" value="/Community_Chatter?id={!currentRecordId}" > 
+                                                                    Upload Big Files
+                                                                </apex:outputLink> </button>
+                                                            <!-- <a href="{!URLFOR($Page.Community_Case_Detail, null, [Id= a.id])}">{!a.casenumber}</a> -->
+                                                        </div>
+                                                        
+                                                        
+                                                        <!--
+<p class="slds-text-title slds-truncate slds-m-bottom_xx-small slds-page-header__detail-block" title="Status">
+<apex:outputLink value="/apex/Community_Chatter?id={!currentRecordId}" > 
+<button style="background-color: #00B373;border: none;border-radius: 999px;" class="slds-button slds-button_brand" >Upload Big Files</button>
+<!-- <apex:outputField value="{!a.caseNumber}"/> -->
+                                                        <!--</apex:outputLink>
+</p> -->
+                                                        <span class="slds-text-body_regular slds-truncate" style="color:red; text-transform: lowercase;" title="status">upload files up to 2 GB
+                                                        </span>
+                                                    </div>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        
+                                        <apex:pageblock id="CustomList2">
+                                            <div class="slds-col slds-col_rule-right slds-size_12-of-12">
+                                                <div class="slds-card slds-m-top_xx-small slds-p-around_small">
+                                                    <!--<div class="slds-section-title--divider" > Attachments </div>-->
+                                                    <table class="slds-table slds-table_bordered slds-table_fixed-layout">
+                                                        <thead>
+                                                            <tr class="slds-text-title_caps">
+                                                                <th>
+                                                                    <div class="slds-truncate" title="Name">File Name</div>
+                                                                </th>
+                                                                <th>
+                                                                    <div class="slds-truncate" title="Action">Action</div>
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <apex:repeat value="{!contentDocumentList}" var="o" rendered="{!NOT(ISNULL(contentDocumentList))}" id="attid" >
+                                                                <tr>
+                                                                    <td>
+                                                                        <div class="slds-truncate">
+                                                                            <apex:commandLink action="/{!o.ContentDocumentId}" value="{!o.ContentDocument.title}" target="_blank">
+                                                                            </apex:commandLink>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="slds-truncate">
+                                                                            <apex:commandLink value="Delete" action="{!deleteChatterAttachment}" reRender="formid" status="fetchStatus" onclick="if(!confirm('Are you sure to Delete?')) return false;" >
+                                                                                <apex:param name="recordId"
+                                                                                            value="{!o.ContentDocumentId}"
+                                                                                            assignTo="{!chatterAttachmentId}"/>
+                                                                            </apex:commandLink>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </apex:repeat>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </apex:pageblock>
+                                        <br/> 
+                                    </div>
+                                </div>
+                            </div>
+                            <!------------End of big attachments---------------->
+ 
+                             
+                             
+                             
+                             
+                            
+                       
+                     </apex:form>  
+                        
+                    </div>
+                </div>
+                <!-- / PRIMARY CONTENT WRAPPER -->
+                <!-- FOOTER -->
+                <footer role="contentinfo" class="slds-p-around_large">
+                    <!-- LAYOUT GRID -->
+                    <div class="slds-grid slds-grid_align-spread">
+                        
+                    </div>
+                    <!-- / LAYOUT GRID -->
+                </footer>
+                <!-- / FOOTER --> 
+            </div>
+            <!-- / REQUIRED SLDS WRAPPER -->
+            <!-- JAVASCRIPT -->
+            <!-- / JAVASCRIPT -->
+        </body>
+    </html>
+</apex:page>

@@ -1,0 +1,125 @@
+<apex:page controller="ComodoKnowledgeController" action="{!detailpage}" showHeader="false" standardStylesheets="false">
+   <html>
+      <head>
+          
+          <apex:stylesheet value="{!$Page.Comodo_DesignCss}"/>
+          
+          
+         
+      </head>
+      <body class="bodymain">
+         <div id="main">
+            <div id="topbanner">
+               <div class="innerwrapper">
+                  <a href="">
+                  <img border="0" src="https://support.comodo.com/__swift/themes/client/images/kayako-logo-blue.png" alt="Kayako logo" id="logo" />
+                  </a>
+               </div>
+            </div>
+            <div id="toptoolbar">
+               <a class="nav-opener" href="#">
+               <span></span>
+               </a>
+               <div class="innerwrapper">
+                  <span id="toptoolbarrightarea">
+                     <select class="swiftselect" name="languageid" id="languageid" onchange="javascript: LanguageSwitch(false);">
+                        <option value="1" >English (U.S.)</option>
+                     </select>
+                  </span>
+                  <ul id="toptoolbarlinklist"></ul>
+               </div>
+            </div>
+            <div id="maincore">
+               <div class="innerwrapper">
+                  <!--Start Left side Box --->
+                  <div id="maincoreleft">
+                    
+                     <div class="leftnavboxbox">
+                        <div class="leftnavboxtitle">
+                           <span class="leftnavboxtitleleftgap">&nbsp;</span>
+                           <span class="leftnavboxtitlebulk">
+                           <span class="leftnavboxtitletext">Knowledge Articles</span>
+                           </span>
+                        </div>
+                     </div>
+                     <div class="leftnavboxcontent">
+                        <!-- mosteviewed part-->
+                        <c:knowledgeCategories />
+                     </div>
+                  </div>
+                  <!--End Left side Box --->
+                  <!--Start Main content Box --->
+                  <div id="maincorecontent">
+                     <!--Will main content will come  ---->
+                     <apex:outputPanel styleClass="pkbSearchBox" layout="block"  >
+                     <apex:outputPanel styleClass="pkbSearchBoxText" layout="block">
+                     <apex:form id="searchBox">
+                        <apex:inputText value="{!currentCategory}" styleClass="categoryHiddenInputField"/>
+                        <!--{!$Label.PKB_Search_Support}-->
+                        <apex:outputLabel >Category</apex:outputLabel>
+                        &nbsp;
+                        <select id="categorySelect" name="searchCategory"  size="1"  >
+                           <apex:outputPanel layout="none" rendered="{!securityOK}" >
+                              <apex:outputPanel layout="none" rendered="{!currentCategory=rootCategoryName}" >
+                                 <option value="{!rootCategoryName}" selected="selected">{!PKB_Search_NoFilter}</option>
+                              </apex:outputPanel>
+                              <apex:outputPanel layout="none" rendered="{!currentCategory!=rootCategoryName}" >
+                                 <option value="{!rootCategoryName}">{!PKB_Search_NoFilter}</option>
+                              </apex:outputPanel>
+                              <knowledge:categoryList categoryGroup="{!categoryGroupName}" rootCategory="{!rootCategoryName}" categoryVar="category" level="-1" >
+                                 <apex:outputPanel layout="none" rendered="{!currentCategory=category.name}" >
+                                    <option value="{!category.name}" selected="selected">
+                                       <apex:outputText escape="false" value="{!IF(category.depth=1, '', IF(category.depth=2, '&nbsp;&nbsp;', IF(category.depth=3, '&nbsp;&nbsp;&nbsp;&nbsp;', IF(category.depth=4, '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'))))}" />
+                                       {!category.label}
+                                    </option>
+                                 </apex:outputPanel>
+                                 <apex:outputPanel layout="none" rendered="{!currentCategory!=category.name}">
+                                    <option value="{!category.name}">
+                                       <apex:outputText escape="false" value="{!IF(category.depth=1, '', IF(category.depth=2, '&nbsp;&nbsp;', IF(category.depth=3, '&nbsp;&nbsp;&nbsp;&nbsp;', IF(category.depth=4, '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'))))}" />
+                                       {!category.label}
+                                    </option>
+                                 </apex:outputPanel>
+                              </knowledge:categoryList>
+                           </apex:outputPanel>
+                        </select>
+                        &nbsp;
+                        <apex:actionFunction name="searchJs" action="{!doSearch}" />
+                        <apex:inputText styleClass="keywordField" value="{!currentKeyword}" size="25" onkeypress="return submitEnter(event)" />
+                        <!--
+                           &nbsp;
+                           <apex:commandButton action="{!cleanKeyword}" value="Clean" onclick="clearKeyword()" id="cleanButton" />
+                           -->
+                        &nbsp;
+                        <apex:commandButton action="{!doSearch}" value="SEARCH" onclick="return updateCategoryField()" id="searchButton" styleclass="searchbutton" />
+                      </apex:form>
+                  </apex:outputPanel>
+                  </apex:outputPanel>
+                     
+                          <apex:outputPanel styleClass="pkbResultPanel" layout="block">
+   <apex:outputPanel styleClass="pkbResultTop" layout="block" />
+   <apex:outputPanel styleClass="pkbResultInner detail"  layout="block">
+      <apex:outputPanel styleClass="pkbResultSelectedCategories" layout="block">
+            <h1>{!knowledgedetails.Title}</h1>
+      </apex:outputPanel>
+          <apex:pageBlock >
+                    <apex:pageBlockSection title="Information" columns="1">
+                      
+                        <apex:outputField value="{!knowledgedetails.Title}"/>
+                        <apex:outputField value="{!knowledgedetails.UrlName}"/>
+                        <apex:outputField value="{!knowledgedetails.Summary}"/>
+                      
+                  </apex:pageBlockSection>
+                </apex:pageBlock>
+     
+   </apex:outputPanel>
+</apex:outputPanel>
+                
+                                              
+                  </div>
+                  <!--End Main content Box--->
+               </div>
+            </div>
+         </div>
+      </body>
+   </html>
+</apex:page>

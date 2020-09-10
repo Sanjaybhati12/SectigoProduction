@@ -1,0 +1,31 @@
+<apex:page showHeader="false" standardStylesheets="false" controller="Com_KnowledgeControllerFaq1" applyBodyTag="false" applyHtmlTag="false">
+    <html>
+
+    <head>
+        <meta name="description" content="Comodo CA is the world's largest certificate authority with over 100,000,000 TLS/SSL certificates issued.As the leading certificate authority, we're here to help you get the best ssl certificate, from purchasing, to setting up, account management, the works. Start your free trial, request a demo, or buy a certificate." /> 
+        <meta charset="UTF-8" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+        <apex:stylesheet value="{!URLFOR($Resource.Com_KnowledgeFiles, '/styles/Styles.css')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.Com_KnowledgeFiles,'/styles/CCAFoundation.css')}" />
+         <link rel="shortcut icon" type="image/png" href="{!$Resource.PS_FavIcon}" />
+        <link rel="icon" type="image/png" href="{!$Resource.PS_FavIcon}" /> 
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" crossorigin="anonymous" />
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.js"></script>
+        <apex:includeScript value="{!$Resource.pkb_js_base}" /> 
+                <title>PositiveSSL Knowledge Base</title>
+
+    </head>
+    <body>
+       <c:PS_KnowledgeHeaderFaq /> 
+   <div class="body">
+            <div class="widgets">
+                <div class="widget" id="comodoMainCntainer">
+                    <c:PS_KnowledgeSearchCompFaq /> 
+                </div>
+            </div>
+        </div>
+       <c:PS_KnowledgeFooter /> 
+    </body>
+    </html>
+</apex:page>

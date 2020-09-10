@@ -1,0 +1,82 @@
+<aura:component controller="com_OpenCasesCntrl">
+    <aura:attribute name="singleCase" type="case" />
+    <aura:attribute name="EditPermission" type="boolean"/>
+    <aura:attribute name="DeletePermission" type="boolean"/>
+    <aura:attribute name="CurrentContactId" type="Id" />
+    <aura:attribute name="Casestatus" type="String" />
+    <aura:attribute name="record" type="Object"  description="The record object to be displayed"/>
+    <aura:attribute name="simpleRecord" type="Object" description="A simplified view record object to be displayed"/>
+    <aura:attribute name="recordError" type="String"  description="An error message bound to force:recordData"/>
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    <aura:registerEvent name="com_OpenCasesEvt" type="c:com_OpenCasesEvt"/>
+    <!-- <aura:handler name="init" value="{!this}" action="{!c.doInit1}" /> --> 
+    <force:recordData aura:id="record"
+                      layoutType="FULL"
+                      recordId="{!v.singleCase.Id}"
+                      targetError="{!v.recordError}"
+                      targetRecord="{!v.record}"
+                      targetFields ="{!v.simpleRecord}"
+                      mode="VIEW"/>
+    <li class="slds-p-horizontal_small slds-size_1-of-1 slds-medium-size_1-of-1">
+        <article class="slds-tile slds-media slds-card__tile slds-hint-parent">
+            <div class="slds-media__figure">
+                <span class="slds-icon_container slds-icon-standard-contact" title="Description of icon when needed">
+                    <span class="slds-assistive-text">Case</span>
+                </span>
+            </div>
+            <div class="slds-media__body">
+                <div class="slds-grid slds-grid_align-spread slds-has-flexi-truncate">
+                    <div class="slds-text-heading_small">
+                        <a  data-record="{!v.simpleRecord.Id}" onclick="{!c.caseView}">{!v.simpleRecord.CaseNumber}</a>
+                    </div>
+                    <h3 class="slds-tile__title slds-truncate slds-text-heading_small" title="">
+                    </h3>
+                    <div class="slds-shrink-none">              
+                        <aura:if isTrue="{!or(v.EditPermission, v.DeletePermission)}">        
+                            <lightning:buttonMenu aura:id="menu" onselect="{!c.handleSelect}" alternativeText="Show menu">
+                                <aura:if isTrue="{!v.EditPermission}">
+                                    <lightning:menuItem value="Edit" label="Edit"/>
+                                </aura:if> 
+                                <aura:if isTrue="{!v.DeletePermission}">
+                                    <lightning:menuItem value="Delete" label="Delete"/>
+                                </aura:if>
+                            </lightning:buttonMenu>
+                        </aura:if>
+                    </div> 
+                </div>
+                <div class="slds-tile__detail">
+                    <dl class="slds-list_horizontal slds-wrap">
+                        <dt class="slds-item_label slds-text-color_weak " title="First Label">Case Number:</dt>
+                        <dd class="slds-item_detail slds-truncate" title="Description for first label">{!v.simpleRecord.CaseNumber}</dd>
+                        <dt class="slds-item_label slds-text-color_weak " title="Second Label">Status:</dt>
+                        <dd class="slds-item_detail slds-truncate" title="Description for second label">{!v.Casestatus}</dd>
+                        <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Second Label">Date Opened:</dt>
+                        <dd class="slds-item_detail slds-truncate" title="Description for second label">{!v.simpleRecord.CreatedDate}</dd>
+                    </dl>
+                </div>
+            </div>
+        </article>
+    </li>
+    <div class="slds-hide" style="height: 640px;" aura:id="confirm">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Modal Header</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <p>Are you sure to delete ?</p>
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick="{!c.hidemodal}">Cancel</button>
+                    <!-- <button class="slds-button slds-button_brand" onclick="{!c.handleDeleteRecord}" aura:id="disablebuttonid">Confirm</button> -->
+                    <lightning:button variant="brand" label="Confirm" onclick="{! c.handleDeleteRecord }" aura:id="disablebuttonid" />
+                    
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+</aura:component>

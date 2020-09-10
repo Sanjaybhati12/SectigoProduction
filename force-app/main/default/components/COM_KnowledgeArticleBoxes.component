@@ -1,0 +1,92 @@
+<apex:component controller="Com_KnowledgeController">
+<apex:stylesheet value="{!$Page.Comodo_DesignCss}" />
+<style>
+.Quesandans{
+background-color:#f3f3f2 !important;
+}
+.heaTitle{
+font-size: 1.5rem;
+color: #051c2c !important;
+font-family: Roboto,-apple-system,BlinkMacSystemFont,Segoe UI,Lato,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+color: #051c2c !important;
+font-weight: 400 !important;
+}
+.pkbResultArticleAbstract{
+font-size: 1.1 rem !important;
+font-family: Roboto,-apple-system,BlinkMacSystemFont,Segoe UI,Lato,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+color: #051c2c !important;
+font-weight: 300 !important;
+line-height: 1.6 !important;
+    margin-top: 8px !important;
+}
+
+/* On screens that are 992px wide or less */
+@media screen and (max-width: 992px) {
+        .heaTitle{
+        font-size: 1.0rem ;
+        color: #051c2c !important;
+        font-family: Roboto,-apple-system,BlinkMacSystemFont,Segoe UI,Lato,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+        color: #051c2c !important;
+        font-weight: 400 !important;
+        }
+        .pkbResultArticleAbstract{
+        font-size: 0.8rem !important;
+        font-family: Roboto,-apple-system,BlinkMacSystemFont,Segoe UI,Lato,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+        color: #051c2c !important;
+        font-weight: 300 !important;
+        line-height: 1.6 !important;
+        margin-top: 8px !important;
+        }
+
+}
+
+/* On screens that are 600px wide or less */
+@media screen and (max-width: 600px) {
+
+    .heaTitle{
+    font-size: 1.0rem !important;
+    color: #051c2c !important;
+    font-family: Roboto,-apple-system,BlinkMacSystemFont,Segoe UI,Lato,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+    color: #051c2c !important;
+    font-weight: 400 !important;
+    }
+    .pkbResultArticleAbstract{
+    font-size: 0.7rem !important;
+    font-family: Roboto,-apple-system,BlinkMacSystemFont,Segoe UI,Lato,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+    color: #051c2c !important;
+    font-weight: 300 !important;
+    line-height: 1.6 !important;
+    margin-top: 8px !important;
+    }
+
+
+}
+</style>
+<apex:outputPanel styleClass="pkbColumnInner" layout="block">
+                              <div class="kbarticlecontainer kbarticlefeatured" >
+                                 <div class="wrapper" >
+                                    <ul >
+                                       <apex:variable var="anyDocument" value="false" />
+                                       <apex:variable var="hasMore" value="" />
+                                       <knowledge:articleList articleVar="article"  hasMoreVar="hasMore"
+                                          pageSize="10"
+                                          pageNumber="{!currentPageNumber}"
+                                          keyword="{!currentKeyword}"
+                                          categories="{!categoryGroupName}:{!currentCategory}"
+                                          language="{!currentLanguage}"
+                                          sortBy="mostViewed"
+                                          >
+                                          <div class="Quesandans">
+                                             <!--<apex:outputlink value="{!VF_Apex}/Com_KnowledgeDetailPage?id={!article.id}" target="_parent">
+                                                {!article.title}
+                                             </apex:outputlink>-->
+                                             <a class="heaTitle" href="{!URLFOR($Page.Com_KnowledgeDetailPage, null, [Id= article.id])}">{!article.title}</a>
+                                             <div class="pkbResultArticleAbstract">{!article.abstract}</div>
+                                          </div>
+                                          <apex:variable var="anyDocument" value="true" />
+                                       </knowledge:articleList>
+                                    </ul>
+                                 </div>
+                              </div>
+                           </apex:outputpanel>
+</apex:component>

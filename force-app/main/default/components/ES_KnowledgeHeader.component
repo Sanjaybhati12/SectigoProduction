@@ -1,0 +1,291 @@
+<apex:component >
+   
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation.min.css"/>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/motion-ui/1.2.3/motion-ui.min.css"/>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation-prototype.min.css"/>
+      <link href='https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css' rel='stylesheet' type='text/css'/>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+    
+   <style type="text/css">
+   .font-light,.hover\:font-light:hover, .sm\:font-light,.sm\:hover\:font-light:hover,.md\:font-light,.md\:hover\:font-light:hover , .lg\:font-light,.lg\:hover\:font-light:hover,.xl\:font-light,.xl\:hover\:font-light:hover {font-weight:360;font-size: 3rem !important;}
+
+    .responsive_menu .accordion{display:none;}
+    .top_mob_nav{display:none;}
+    body ul li:before{content: none !important;}
+    .top_btn .fa{color: #000;}
+    .responsive_menu{display: none;}
+    .site-logo img {width: 231px;height: 45px;}
+    .site-header{max-width: 123rem;  margin: 0 auto;}
+    .site-header.top-bar, .top-bar ul {background-color: #051c2c;/*box-shadow: 0 2px 12px 0 #9ea4a8;*/padding-top: 8px;padding-bottom: 9px;}
+    .site-header .menu.medium-horizontal{box-shadow: none;}
+    .site-header.top-bar ul li a{color: #fff;font-size:18px;}
+    .site-header.top-bar ul ul.submenu li a {color: #000;}
+    .site-header.top-bar ul li a:hover{color:#3e8bc1;} //#eec22f
+    .utility-nav .icon svg {height: 23px;width: 28px;}
+    .site-header.top-bar ul li a img{margin-right:7px;}
+    .dropdown.menu.medium-horizontal>li.is-dropdown-submenu-parent>a::after{border: none !important; border-color: #000 transparent transparent;}
+    .top-bar .top-bar-left{padding-left: 40px;}
+    .dropdown.menu.medium-horizontal>li.opens-left>.is-dropdown-submenu, .top_mob_nav .dropdown.menu .submenu{box-shadow: 0 8px 8px 0 rgba(0,0,0,.12);background-color: #d9d8d6;padding-top: 0px;padding-bottom: 0px;}
+    .site-header .is-dropdown-submenu>li, .top_mob_nav .dropdown.menu .submenu>li {border-bottom: 1px solid #ecebea;background-color: #d9d8d6;}
+    .site-header .is-dropdown-submenu>li a:hover,.top_mob_nav .dropdown.menu .submenu>li a:hover {background-color: #65b2e8; /*#fdd756;*/ margin-bottom: 0px;color: #fff !important;}
+    .bottom_header .is-dropdown-submenu>li a:hover{background-color: #65b2e8;border-bottom: 1px solid #000;margin-bottom: -3px;}
+    .bg-grey-light {background-color: #ecebea;}
+    .bg-grey-light {background-color: #ecebea;}
+    .relative {position: relative;}
+    .bottom_header .dropdown.menu a{color: #000;font-weight: bold; padding: 12px 24px;}
+    .bottom_header .dropdown.menu>li.is-dropdown-submenu-parent>a::after{display: none;}
+    .dropdown.menu>li.opens-right>.is-dropdown-submenu{border:0;}
+    .bottom_header .menu, .menu.horizontal{margin-top: 3px;}
+    .bottom_header .top-bar-left, .top-bar-right{padding-top: 3px;padding-bottom: 2px;}
+    .bottom_header .is-dropdown-submenu>li {width: 310px;border-bottom: 1px solid #000;font-weight: 400;background: #d9d8d6;}
+    .bottom_header .is-dropdown-submenu>li:last-child, .bottom_header .is-dropdown-submenu>li:last-child> a:hover, .bottom_header .is-dropdown-submenu {border-bottom: 0px solid #000; border-radius: 0px 0px 5px 5px;}
+    .bottom_header li{border-bottom: 4px solid transparent;}
+    .bottom_header li:hover{border-bottom: 4px solid #65b2e8;}
+    .bottom_header.dropdown.menu>li.opens-right>.is-dropdown-submenu{margin-top: 5px;}
+    @media only screen and (max-width: 767px) {
+    .site-header.top-bar{display: none;}
+    .responsive_menu .accordion{display:block;}
+    .top_mob_nav{display:block;}
+    .bottom_header .top-bar-left, .top-bar-right{display: none;}
+    .menu-icon::after{background: #fdd756;box-shadow: 0 7px 0 #fdd756, 0 14px 0 #fdd756; -webkit-box-shadow: 0 7px 0 #fdd756, 0 14px 0 #fdd756;}
+    .menu-icon:hover::after {background: #fdd756;-webkit-box-shadow: 0 7px 0 #fdd756, 0 14px 0 #fdd756;
+    box-shadow: 0 7px 0 #fdd756, 0 14px 0 #fdd756;}
+    .title-bar{background: #0a0a0a;}
+    .title-bar img {width: 159px;height: 31px;margin-left: 9px;margin-top: 10px;}
+    .utility-nav li.search svg {width: 22px;height: 22px;}
+    .top_mob_nav .srch_icn {color: #000;font-size: 21px;}
+    .top_btn{display: inline-block; float: right; margin-right: 9px; margin-top: 10px;}
+    .responsive_menu .accordion-title, .responsive_menu .accordion-no-child{padding-left: 35px;}
+    .responsive_menu .accordion-title::before {content: "\f078"; font-family: FontAwesome;font-weight: 100;left: 0.75rem; font-size: 12px;top: 50%;}
+    .responsive_menu .is-active>.accordion-title::before {content: "\f077"; font-family: FontAwesome; font-weight: 100;font-size: 12px;top: 50%;}
+    .responsive_menu .accordion{background: #3e8bc1; position: absolute; right: 0; height: -webkit-fill-available; overflow-y: auto;}
+    .responsive_menu .accordion-title, .responsive_menu .accordion-no-child{color: #fff;font-size: 18px;border: 0;}
+    .responsive_menu .accordion-title:focus, .accordion-title:hover,.responsive_menu .accordion-no-child:focus, .accordion-no-child:hover {background: transparent;color: #fff;}
+    .responsive_menu .accordion-content{background: transparent;border:none; }
+    .responsive_menu .accordion-content li{list-style-type: none;}
+    .responsive_menu .accordion-content a{color: #fff;line-height: 36px;}
+    .responsive_menu .accordion-title-brdr{border-bottom: 0px solid transparent !important;}
+    .responsive_menu .accordion-none{color: #fff;padding-left: 20px;padding: 1.25rem 2rem;font-size: 18px;}
+    .responsive_menu .accordion-none a{color: #fff;}
+    .top_mob_nav{background: #02111b;}
+    .top_mob_nav li{display: inline-block;border-bottom: 1px solid #02111b;}
+    .top_mob_nav .srch_icn{color: #fff;padding-top: 16px;padding-left: 15px;}
+    .top_mob_nav ul{margin-bottom: 0px;}
+    .top_mob_nav li{border-bottom: 1px solid #02111b;}
+    .top_mob_nav ul{margin-left: 75px;}
+    .responsive_menu{position: absolute;top: 0px; z-index: 3000;left: 0;right: 0;}
+    .top_mob_nav .dropdown.menu>li.is-dropdown-submenu-parent>a{color: #fff;}
+    .top_mob_nav .dropdown.menu>li.is-dropdown-submenu-parent>a::after{border: none !important; border-color: #ffffff transparent transparent;}
+    #btn_cls{color: #fff; font-size:30px;padding-top: 10px;padding-left: 23px;}
+    }
+    @media (min-width: 768px) and (max-width: 991px){
+    .title-bar{display: none !important;}
+    .site-header .dropdown.menu a {padding: .7rem 0.5rem;font-size: 16px;}
+    .bottom_header .dropdown.menu a {font-size: 13px; padding: .7rem 0.7rem;}
+    
+    }
+    @media (min-width: 992px) and (max-width: 1199px){
+    
+    }
+    
+     .hero-section {
+         background: url("{!$Resource.ES_HeaderBackground}") 50% no-repeat;
+         background-size: cover;
+         height: 20vh;
+         text-align: center;
+         display: -webkit-flex;
+         display: -ms-flexbox;
+         display: flex;
+         -webkit-align-items: center;
+         -ms-flex-align: center;
+         align-items: center;
+         -webkit-justify-content: center;
+         -ms-flex-pack: center;
+         justify-content: center;
+    }
+     .hero-section-text {
+     color:white;
+     }
+   </style>
+    <div class="title-bar relative" data-responsive-toggle="responsive_menu1" data-hide-for="large">
+        <img  src="https://www.enterprisessl.com/uploads/logos/enterprisessl-logo-white.svg" alt="" />
+        <span class="top_btn"> <!-- <i class="fa fa-search srch_icn" aria-hidden="true"></i> -->
+        <button class="menu-icon" type="button" data-toggle="responsive_menu1"><span class="show-for-sr">Menu</span></button></span>
+    </div>
+    <div style="background-color:#051c2c">
+    <div class="site-header top-bar" id="main-menu1">
+    
+        <div class="top-bar-left">
+            <a class="site-logo" href="https://www.enterprisessl.com/">
+            <img src="https://www.enterprisessl.com/uploads/logos/enterprisessl-logo-white.svg" alt="Enterprise SSL" class="hide-for-small-only" />
+            </a>
+        </div>
+        <div class="top-bar-right">
+            <ul class="menu vertical medium-horizontal" data-responsive-menu="drilldown medium-dropdown">
+                <li><a href="https://www.enterprisessl.com/enterprisessl-partner-program"><img src="{!URLFOR($Resource.ES_KnowledgeFiles, 'images/partners.png')}" width="30" height="23"/>Partners</a></li>
+                <li><a href="https://www.enterprisessl.com/#chat"><img src="{!URLFOR($Resource.ES_KnowledgeFiles, 'images/Chat.png')}" width="30" height="23"/>Chat</a></li>
+                <li><a href="https://store.enterprisessl.com"><img src="{!URLFOR($Resource.ES_KnowledgeFiles, 'images/Login.png')}" width="30" height="23"/>Login</a></li>
+                <li class="has-submenu">
+                    <a ><img src="{!URLFOR($Resource.ES_KnowledgeFiles, 'images/Contact.png')}" width="30" height="23"/>US Dollar <i class="fa fa-chevron-down" style="font-size:12px;"></i></a>
+                        <ul class="submenu menu vertical">
+                            <li><a >US Dollar</a></li>
+                            <li><a >Euro</a></li>
+                            <li><a >British Pound</a></li>
+                        </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    </div>
+    <div style="background-color: #ecebea;">
+    <div class="bottom_header bg-grey-light row">
+        <div class="" id="example-menu" style="margin: 0 auto;">
+            <div class="top-bar-left">
+                <ul class="dropdown menu" data-dropdown-menu="data-dropdown-menu" role="menubar" data-e="b0tv74-e">
+                    <li role="menuitem" class="is-dropdown-submenu-parent opens-left" aria-haspopup="true" aria-label="SSL Certificates" data-is-click="false">
+                        <a href="https://www.enterprisessl.com/compare-ssl-certificates">SSL Certificates</a>
+                            <ul class="menu vertical submenu is-dropdown-submenu first-sub" data-submenu="" role="menu" style="">
+                                <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a href="https://www.enterprisessl.com/products/ssl-certificate" class="bg-accent-hover">EnterpriseSSL</a></li>
+                                <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a href="https://www.enterprisessl.com/products/ssl-pro-certificate" class="bg-accent-hover">EnterpriseSSL Pro</a></li>
+                                <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a href="https://www.enterprisessl.com/products/ssl-multi-domain-certificate" class="bg-accent-hover">EnterpriseSSL Multi-Domain</a></li>
+                                <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a href="https://www.enterprisessl.com/products/ssl-pro-wildcard-certificate" class="bg-accent-hover">EnterpriseSSL Pro Wildcard</a></li>
+                                <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a href="https://www.enterprisessl.com/products/ssl-pro-ev-extended-validation-certificate" class="bg-accent-hover">EnterpriseSSL Pro EV</a></li>
+                                <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a href="https://www.enterprisessl.com/products/ssl-pro-ev-multi-domain-certificate" class="bg-accent-hover">EnterpriseSSL Pro EV Multi-Domain</a></li>
+                                <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a href="https://www.enterprisessl.com/compare-ssl-certificates" class="bg-accent-hover">Compare EnterpriseSSL Certificates</a></li> 
+                            </ul>
+                    </li>
+                 
+                    
+                     <!--  new code start-->
+                     
+                <li class="accordion-item" data-accordion-item="data-accordion-item">
+                <a href="https://www.enterprisessl.com/ssl-certificate-management" class="">
+                <span class="nav-label">Certificate Management</span><span class="line bg-accent"></span></a>
+                </li>
+                <li class="accordion-item" data-accordion-item="data-accordion-item"><a href="https://www.enterprisessl.com/secure-email-certificates-s-mime" class=""><span class="nav-label">Secure Email (S/MIME)</span><span class="line bg-accent"></span></a></li>
+                <li class="accordion-item" data-accordion-item="data-accordion-item"><a href="https://www.enterprisessl.com/code-signing-certificates" class=""><span class="nav-label">Code Signing</span><span class="line bg-accent"></span></a></li>
+                <li class="accordion-item" data-accordion-item="data-accordion-item"><a href="https://www.enterprisessl.com/website-backup" class=""><span class="nav-label">Website Backup</span><span class="line bg-accent"></span></a></li>
+                <li class="accordion-item" data-accordion-item="data-accordion-item"><a href="https://www.enterprisessl.com/pci-scanning" class=""><span class="nav-label">PCI Scanning</span><span class="line bg-accent"></span></a></li>
+
+                     
+                     
+                 
+                     <li role="menuitem" class="is-dropdown-submenu-parent opens-left" aria-haspopup="true" aria-label="SSL Certificates" data-is-click="false">
+                        <a href="https://www.enterprisessl.com/ssl-certificate-support" >Support</a>
+                                <ul class="menu vertical submenu is-dropdown-submenu first-sub" data-submenu="" role="menu" style="">
+     
+                                   
+                                   
+                                   
+                                   
+                                   
+                                    <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a href="https://www.enterprisessl.com/enterprisessl-ticketing-system" target="_blank" class="bg-accent-hover">Ticketing System</a></li>
+                                    <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a href="https://support.sectigo.com/ES_KnowledgeMainPage?__hstc=223426884.d7107bfd2bf79ace0ccb0f618f36e6f6.1559714170321.1559714170321.1559714170321.1&__hssc=223426884.7.1559714170324&__hsfp=1800966072" target="_blank" class="bg-accent-hover">Knowledge Base</a></li>
+                                    <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a href="https://secure.comodo.com/utilities/decodeCSR.html" target="_blank" class="bg-accent-hover">CSR Decoder</a></li>
+<!--<li><a href="https://sslanalyzer.comodoca.com/?__hstc=223426884.6d78dbfc879d03b849e2b0836985b988.1550480630112.1550845896467.1551371500384.9&amp;__hssc=223426884.1.1551371500384&amp;__hsfp=1142048362" target="_blank" class="bg-accent-hover">Certificate Analyzer</a></li>-->
+                                    <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a href="https://crt.sh/" target="_blank" class="bg-accent-hover">Certificate Search</a></li>
+                                    <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a href="https://secure.trust-provider.com/products/ORDERSTATUSCHECKER" target="_blank" class="bg-accent-hover">Order Status</a>
+                                    </li>
+                                </ul>
+                    </li>
+                       
+                   <!-- new code end-->
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+    </div>
+    
+    <div class="hero-section">
+      <div class="hero-section-text">
+         <h1 class="font-light">EnterpriseSSL KnowledgeBase</h1>
+      </div>
+    </div>
+    
+    <div class="responsive_menu" id="responsive_menu1">
+        <div class="top_mob_nav">
+            <ul>
+                <li>
+                    <ul class="dropdown menu" data-dropdown-menu="data-dropdown-menu">
+                        <li>
+                            <a href="#"><img src="{!URLFOR($Resource.PS_KnowledgeFiles, 'images/menu_icon5.jpg')}" width="30" height="23"/>&nbsp;&nbsp;US Dollar <i class="fa fa-chevron-down" style="font-size:12px;"></i></a>
+                            <ul class="menu vertical">
+                                <li><a href="#">US Dollar</a></li>
+                                <li><a href="#">Euro</a></li>
+                                <li><a href="#">British Pound</a></li>
+                            </ul>
+                        </li>
+                      <!--  <li><i class="fa fa-search srch_icn" aria-hidden="true"></i></li> -->
+                        <li><div id="btn_cls"><i class="fa fa-times close_icon"></i></div></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="">
+                <ul class="accordion" data-accordion="data-accordion" data-allow-all-closed="true">
+                    <li class="accordion-item" data-accordion-item="data-accordion-item">
+                        <a href="https://www.enterprisessl.com/compare-ssl-certificates" class="accordion-title accordion-title-brdr">SSL Certificates</a>
+                            <div class="accordion-content" data-tab-content="data-tab-content" >
+                                <ul class="">
+                                
+                                  <li><a href="https://www.enterprisessl.com/products/ssl-certificate">EnterpriseSSL</a></li>
+                        <li><a href="https://www.enterprisessl.com/products/ssl-pro-certificate" >EnterpriseSSL Pro</a></li>
+                        <li><a href="https://www.enterprisessl.com/products/ssl-multi-domain-certificate" >EnterpriseSSL Multi-Domain</a></li>
+                        <li><a href="https://www.enterprisessl.com/products/ssl-pro-wildcard-certificate" >EnterpriseSSL Pro Wildcard</a></li>
+                        <li><a href="https://www.enterprisessl.com/products/ssl-pro-ev-extended-validation-certificate" >EnterpriseSSL Pro EV</a></li>
+                        <li><a href="https://www.enterprisessl.com/products/ssl-pro-ev-multi-domain-certificate" >EnterpriseSSL Pro EV Multi-Domain</a></li>
+                        <li><a href="https://www.enterprisessl.com/compare-ssl-certificates" >Compare EnterpriseSSL Certificates</a></li>
+                     
+                                </ul>
+                            </div>
+                    </li>  
+                    
+                                    
+                    <li class="accordion-none accordion-title-brdr"><a href="https://www.enterprisessl.com/ssl-certificate-management" >Certificate Management</a></li>
+                    <li class="accordion-none accordion-title-brdr"><a href="https://www.enterprisessl.com/secure-email-certificates-s-mime" >Secure Email (S/MIME)</a></li>
+                    <li class="accordion-none accordion-title-brdr"><a href="https://www.enterprisessl.com/code-signing-certificates" >Code Signing</a></li>
+                    <li class="accordion-none accordion-title-brdr"><a href="https://www.enterprisessl.com/website-backup" >Website Backup</a></li>
+                    <li class="accordion-none accordion-title-brdr"><a href="https://www.enterprisessl.com/pci-scanning" >PCI Scanning</a></li>
+                    
+
+                    
+                  
+                
+                    <!--  new code start-->
+                     <li class="accordion-item" data-accordion-item="data-accordion-item">
+                        <a href="https://www.enterprisessl.com/ssl-certificate-support" class="accordion-title accordion-title-brdr">Support</a>
+                            <div class="accordion-content" data-tab-content="data-tab-content">
+                                <ul class="">
+                                    <li><a href="https://www.enterprisessl.com/enterprisessl-ticketing-system" target="_blank" class="bg-accent-hover">Ticketing System</a></li>
+                                    <li><a href="https://support.sectigo.com/ES_KnowledgeMainPage?__hstc=223426884.d7107bfd2bf79ace0ccb0f618f36e6f6.1559714170321.1559714170321.1559714170321.1&__hssc=223426884.12.1559714170324&__hsfp=1800966072" target="_blank" class="bg-accent-hover">Knowledge Base</a></li>
+                                    <li><a href="https://secure.comodo.com/utilities/decodeCSR.html" target="_blank" class="bg-accent-hover">CSR Decoder</a></li>
+                                    <!--<li><a href="https://sslanalyzer.comodoca.com/?__hstc=223426884.6d78dbfc879d03b849e2b0836985b988.1550480630112.1550845896467.1551371500384.9&amp;__hssc=223426884.1.1551371500384&amp;__hsfp=1142048362" target="_blank" class="bg-accent-hover">Certificate Analyzer</a></li>-->
+                                    <li><a href="https://crt.sh/" target="_blank" class="bg-accent-hover">Certificate Search</a></li>
+                                    <li><a href="https://secure.trust-provider.com/products/ORDERSTATUSCHECKER" target="_blank" class="bg-accent-hover">Order Status</a></li>
+                                    
+                                </ul>
+                            </div>
+                    </li>
+                   <!-- <li class="accordion-none accordion-title-brdr"><a href="https://www.positivessl.com/support" class="">Support</a></li> -->
+                   <!-- new code end-->
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+     
+      <!--<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/motion-ui/1.2.3/motion-ui.min.js"></script>
+      
+      <script>
+            $(document).foundation();
+            $(document).ready(function(){
+                $("#btn_cls").click(function(){
+                    $("#responsive_menu1").hide(1000);
+                });
+            });
+        </script>
+</apex:component>

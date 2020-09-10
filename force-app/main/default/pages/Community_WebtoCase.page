@@ -1,0 +1,358 @@
+<apex:page standardController="Case" extensions="Community_Web2CaseCtrl" showHeader="false" standardStylesheets="false" applyBodyTag="false" applyHtmlTag="false">
+    <html>
+        <head>
+            <title>Comodo Knowledge Base</title>
+            <meta name="description" content="Comodo CA is the world's largest certificate authority with over 100,000,000 TLS/SSL certificates issued.As the leading certificate authority, we're here to help you get the best ssl certificate, from purchasing, to setting up, account management, the works. Start your free trial, request a demo, or buy a certificate." /> 
+            <meta charset="UTF-8" /> 
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />            
+            <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8"/>
+            <link rel="shortcut icon" type="image/png" href="{!$Resource.Favicon}" />
+            <link rel="icon" type="image/png" href="{!$Resource.Favicon}" /> 
+            <apex:stylesheet value="{!$Page.Comodo_DesignCss}" />
+            <apex:stylesheet value="{!URLFOR($Resource.Com_KnowledgeFiles, '/styles/Styles.css')}" />
+            <apex:stylesheet value="{!URLFOR($Resource.Com_KnowledgeFiles,'/styles/CCAFoundation.css')}" />
+            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" crossorigin="anonymous" />
+            <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>            
+            <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/additional-methods.js"></script>
+            <apex:includeScript value="{!$Resource.pkb_js_base}" /> 
+                <style>
+                .leftnavboxcontent a {
+                    color: red !important;
+                }
+            .error,.errorChar{
+                color: red;
+                display: block;
+            }
+            #fixedbutton {
+            position: fixed;
+            bottom: 20px;
+            right: 0px; 
+            border-radius:10px;
+            width:100px;
+            }
+            div#fixedbutton > a, div#namecheap > a, div#lookuuporder > a {
+            display: block;
+            width: auto;
+            background-color: red;
+            text-align: center;
+            vertical-align: middle;
+            font-size:20px;
+            text-decoration:none;
+            color:#fff;
+            border-radius: 0px 0px 0px 10px;
+            padding:5px;
+            font-variant-caps: all-small-caps;
+            }
+            div#fixedbutton > a:first-child{
+            background-color:green;
+            border-radius: 10px 0px 0px;
+            padding: 5px;
+            line-height: 18px; 
+            border-bottom: 1px dotted #629868;
+            }
+            div#namecheap > a:first-child,div#lookuuporder > a:first-child{background-color:green;}
+            div#namecheap > a:last-child,div#lookuuporder > a:last-child, div#namecheap > a:last-child:hover,div#lookuuporder > a:last-child:hover {background-color:#9c9f9c;color: #c3c8c3;}
+            div#fixedbutton > a:hover,div#namecheap > a:hover, div#lookuuporder > a:hover {
+            background-color: #2e6b8c;
+            border: 1px solid green;
+            }
+            </style>
+            
+            
+            <script>                
+                function uploadFile(){
+                if($('.hasValue').val()== 'Go') {
+                    upload();
+                }
+            }
+            
+            function uploadMoreFiles(){
+                if($('.hasValue').val()== 'Go') {
+                    uploadMore();
+                }
+            }
+            
+            function readSubject(subjectValue){
+                //if(subjectValue.length>3){
+                fetchArticles(subjectValue);
+                //}
+            }            
+            function checkFiles(fileName){
+                console.log(' Check file type ');
+                console.log(fileName);                
+                if(fileName.includes('.exe')){
+                    console.log('exe');
+                    fileSize();
+                }
+                
+                if(fileName.includes('.msi')){
+                    console.log('msi');
+                    fileSize();
+                }
+            }   
+            
+            function saveButton(){
+                console.log('>>>>mySelectedVal>>>>>>'+mySelectedVal);
+                callSaveButton(mySelectedVal); 
+            }
+            
+            function saveAndRedirect(){
+                
+                var reason =  $('[id$=ReasonforTicket1]').val();
+                var subject = $('[id$=com_subject]').val();
+                var description =  $('[id$=com_description]').val(); 
+                var inputFile = $('[id$=uploadingFile]').get(0).files;                
+                var checkValidation=true;
+                $(".error").remove();
+                
+                if(reason.length < 1){                      
+                    $('[id$=ReasonforTicket1]').before('<span class="error">Please select Reason for the Ticket</span>');    
+                    checkValidation=false;                        
+                }
+                if(subject.length < 1){                      
+                    $('[id$=com_subject]').before('<span class="error">Please enter Subject</span>');
+                    checkValidation=false;                            
+                }
+                if(description.length < 1){                      
+                    $('[id$=com_description]').before('<span class="error">Please enter description</span>'); 
+                    checkValidation=false;                           
+                }
+                if(inputFile.length > 0 ){
+                    $('[id$=uploadingFile]').before('<span class="error">Please upload the selected File and click Submit</span>');
+                    checkValidation=false;
+                }                
+                if(checkValidation){
+                    saveAndRedirect1();
+                }
+                
+                return false;
+            }
+            
+            $( document ).ready(function() {
+                
+                $("[id$=com_subject]").keyup(function(){
+                    var len= $(this).val().length;
+                    if(len>254){
+                        //$("#info").text("Done!");
+                        $(this).next('.errorChar').text("You cannot use more than 255 characters ");
+                    }else if(len<=254){
+                        $(this).next('.errorChar').text("");
+                    }
+                });
+                $("[id$=com_description]").keyup(function(){
+                    var len= $(this).val().length;
+                    if(len>31999){
+                        //$("#info").text("Done!");
+                        $(this).next('.errorChar').text("You cannot use more than 32000 characters ");
+                    }else if(len<=31999){
+                        $(this).next('.errorChar').text("");
+                    }
+                });
+                
+            });
+            
+            
+            </script>
+            
+        </head>
+        <body>        
+            <apex:outputPanel id="tst">
+                <script>
+                function saveRedirect(){
+                    var caseerror = '{!dmlerror}';
+                    console.log('$$caseerror $$$$'+caseerror);
+                    //var alreadyExist= {!ExistCase};
+                    var ExistingCaseId='{!caseId}';
+                    //var ExitingOrderIds='{!existingorderMap}';
+                    //var size=ExitingOrderIds.length;
+                    var CaseOrderNo='{!redirect}';
+                    console.log('###AlreadyExistCase'+'{!caseId}');
+                    console.log('in re direct method ');
+                    if(caseerror  === 'false'){
+                        //alert('No error');
+                        console.log('case created successfully');
+                        //alert('Case Created Successfully'); 
+                        console.log('$$$$success$$$$$'+'{!caseObject}');
+                        
+                        if(CaseOrderNo=='NoOrder'){
+                            console.log('NoOrders>>>'+'{!caseObject}');
+                            window.location.replace('/apex/Community_Case_Detail?id='+'{!caseObject}');
+                        }
+                        if(CaseOrderNo=='One'){
+                            console.log('OneOrder##'+'{!caseId}');
+                            window.location.replace('/apex/Community_Case_Detail?id='+'{!caseId}');
+                        }
+                        if(CaseOrderNo=='more'){
+                            console.log('abc########');
+                            window.location.replace('/apex/Community_CaseOrder');
+                        }
+                        
+                        
+                        
+                        
+                        // document.getElementById('naidu1').InnerHTML = 'Case Created Successfully'; 
+                        // $('#naidu1').text("case created successfully");
+                        
+                    }else{
+                        console.log('In Error dont refresh the page');
+                        return false;
+                        
+                    }
+                }
+                
+                </script>
+            </apex:outputPanel>
+            
+            <div class="body">
+                <div class="widgets">
+                    
+                    <div class="widget" id="comodoMainCntainer">
+                        <div id="maincore">
+                            <div class="innerwrapper row">  
+                                <div class="small-12 columns">
+                                    
+                                    
+                                    
+                                </div>
+                                
+                                <div id="web2CaseForm" class="small-12 medium-8 columns leftnavboxcontent">
+                                    <div id="leftloginsubscribebox">                                        
+                                        <apex:form id="case_data" prependId="false">
+                                            <apex:pageMessages id="messages" />
+                                            
+                                            <div class="row">
+                                                <div class="small-12 columns">
+                                                    <label>Reason for the ticket<span class="star">*</span>
+                                                        <apex:selectList id="ReasonforTicket1" value="{!ReasonforTicket1}" size="1">   
+                                                           <apex:selectOptions value="{!reasonValues}"/>
+                                                        </apex:selectList>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="small-12 columns">
+                                                    <label>Order Number
+                                                        <!--<apex:inputField value="{!caseObject.Order_Number__c}"/>-->
+                                                        <apex:inputText value="{!OrderNumber }"/>
+                                                        <span class="errorChar"></span>
+                                                    </label>
+                                                </div>
+                                            </div>                                            
+                                            <div class="row">
+                                                <div class="small-12 columns">
+                                                    <label>Subject<span class="star">*</span>
+                                                        <!--<apex:inputField value="{!caseObject.Subject}" required="true"  />-->
+                                                        <!--onkeyup="readSubject(this.value);"-->
+                                                        <apex:inputText id="com_subject" maxlength="255" value="{!Subjects}" onkeyup="readSubject(this.value);" />
+                                                        <span class="errorChar"></span>
+                                                    </label>
+                                                </div>
+                                            </div>                                            
+                                            <div class="row">
+                                                <div class="small-12 columns">
+                                                    <label>Description<span class="star">*</span>
+                                                        <!--<apex:inputField value="{!caseObject.Description}" required="true"/>-->
+                                                        <apex:inputTextArea id="com_description" value="{!Descriptions}" style="height:150px;" />
+                                                    </label>
+                                                </div>
+                                            </div>                                  
+                                            <!-- <div class="row"><div class="small-12 columns"><label>I am not Robot<span class="star">*</span> <apex:inputCheckbox value="{!isRobot}"/></label></div></div> -->                                            
+                                            <apex:actionFunction action="{!fileSize}" name="fileSize" reRender="case_data, upload_file"/>   
+                                            <apex:actionFunction action="{!saveData}" name="callSaveButton" oncomplete="uploadFile();" reRender="case_data" >
+                                                <apex:param assignto="{!reasonforTicket}" name="param1" value=""></apex:param>
+                                            </apex:actionFunction> 
+                                            <apex:actionFunction action="{!saveData}" name="saveonUpload" oncomplete="uploadMoreFiles();" reRender="case_data">
+                                                <apex:param assignto="{!reasonforTicket}" name="param1" value=""></apex:param>
+                                                <apex:param assignto="{!uploadBtn}" name="param2" value="True"></apex:param>
+                                            </apex:actionFunction> 
+                                            <apex:outputPanel id="hasError">
+                                                <apex:inputText styleClass="hasValue" value="{!hasError}" style="display:none;" />
+                                            </apex:outputPanel>
+                                            <apex:commandButton id="saveButton" style="background-color: #00B373;border: none;border-radius: 999px;font-weight: bold;"  onclick="saveAndRedirect(); return false;" reRender="none" value="Submit"  styleClass="button large" > 
+                                            </apex:commandButton>                                 
+                                            
+                                            <apex:actionFunction action="{!saveData}" name="saveAndRedirect1" reRender="tst,case_data" oncomplete="saveRedirect();" status="pageStatus">  <!-- tst1 -->                                   
+                                                <apex:param assignto="{!uploadBtn}" name="param3" value="false"></apex:param>
+                                            </apex:actionFunction>  
+                                            <apex:actionStatus id="pageStatus">                                            
+                                                <apex:facet name="start">
+                                                    <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.75; z-index: 1000; background-color: grey;">
+                                                        &nbsp;
+                                                    </div>
+                                                    <div style="position: fixed; left: 0; top: 0; bottom: 0; right: 0; z-index: 1001; margin: 22% 42%">
+                                                        <img src="{!$Resource.Loading}" width="130" height="170" / >
+                                                    </div>
+                                                </apex:facet> 
+                                            </apex:actionStatus>
+                                        </apex:form> 
+                                        <apex:form enctype="multipart/form-data" id="upload_file">
+                                            <div class="row">
+                                                <div class="small-12 columns">
+                                                    <label>
+                                                        <apex:actionFunction action="{!upload}" name="upload"/>
+                                                        <apex:actionFunction action="{!uploadMore}" name="uploadMore"/>
+                                                        <apex:inputFile onchange="checkFiles(this.value);" title="All file types supported" value="{!attachment.body}" filename="{!attachment.name}" id="uploadingFile" />
+                                                        <input type="button" onClick="saveonUpload();"  value="Upload" style="slds-button slds-button_brand" />   
+                                                        <!-- saveAndUpload() -->                                  
+                                                    </label>
+                                                </div>                                                
+                                                <div class="small-12 columns" style="color:red;padding-left: 14px;font-size: 12px; padding-top:10px;"> Max File Size 10 MB Each </div>                                                
+                                                <div class="small-12 columns" style="color:red;padding-left: 14px;font-size: 12px;"> Please upload one attachment at a time by clicking on "Choose File" then on "Upload" for each file.</div>
+                                            </div>
+                                            <apex:outputPanel id="attachment_list">
+                                                <!--<apex:repeat value="{!attachmentNames}" var="attr">{!attr}<br/></apex:repeat>-->          
+                                            </apex:outputPanel>
+                                        </apex:form>
+                                        <br/>
+                                        <apex:form id="saveID">
+                                            <apex:repeat value="{!attachmentList}" var="atLst" id="attRepId">
+                                                {!attachmentList[atLst]}&nbsp;&nbsp;&nbsp;                                                
+                                                <apex:commandLink value="X" action="{!removeAttachment}" > 
+                                                    <apex:param assignto="{!attachmentIdToRemove}" name="attIds" value="{!atLst}"></apex:param>
+                                                </apex:commandLink>                                                
+                                                <br/>                                                
+                                            </apex:repeat>
+                                        </apex:form>
+                                    </div>
+                                </div>                                
+                                <!-- Knowledge Side bar code starts -->                                
+                                <div id="maincorecontent" class="small-12 medium-4 columns">
+                                    <apex:form id="knowledge_articles_form">
+                                        <apex:actionFunction name="uploadNew" reRender="attachment_list"/>
+                                        <apex:actionFunction action="{!fetchKnowledgeArticles}" name="fetchArticles" reRender="knowledge_articles, messages,saveButton, upload_file">
+                                            <apex:param name="subjectValue" value="" />
+                                        </apex:actionFunction>                                        
+                                        <apex:outputPanel id="knowledge_articles">
+                                            <apex:outputPanel >   <!--rendered="{!knowledgeArticleList.size>0}" -->                                               
+                                                <!-- Subject Search Articles start-->
+                                                <div class="medium-12 columns custom-web2case custom-web2case-related" id="CustomWebToCaseKAShow">
+                                                    <apex:outputPanel styleClass="pkbColumnPanel" layout="block">
+                                                        <apex:outputPanel styleClass="pkbColumnTop" layout="block"> Related Articles</apex:outputPanel>
+                                                        <apex:outputPanel styleClass="pkbColumnInner" layout="block">
+                                                            <ul>    
+                                                                <knowledge:articleList articleVar="article"  rendered="{!if(knowledgeQuery != null, true, false)}" keyword="{!knowledgeQuery}" pageSize="10">
+                                                                    <li>
+                                                                        <a href="{!URLFOR('https://support.sectigo.com/articles/Knowledge/'+article.UrlName, null, null)}" target="_blank" >{!article.title}</a>
+                                                                    </li>
+                                                                    <div class="pkbColumnArticleAbstract">{!article.abstract}</div>
+                                                                </knowledge:articleList>
+                                                            </ul>
+                                                        </apex:outputPanel>
+                                                    </apex:outputPanel>
+                                                </div>
+                                                <!-- Subject Search Articles End -->
+                                                
+                                            </apex:outputPanel>
+                                        </apex:outputPanel>
+                                    </apex:form>
+                                </div>
+                                <!-- Knowledge side bar End -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>                       
+        </body>
+    </html>
+</apex:page>

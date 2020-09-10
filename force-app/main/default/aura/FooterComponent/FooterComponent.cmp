@@ -1,0 +1,18 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <!--<lightning:card  class="slds-text-heading_small slds-card_boundary" footer="attribute2" >-->
+    
+    <div class="clr" style ="margin-top: -24px;margin-left: -12px;width: 102%;">
+        Sectigo provides purpose-built, automated PKI solutions that secure websites, connected devices, applications, and digital identities. As the largest
+        commercial Certificate Authority trusted by enterprises globally for more than 20 years, and more than 100 million SSL certificates issued in over 200
+        countries, Sectigo has the proven performance and experience  to meet the growing needs of securing today’s digital landscape.<br>
+        </br><br></br>
+        
+        For more information, visit <a class = "clr4" href = "https://sectigo.com/"> www.sectigo.com</a><br>
+        </br><br></br><br></br>
+        
+    </div>
+    <div class = "slds-text-heading_small clr2 clr" style ="margin-top: -24px;margin-left: -12px;width: 102%;">© 2020 Sectigo. All rights reserved </div>
+    <div class="slds-text-align_right clr3 clr " style ="margin-top: -24px;margin-left: -12px;width: 102%;"><a class = "clr4" href = "https://sectigo.com/" style = "margin-inline-end: 30px;"> www.sectigo.com</a></div>
+    
+    
+</aura:component>

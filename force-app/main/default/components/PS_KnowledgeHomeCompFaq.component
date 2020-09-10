@@ -1,0 +1,55 @@
+<apex:component controller="Com_KnowledgeControllerFaq1">
+
+  <apex:stylesheet value="{!$Page.Comodo_DesignCss}"/>
+  
+   <script type="text/javascript">
+   function createCase(){
+       location.href = "https://www.positivessl.com/positivessl-ticketing-system";
+ } 
+ 
+ function redirecttoOrder(){
+       location.href = "https://secure.trust-provider.com/products/ORDERSTATUSCHECKER";
+ } 
+   
+</script>
+
+ 
+ <div id="maincore">
+
+                  <div class="innerwrapper row">
+                      <!--Start Mobile Search Box Top view --->
+                      <div class="show-for-small-only">
+                          <c:PS_KnowledgeSearchBoxCompFaq />
+                      </div>
+                      <!--End Mobile Search Box Top view --->
+                      
+                     <!--Start Left side Box --->
+                     <div id="maincoreleft" class="small-12 medium-4 large-3 columns">
+                        <!-- Not required, Remove <c:Com_KnowledgeLoginComp /> -->
+                        <div class="hide-for-small-only">
+                            <c:PS_KnowledgeMostViewedCompFaq />
+                        </div>
+                         
+                     </div>
+                     <!--End Left side Box --->
+                     <!--Start Main content Box --->
+                     <div id="maincorecontent" class="small-12 medium-8 large-9 columns">
+                        <div class="hide-for-small-only">
+                          <c:PS_KnowledgeSearchBoxCompFaq />
+                        </div>
+                        <!--<c:Com_KnowledgeVideosComp />-->
+                        <c:PS_KnowledgeCategoryBoxesFaq />
+                      <!-- commented on 5 feb 2019 to remove bottom section  <c:Com_KnowledgeArticleCategoryComp /> -->
+                     <div class="show-for-small-only">
+                                                                           <button id="create-button" type="submit" onclick="redirecttoOrder();"  class="searchbutton button large" >{!$Label.Check_my_Order_Status}</button>
+
+                                <button id="create-button" type="submit" onclick="createCase();"  class="searchbutton button large" >{!$Label.Submit_a_Ticket}</button>
+
+                        </div> 
+              
+         
+         </div>
+         <!--End Main content Box--->
+         </div>
+         </div>
+</apex:component>

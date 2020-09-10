@@ -1,0 +1,148 @@
+<apex:page Controller="PaginationExtension" sidebar="false" showHeader="false">
+ <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+    <head>
+      <meta charset="utf-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <title>View Cases</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <!-- Import the Design System style sheet -->
+      <apex:slds />
+    </head>  
+    </html>
+    <style>
+      .pageStyle{
+          width:100%;overflow-x:scroll;
+      }
+       
+    </style>
+    
+    <script>                
+        function callNewCase(){
+        window.open('https://comodocacommunity.force.com/s/New-Case','_top');
+
+        }
+    
+    </script>
+
+    
+    <div class="slds-align_absolute-center" style="height: 5rem;margin-right: 43%;">
+        <div class="slds-align_absolute-left" style="margin-right: 36%;">
+        <p style="color: rgb(255, 153, 31);"><b> We've updated our Status':</b></p>    
+        <p><b>In progress</b> is now called <b>Action with Sectigo</b> and</p>
+        <p><b>Awaiting Customer Reply</b> is now called  <b>Reply from Sectigo</b> </p> </div>
+        <button class="slds-button slds-button_brand" id="newCsecomm" style="background-color: #00B373;border: none;border-radius: 999px;" onClick="callNewCase();">New Case</button>
+    </div>
+    
+                  
+        <apex:pageBlock title="My Cases" id="ThePage">
+           
+    
+        <apex:form id="form">
+       <apex:actionFunction action="{!fetchRecs}" name="fetchRec"  reRender="form" status="fetchStatus"/>
+            <apex:selectList value="{!selectVal}" id="selectVal" onchange="fetchRec();"  size="1">
+                <apex:selectOptions value="{!myOpt}"/>      
+            </apex:selectList>
+            <apex:selectList value="{!selectPriority}" id="selectPriority" onchange="fetchRec();"  size="1">
+                <apex:selectOptions value="{!PriorityOpt}"/>      
+            </apex:selectList>
+             <div class="pageStyle">
+            <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                <thead>
+              <tr class="slds-text-title_caps">
+                   <th>
+                      <div class="slds-truncate" title="CaseNumber"  >CaseNumber</div>
+                   </th>
+                   <th>
+                      <div class="slds-truncate" title="status">status</div>
+                   </th>
+                   <th>
+                      <div class="slds-truncate" title="subject">subject</div>
+                   </th>
+                   <th>
+                      <div class="slds-truncate" title="priority">Priority</div>
+                   </th>
+                     <th>
+                      <div class="slds-truncate" title="subject">Account Name</div>
+                   </th>
+                     <th>
+                      <div class="slds-truncate" title="subject">Contact Name</div>
+                   </th>
+                   <th>
+                      <div class="slds-truncate" title="OrderNumber">OrderNumber</div>
+                   </th>
+                   <th>
+                      <div class="slds-truncate" title="CreatedDate">CreatedDate</div>
+                   </th>
+                  <th>
+                      <div class="slds-truncate" title="LastModifiedDate">Last Comment Date</div>
+                   </th>
+                  </tr> 
+              </thead>
+            <apex:repeat value="{!Cases }" var="a" id="List">
+                
+                 <tbody>
+                <tr>
+                    <td>
+                    <div class="slds-truncate">
+                       <apex:outputLink value="/Community_Case_Detail?id={!a.id}" > 
+
+                       <apex:outputField value="{!a.caseNumber}"/>
+                       </apex:outputLink> 
+
+                    </div>
+                    </td>
+                    <td><div class="slds-truncate">
+                       <apex:OutputField value="{!a.status}"/></div>
+                    </td>
+                    <td><div class="slds-truncate">
+                       <apex:OutputField value="{!a.subject}"/></div>
+                    </td>
+                    <td><div class="slds-truncate">
+                       <apex:OutputField value="{!a.priority}"/></div>
+                    </td>
+                      <td><div class="slds-truncate">
+                       <apex:OutputField value="{!a.Account.Name}"/></div>
+                    </td>
+                      <td><div class="slds-truncate">
+                       <apex:OutputField value="{!a.Contact.Name}"/></div>
+                    </td>
+                    <td><div class="slds-truncate">
+                       <apex:OutputField value="{!a.Order_Number__c}"/></div>
+                    </td>
+                    <td><div class="slds-truncate">
+                       <apex:OutputField value="{!a.CreatedDate}"/></div>
+                    </td>
+                    <td><div class="slds-truncate">
+                       <apex:OutputField value="{!a.Last_Comment_Date__c}"/></div>
+                    </td>
+                </tr>
+                
+               </tbody> 
+            </apex:repeat>
+            </table>
+            </div>
+                <apex:commandButton status="fetchStatus" reRender="ThePage" value="First" action="{!setcon.first}" disabled="{!!setcon.hasPrevious}" title="First page"/>
+                <apex:commandButton status="fetchStatus" reRender="ThePage" value="<<Previous" action="{!setcon.previous}" disabled="{!!setcon.hasPrevious}" title="Previous page"/>
+                <apex:commandButton status="fetchStatus" reRender="ThePage" value="Next>>" action="{!setcon.next}" disabled="{!!setcon.hasNext}" title="Next page"/>
+                <apex:commandButton status="fetchStatus" reRender="ThePage" value="Last" action="{!setcon.last}" disabled="{!!setcon.hasNext}" title="Last page"/>
+            <apex:outputText >{!(setCon.pageNumber * size)+1-size}-{!IF((setCon.pageNumber * size)>noOfRecords, noOfRecords,
+                     (setCon.pageNumber * size))} of {!noOfRecords}
+                </apex:outputText> 
+             <apex:outputpanel >
+        <apex:actionstatus id="fetchStatus">
+            <apex:facet name="start">
+                <div class="waitingSearchDiv" id="el_loading" style="background-color: #DCD6D6;position:fixed;
+                       height: 100%;opacity:0.65;width:100%;"> 
+                    <div class="waitingHolder" style="top:250px; width: 91px;">
+                        <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                        <span class="waitingDescription">Processing...</span>
+                    </div>
+                </div>
+            </apex:facet>
+        </apex:actionstatus>
+    </apex:outputpanel>
+        </apex:form> 
+        
+          </apex:pageBlock>
+          
+        </apex:page>

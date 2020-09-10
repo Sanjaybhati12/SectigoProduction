@@ -1,0 +1,34 @@
+<apex:page Controller="announcementCtrl" showHeader="false" sidebar="false">
+    <apex:slds />
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+        <head>
+            <meta charset="utf-8" />
+            <meta http-equiv="x-ua-compatible" content="ie=edge" />
+            <title> View Announcement</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <!-- Import the Design System style sheet -->
+            
+            <style>
+                a:hover {font-weight:bold;}
+            </style>
+            
+        </head>  
+    </html>
+    
+    <marquee behavior="scroll" direction="left"
+             onmouseover="this.stop();"
+             onmouseout="this.start();"
+             >   
+        <apex:repeat value="{!announceList}" var="wrap" >
+            <apex:outputPanel rendered="{!wrap.isNew}">
+                <img src="{!$Resource.New}"/>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!!wrap.isNew}">
+                <span style="color:seagreen;font-size: 13.5px;font-weight:bold;">:</span>
+            </apex:outputPanel>
+            <a href="{! '/'+wrap.announcement.Id}" target="_blank" style="color:seagreen;font-size: 13.5px;">{!wrap.announcement.Name}</a> &nbsp;&nbsp;&nbsp;&nbsp;
+        </apex:repeat>
+    </marquee> 
+    
+    
+</apex:page>

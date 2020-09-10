@@ -1,0 +1,84 @@
+<apex:page showHeader="false" standardStylesheets="false" applyBodyTag="false" applyHtmlTag="false">
+
+ <html>
+
+    <head>
+        <title>Comodo Knowledge Base</title>
+        <meta name="description" content="Comodo CA is the world's largest certificate authority with over 100,000,000 TLS/SSL certificates issued.As the leading certificate authority, we're here to help you get the best ssl certificate, from purchasing, to setting up, account management, the works. Start your free trial, request a demo, or buy a certificate." /> 
+        <meta charset="UTF-8" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+        <link rel="shortcut icon" type="image/png" href="{!$Resource.Favicon}" />
+        <link rel="icon" type="image/png" href="{!$Resource.Favicon}" /> 
+
+        <apex:stylesheet value="{!URLFOR($Resource.Com_KnowledgeFiles, '/styles/Styles.css')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.Com_KnowledgeFiles,'/styles/CCAFoundation.css')}" />
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" crossorigin="anonymous" />
+      <!--  <script src="https://www.comodoca.com/CMSPages/GetResource.ashx?scriptfile=/CMSScripts/Custom/jquery-3.2.1.min.js"></script> -->
+        <apex:includeScript value="{!$Resource.pkb_js_base}" /> 
+        <style>
+            .large-8.large-offset-2.error-page {
+                border: 1px solid #000;
+                padding: 30px;
+            }
+            .large-8.large-offset-2.error-page h1{color:red;}
+        </style>
+    </head>
+
+    <body>
+       
+
+         <div class="body">
+            <div class="widgets">
+                <div id="p_lt_ctl03_pageplaceholder_p_lt_ctl01_sys_pnlUpdate">
+                    <div class="widget interior-hero-widget">
+                        <div id="p_lt_ctl03_pageplaceholder_p_lt_ctl01_CCAInteriorHero_InteriorHero" data-parallax="scroll" data-image-src="Comodo-1200-Header-Images-1.jpg" style="background:url({!URLFOR($Resource.Com_KnowledgeFiles,'/images/Comodo-1200-Header-Images-1.jpg')});" class="interior-hero text-center cover">
+                            <div class="row">
+                                <div class="small-12 columns">
+                                   <h1 class="white"><span id="p_lt_ctl03_pageplaceholder_p_lt_ctl01_CCAInteriorHero_Title"></span>COMODO CA SUPPORT</h1>
+                                    <h4 id="p_lt_ctl03_pageplaceholder_p_lt_ctl01_CCAInteriorHero_Subtitle" class="white"> </h4>
+                               
+                                 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="widget" id="comodoMainCntainer">
+                    <div id="maincore">
+                        <div class="innerwrapper row">
+                            <div class="separator"></div>
+                             <div class="small-12 columns error-page">
+                                 <!-- <h1><i aria-hidden="true" class="fa fa-server"></i>  Is down for maintenance </h1>
+                                 <h4>Sorry for the inconvenience. We'll be back shortly. Please <a href="http://comodoca.force.com/ComodoKnowledgeBase/Com_KnowledgeWeb2Casepage">raise a case</a> if you need to get in touch.</h4>
+                                   -->
+                                    
+                                    <div  id="p_lt_ctl03_pageplaceholder_p_lt_ctl01_CCAFullWidthContent_Content" class="user-content">
+                            <br/>
+                            <h4>Service from our ticketing system will be restored shortly.<br/><br/>
+                            For certificate management assistance, please call:<br/><br/>
+                            United States <a href="tel+18882562608">+1 888-256-2608</a><br/><br/>
+                            International <a href="tel+17036379361">+1 703-637-9361</a></h4>
+                            </div>
+                            <br/>
+                            <br/>
+                                
+                             </div>
+                         </div>
+                     </div>
+                    <!--<c:Com_KnowledgeHomeComp />-->
+                </div>
+
+
+            </div>
+        </div>
+
+     
+
+    </body>
+
+
+    </html>
+</apex:page>

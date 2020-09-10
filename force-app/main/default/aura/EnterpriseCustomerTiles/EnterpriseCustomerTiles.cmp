@@ -1,0 +1,25 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global"
+                controller = "EnterpriseCustomerTiles_Controller">
+    <aura:handler name = "init" value = "{!this}" action = "{!c.doInit}" />
+    <aura:attribute name="isEnterprise" type="boolean"  default = "false"/>
+    <aura:attribute name="isLearning" type="boolean"  default = "false"/>
+    <div class="c-container">
+        <lightning:layout multipleRows="true">
+            <aura:if isTrue="{!v.isEnterprise}">
+                <lightning:layoutItem size="4" padding="around-small">
+                    <c:Community_Tiles Title = "Newsletter" Icon = "{!$Resource.TileNewsletter}"   Url = "/s/newsletter"  />
+                </lightning:layoutItem>
+                <!--  <lightning:layoutItem size="4" padding="around-small">
+                    <c:Community_Tiles Title = "Case Dashboards" Icon = "{!$Resource.TileDashboard}"   Url = "/s/cases-dashboards"  /> 
+                </lightning:layoutItem> -->
+            </aura:if>
+            <aura:if isTrue="{!v.isLearning}">
+                <lightning:layoutItem size="4" padding="around-small">
+                    <c:Community_Tiles Title = "Learning" Icon = "{!$Resource.TileLearning}"   Url = "https://sectigo.docebosaas.com/learn/signin"  />
+                </lightning:layoutItem>
+            </aura:if>
+        </lightning:layout>
+    </div>
+    
+    
+</aura:component>

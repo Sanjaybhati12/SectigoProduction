@@ -1,0 +1,1044 @@
+<apex:page controller="Sec_dealRegistrationCtrl" showHeader="false" sidebar="false" docType="html-5.0">
+    
+    <html>
+        <head>
+            <apex:stylesheet value="{!URLFOR($Resource.Sectigo_styles)}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.Sectigo_stylesEnterprise)}"/> 
+        </head>
+        
+        <style type="text/css">
+            
+            
+            form .hs-input { height: 42px; }
+            form .hs-date {
+            background-color: #f0efef;
+            font-weight: 300;
+            color: #051c2c;
+            border-radius: .25rem;
+            padding: .75rem 1rem;
+            line-height: 1.125;
+            font-size: 1rem;
+            display: block;
+            width: 100%; 
+            }
+            .radio-row .radio-heading,
+            .radio-row fieldset, 
+            .radio-row tr {
+            display: inline-block;
+            }
+            .radio-row tr { margin-left: 20px; }
+            
+            
+            
+            .contact-iframe-container {
+            background: transparent !important; 
+            }
+            
+            form .field-row, 
+            form .form-columns-1, 
+            form .form-columns-2 { margin-bottom: 10px !important; }
+            
+            .leftnavboxcontent a { color: red !important; }
+            
+            .error,
+            .errorChar{
+            color: red;
+            display: block;
+            }
+            
+            
+            .button23 { 
+            font-weight: 500 !important;
+            transition: all 0.25s !important;
+            margin-right: 10px !important;
+            letter-spacing: 0.17px !important;
+            font-size: 16px !important;
+            padding: 12px 20px !important;
+            border-radius: 25px !important;
+            }
+            
+            .button23,
+            .button23:link,
+            .button23:visited {
+            background: #F1B433 !important;
+            border: 2px solid #F1B433 !important;
+            color: #091927 !important;
+            }
+            
+            .button23:hover,
+            .button23:active {
+            filter: brightness(90%) !important;
+            }
+            
+            .hs-recaptcha {
+            width: 0 !important; 
+            height: 0 !important; 
+            margin: 0 !important; 
+            padding: 0 !important; 
+            
+            }
+            
+            form .hs-input { height: 42px; }
+            
+            form .hs_submit,
+            form .form-columns-1.margin-btm-0,
+            form .form-columns-2.margin-btm-0 { margin-bottom: 0 !important; }
+            
+            form .hs_submit { margin-top: 20px; }
+            
+            .hs-firstname label,
+            .hs-lastname label,
+            .hs-email label,
+            .hs-phone label,
+            .hs-company label,
+            .hs-region label,
+            .hs-count label, 
+            .hs-message label {
+            position: relative !important; 
+            display: block !important;
+            width: 100% !important; 
+            height: 0 !important; 
+            
+            }
+            
+            .hs_recaptcha { display: none; }
+            
+            .legal-consent-container .hs-form-booleancheckbox { 
+            margin-left: 0 !important;
+            }
+            .legal-consent-container span,
+            .hs-richtext p { margin-top: 10px !important; }
+            .hs-richtext a { color: #F1B433 !important; }
+            
+            @media screen and (max-device-width: 568px) /* Desktop */ {
+            .form-columns-2 > * { 
+            display: block: !important; 
+            width: 100% !important;
+            padding-right: 0 !important;  
+            }
+            .form-columns-2 > *:first-child { 
+            margin-bottom: 10px !important;  
+            }
+            }
+            .errorMessage{
+            color:red;
+            display:none;
+            }
+        </style> 
+        
+        
+        <body class="contact-iframe-container enterprise-page basic-section">
+            <apex:form id="dealreg_form" styleClass="hs-form">
+                <apex:pageMessages ></apex:pageMessages>
+                <apex:actionFunction name="checkCountry" reRender="statePanel"/>
+                
+                <div class="slds-form slds-form_compound">
+                    
+                    <div class="form-section-0">
+                        <h1 class="h1-heading">Deal Registration</h1>
+                        <p class="lead mt-4">The Sectigo Enterprise Deal Registration Program offers all eligible partners deal protection and margin enhancement on enterprise solution sales. Partners start with 90 days to bring the deal registration to an evaluation. After that, the partner will receive an additional 90 days to close the sale. Complete the form below to register an opportunity.</p> 
+                    </div>
+                    
+                    <div class="mt-8 mb-8 h-1" style="background:#00b373;"></div>
+                    
+                    <fieldset class="form-section-1">
+                        <legend class="slds-form-element__label">
+                            <p class="h2-heading">End User Information</p>
+                        </legend>
+                        <div class="form-columns-2 clearfix">
+                            <div class="slds-form-element__row">
+                                <div class="mt-2 w-full">
+                                    <label class="slds-form-element__label sr-only" for="input-03">Company Name
+                                        <abbr class="slds-required" title="required">* </abbr>
+                                    </label>
+                                    <apex:inputText id="companyname"  styleclass="slds-input bgcolr" html-placeholder="Company Name" value="{!companyName}"/>
+                                    <span id="companyError" class="errorMessage">Please Enter the company name</span>
+                                </div>
+                            </div>
+                            <div class="form-columns-2 clearfix">
+                                <div class="mt-2 pr-2 float-left w-1/2">
+                                    <label class="slds-form-element__label sr-only" for="input-01">Key Stakeholder (First Name)
+                                        <abbr class="slds-required" title="required">* </abbr></label>
+                                    <apex:inputText id="frstname" styleclass="slds-input bgcolr" html-placeholder="Key Stakeholder (First Name)" value="{!keyStakeholderFirstName}"/>
+                                    <span id="Stakeholderfrstname" class="errorMessage">Please Enter the Stakeholder First Name</span>
+                                </div>
+                                <div class="mt-2 float-left w-1/2">
+                                    <label class="slds-form-element__label sr-only" for="input-02">
+                                        Key Stakeholder (Last Name)<abbr class="slds-required" title="required">* </abbr>
+                                    </label>
+                                    <apex:inputText id="lastname" styleclass="slds-input bgcolr" html-placeholder="Key Stakeholder (Last Name)" value="{!keyStakeholderLastName}"/>
+                                    <span id="keyStakeholderlastname" class="errorMessage">Please Enter the Stakeholder Last Name</span>
+                                </div>
+                            </div>
+                            <div class="slds-form-element__row">
+                                <div class="mt-2 w-full">
+                                    <label class="slds-form-element__label sr-only" for="input-04">Title / Position
+                                        <abbr class="slds-required" title="required">* </abbr>
+                                    </label>
+                                    <apex:inputText id="titlepos" styleclass="slds-input bgcolr" html-placeholder="Title / Position" value="{!titlePosition }"/>
+                                    <span id="titlePosn" class="errorMessage">Please Enter the Title / Position</span>
+                                </div>
+                            </div>
+                            <div class="slds-form-element__row clearfix">
+                                <div class="mt-2 pr-2 float-left w-1/2">
+                                    <label class="slds-form-element__label sr-only" for="input-05">Phone Number
+                                        <abbr class="slds-required" title="required">* </abbr></label>
+                                    <apex:inputText id="Phonenumber" styleclass="slds-input bgcolr" html-placeholder="Phone Number" value="{!phoneNumber}"/>
+                                    <span id="Phonenum" class="errorMessage">Please Enter the Phone Number</span>
+                                </div>
+                                <div class="mt-2 float-left w-1/2">
+                                    <label class="slds-form-element__label sr-only" for="input-06">
+                                        Email
+                                        <abbr class="slds-required" title="required">* </abbr>
+                                    </label>
+                                    <apex:inputText id="EmailAddre" styleclass="slds-input bgcolr" html-placeholder="Email" value="{!emailAddress}" />
+                                    <span id="Emailid" class="errorMessage">Please Enter the Email ID</span>
+                                    <span id="userDuplicateEmail" class="errorMessage">Please Enter the Different Email ID</span>
+                                </div>
+                            </div>
+                            <div class="slds-form-element__row">
+                                <div class="mt-2 pr-2 w-full">
+                                    <label class="slds-form-element__label sr-only" for="input-07">Street Address
+                                        <abbr class="slds-required" title="required">* </abbr></label>
+                                    <apex:inputText id="StreetAddres" styleclass="slds-input bgcolr" html-placeholder="Street Address" value="{!streetAddress}"/>
+                                    <span id="StrtAdd" class="errorMessage">Please Enter the Street Address</span>
+                                </div>
+                            </div>
+                            <div class="slds-form-element__row">
+                                <div class="mt-2 pr-2 float-left w-1/2">
+                                    <label class="slds-form-element__label sr-only" for="input-09">City
+                                        <abbr class="slds-required" title="required">* </abbr></label>
+                                    <apex:inputText id="CityName" styleclass="slds-input bgcolr" html-placeholder="City" value="{!cityVal}"/>
+                                    <span id="Citnam" class="errorMessage">Please Enter the City Name</span>
+                                </div>
+                                <div class="mt-2 float-left w-1/2">
+                                    <label class="slds-form-element__label sr-only" for="input-10">Postal Code
+                                        <abbr class="slds-required" title="required">* </abbr>
+                                    </label>
+                                    <apex:inputText id="Postalcode"  styleclass="slds-input bgcolr" html-placeholder="Postal Code" value="{!postalCodeVal}"/>
+                                    <span id="Postalcod" class="errorMessage">Please Enter the Postal Code</span>
+                                </div>
+                            </div>
+                            <div class="form-columns-2 clearfix">
+                                <div class="mt-2 pr-2 float-left w-1/2">
+                                    <apex:selectList id="region" styleClass="hs-input"  value="{!countryVal}" size="1" onchange="checkCountry();return false;"> 
+                                        <apex:selectoption itemValue="" itemLabel="Select a Country..."></apex:selectoption>
+                                        <apex:selectoption itemValue="United States"  itemLabel="United States"></apex:selectoption>
+                                        <apex:selectoption itemValue="United Kingdom" itemLabel="United Kingdom"></apex:selectoption>
+                                        <apex:selectoption itemValue="Canada" itemLabel="Canada"></apex:selectoption>
+                                        <apex:selectoption itemValue="Germany" itemLabel="Germany"></apex:selectoption>
+                                        <apex:selectoption itemValue="Netherlands" itemLabel="Netherlands"></apex:selectoption>
+                                        <apex:selectoption itemValue="France" itemLabel="France"></apex:selectoption>
+                                        <apex:selectoption itemValue="Italy" itemLabel="Italy"></apex:selectoption>
+                                        <apex:selectoption itemValue="China" itemLabel="China"></apex:selectoption>
+                                        <apex:selectoption itemValue="Japan" itemLabel="Japan"></apex:selectoption>
+                                        <apex:selectoption itemValue="India" itemLabel="India"></apex:selectoption>
+                                        <apex:selectoption itemValue="South Korea" itemLabel="South Korea"></apex:selectoption>
+                                        <apex:selectoption itemValue="Mexico" itemLabel="Mexico"></apex:selectoption>
+                                        <apex:selectoption itemValue="Brazil" itemLabel="Brazil"></apex:selectoption>
+                                        <apex:selectoption itemValue="Russian Federation" itemLabel="Russian Federation"></apex:selectoption>
+                                        <apex:selectoption itemValue="Australia" itemLabel="Australia"></apex:selectoption>                           
+                                        
+                                        <apex:selectoption itemDisabled="true" itemValue="" itemLabel="_______________________________"></apex:selectoption>                             
+                                        
+                                        <apex:selectoption itemValue="Afghanistan" itemLabel="Afghanistan"></apex:selectoption>
+                                        <apex:selectoption itemValue="Aland Islands" itemLabel="Aland Islands"></apex:selectoption>
+                                        <apex:selectoption itemValue="Albania" itemLabel="Albania"></apex:selectoption>
+                                        <apex:selectoption itemValue="Algeria" itemLabel="Algeria"></apex:selectoption>
+                                        <apex:selectoption itemValue="Andorra" itemLabel="Andorra"></apex:selectoption>
+                                        <apex:selectoption itemValue="Angola" itemLabel="Angola"></apex:selectoption>
+                                        <apex:selectoption itemValue="Anguilla" itemLabel="Anguilla"></apex:selectoption>
+                                        <apex:selectoption itemValue="Antarctica" itemLabel="Antarctica"></apex:selectoption>
+                                        <apex:selectoption itemValue="Antigua and Barbuda" itemLabel="Antigua and Barbuda"></apex:selectoption>
+                                        <apex:selectoption itemValue="Argentina" itemLabel="Argentina"></apex:selectoption>
+                                        <apex:selectoption itemValue="Armenia" itemLabel="Armenia"></apex:selectoption>
+                                        <apex:selectoption itemValue="Aruba" itemLabel="Aruba"></apex:selectoption>                                
+                                        <apex:selectoption itemValue="Austria" itemLabel="Austria"></apex:selectoption>
+                                        <apex:selectoption itemValue="Azerbaijan" itemLabel="Azerbaijan"></apex:selectoption>
+                                        <apex:selectoption itemValue="Bahamas" itemLabel="Bahamas"></apex:selectoption>
+                                        <apex:selectoption itemValue="Bahrain" itemLabel="Bahrain"></apex:selectoption>
+                                        <apex:selectoption itemValue="Bangladesh" itemLabel="Bangladesh"></apex:selectoption>
+                                        <apex:selectoption itemValue="Barbados" itemLabel="Barbados"></apex:selectoption>
+                                        <apex:selectoption itemValue="Belarus" itemLabel="Belarus"></apex:selectoption>
+                                        <apex:selectoption itemValue="Belgium" itemLabel="Belgium"></apex:selectoption>
+                                        <apex:selectoption itemValue="Belize" itemLabel="Belize"></apex:selectoption>
+                                        <apex:selectoption itemValue="Benin" itemLabel="Benin"></apex:selectoption>
+                                        <apex:selectoption itemValue="Bermuda" itemLabel="Bermuda"></apex:selectoption>
+                                        <apex:selectoption itemValue="Bhutan" itemLabel="Bhutan"></apex:selectoption>
+                                        <apex:selectoption itemValue="Bolivia, Plurinational State of" itemLabel="Bolivia, Plurinational State of"></apex:selectoption>
+                                        <apex:selectoption itemValue="Bonaire, Sint Eustatius and Saba" itemLabel="Bonaire, Sint Eustatius and Saba"></apex:selectoption>
+                                        <apex:selectoption itemValue="Bosnia and Herzegovina" itemLabel="Bosnia and Herzegovina"></apex:selectoption>
+                                        <apex:selectoption itemValue="Botswana" itemLabel="Botswana"></apex:selectoption>
+                                        <apex:selectoption itemValue="Bouvet Island" itemLabel="Bouvet Island"></apex:selectoption>                                
+                                        <apex:selectoption itemValue="British Indian Ocean Territory" itemLabel="British Indian Ocean Territory"></apex:selectoption>
+                                        <apex:selectoption itemValue="Brunei Darussalam" itemLabel="Brunei Darussalam"></apex:selectoption>
+                                        <apex:selectoption itemValue="Bulgaria" itemLabel="Bulgaria"></apex:selectoption>
+                                        <apex:selectoption itemValue="Burkina Faso" itemLabel="Burkina Faso"></apex:selectoption>
+                                        <apex:selectoption itemValue="Burundi" itemLabel="Burundi"></apex:selectoption>
+                                        <apex:selectoption itemValue="Cambodia" itemLabel="Cambodia"></apex:selectoption>
+                                        <apex:selectoption itemValue="Cameroon" itemLabel="Cameroon"></apex:selectoption>                                
+                                        <apex:selectoption itemValue="Cape Verde" itemLabel="Cape Verde"></apex:selectoption>
+                                        <apex:selectoption itemValue="Cayman Islands" itemLabel="Cayman Islands"></apex:selectoption>
+                                        <apex:selectoption itemValue="Central African Republic" itemLabel="Central African Republic"></apex:selectoption>
+                                        <apex:selectoption itemValue="Chad" itemLabel="Chad"></apex:selectoption>
+                                        <apex:selectoption itemValue="Chile" itemLabel="Chile"></apex:selectoption>                                
+                                        <apex:selectoption itemValue="Chinese Taipei" itemLabel="Chinese Taipei"></apex:selectoption>
+                                        <apex:selectoption itemValue="Christmas Island" itemLabel="Christmas Island"></apex:selectoption>
+                                        <apex:selectoption itemValue="Cocos (Keeling) Islands" itemLabel="Cocos (Keeling) Islands"></apex:selectoption>
+                                        <apex:selectoption itemValue="Colombia" itemLabel="Colombia"></apex:selectoption>
+                                        <apex:selectoption itemValue="Comoros" itemLabel="Comoros"></apex:selectoption>
+                                        <apex:selectoption itemValue="Congo" itemLabel="Congo"></apex:selectoption>
+                                        <apex:selectoption itemValue="Congo, the Democratic Republic of the" itemLabel="Congo, the Democratic Republic of the"></apex:selectoption>
+                                        <apex:selectoption itemValue="Cook Islands" itemLabel="Cook Islands"></apex:selectoption>
+                                        <apex:selectoption itemValue="Costa Rica" itemLabel="Costa Rica"></apex:selectoption>
+                                        <apex:selectoption itemValue="Cote d'Ivoire" itemLabel="Cote d'Ivoire"></apex:selectoption>
+                                        <apex:selectoption itemValue="Croatia" itemLabel="Croatia"></apex:selectoption>
+                                        <apex:selectoption itemValue="Cuba" itemLabel="Cuba"></apex:selectoption>
+                                        <apex:selectoption itemValue="Curacao" itemLabel="Curacao"></apex:selectoption>
+                                        <apex:selectoption itemValue="Cyprus" itemLabel="Cyprus"></apex:selectoption>
+                                        <apex:selectoption itemValue="Czech Republic" itemLabel="Czech Republic"></apex:selectoption>
+                                        <apex:selectoption itemValue="Denmark" itemLabel="Denmark"></apex:selectoption>
+                                        <apex:selectoption itemValue="Djibouti" itemLabel="Djibouti"></apex:selectoption>
+                                        <apex:selectoption itemValue="Dominica" itemLabel="Dominica"></apex:selectoption>
+                                        <apex:selectoption itemValue="Dominican Republic" itemLabel="Dominican Republic"></apex:selectoption>
+                                        <apex:selectoption itemValue="Ecuador" itemLabel="Ecuador"></apex:selectoption>
+                                        <apex:selectoption itemValue="Egypt" itemLabel="Egypt"></apex:selectoption>
+                                        <apex:selectoption itemValue="El Salvador" itemLabel="El Salvador"></apex:selectoption>
+                                        <apex:selectoption itemValue="Equatorial Guinea" itemLabel="Equatorial Guinea"></apex:selectoption>
+                                        <apex:selectoption itemValue="Eritrea" itemLabel="Eritrea"></apex:selectoption>
+                                        <apex:selectoption itemValue="Estonia" itemLabel="Estonia"></apex:selectoption>
+                                        <apex:selectoption itemValue="Ethiopia" itemLabel="Ethiopia"></apex:selectoption>
+                                        <apex:selectoption itemValue="Falkland Islands (Malvinas)" itemLabel="Falkland Islands (Malvinas)"></apex:selectoption>
+                                        <apex:selectoption itemValue="Faroe Islands" itemLabel="Faroe Islands"></apex:selectoption>
+                                        <apex:selectoption itemValue="Fiji" itemLabel="Fiji"></apex:selectoption>
+                                        <apex:selectoption itemValue="Finland" itemLabel="Finland"></apex:selectoption>                                
+                                        <apex:selectoption itemValue="French Guiana" itemLabel="French Guiana"></apex:selectoption>
+                                        <apex:selectoption itemValue="French Polynesia" itemLabel="French Polynesia"></apex:selectoption>
+                                        <apex:selectoption itemValue="French Southern Territories" itemLabel="French Southern Territories"></apex:selectoption>
+                                        <apex:selectoption itemValue="Gabon" itemLabel="Gabon"></apex:selectoption>
+                                        <apex:selectoption itemValue="GM" itemLabel="Gambia"></apex:selectoption>
+                                        <apex:selectoption itemValue="Gambia" itemLabel="Georgia"></apex:selectoption>                                
+                                        <apex:selectoption itemValue="Ghana" itemLabel="Ghana"></apex:selectoption>
+                                        <apex:selectoption itemValue="Gibraltar" itemLabel="Gibraltar"></apex:selectoption>
+                                        <apex:selectoption itemValue="Greece" itemLabel="Greece"></apex:selectoption>
+                                        <apex:selectoption itemValue="Greenland" itemLabel="Greenland"></apex:selectoption>
+                                        <apex:selectoption itemValue="Grenada" itemLabel="Grenada"></apex:selectoption>
+                                        <apex:selectoption itemValue="Guadeloupe" itemLabel="Guadeloupe"></apex:selectoption>
+                                        <apex:selectoption itemValue="Guatemala" itemLabel="Guatemala"></apex:selectoption>
+                                        <apex:selectoption itemValue="Guernsey" itemLabel="Guernsey"></apex:selectoption>
+                                        <apex:selectoption itemValue="Guinea" itemLabel="Guinea"></apex:selectoption>
+                                        <apex:selectoption itemValue="Guinea-Bissau" itemLabel="Guinea-Bissau"></apex:selectoption>
+                                        <apex:selectoption itemValue="Guyana" itemLabel="Guyana"></apex:selectoption>
+                                        <apex:selectoption itemValue="Haiti" itemLabel="Haiti"></apex:selectoption>
+                                        <apex:selectoption itemValue="Heard Island and McDonald Islands" itemLabel="Heard Island and McDonald Islands"></apex:selectoption>
+                                        <apex:selectoption itemValue="Holy See (Vatican City State)" itemLabel="Holy See (Vatican City State)"></apex:selectoption>
+                                        <apex:selectoption itemValue="Honduras" itemLabel="Honduras"></apex:selectoption>
+                                        <apex:selectoption itemValue="Hungary" itemLabel="Hungary"></apex:selectoption>
+                                        <apex:selectoption itemValue="Iceland" itemLabel="Iceland"></apex:selectoption>                                
+                                        <apex:selectoption itemValue="Indonesia" itemLabel="Indonesia"></apex:selectoption>
+                                        <apex:selectoption itemValue="Iran, Islamic Republic of" itemLabel="Iran, Islamic Republic of"></apex:selectoption>
+                                        <apex:selectoption itemValue="Iraq" itemLabel="Iraq"></apex:selectoption>
+                                        <apex:selectoption itemValue="Ireland" itemLabel="Ireland"></apex:selectoption>
+                                        <apex:selectoption itemValue="Isle of Man" itemLabel="Isle of Man"></apex:selectoption>
+                                        <apex:selectoption itemValue="Israel" itemLabel="Israel"></apex:selectoption>                                
+                                        <apex:selectoption itemValue="Jamaica" itemLabel="Jamaica"></apex:selectoption>                                
+                                        <apex:selectoption itemValue="Jersey" itemLabel="Jersey"></apex:selectoption>
+                                        <apex:selectoption itemValue="Jordan" itemLabel="Jordan"></apex:selectoption>
+                                        <apex:selectoption itemValue="Kazakhstan" itemLabel="Kazakhstan"></apex:selectoption>
+                                        <apex:selectoption itemValue="Kenya" itemLabel="Kenya"></apex:selectoption>
+                                        <apex:selectoption itemValue="Kiribati" itemLabel="Kiribati"></apex:selectoption>
+                                        <apex:selectoption itemValue="Korea, Democratic People's Republic of" itemLabel="Korea, Democratic People's Republic of"></apex:selectoption>
+                                        <apex:selectoption itemValue="Korea, Republic of" itemLabel="Korea, Republic of"></apex:selectoption>
+                                        <apex:selectoption itemValue="Kuwait" itemLabel="Kuwait"></apex:selectoption>
+                                        <apex:selectoption itemValue="Kyrgyzstan" itemLabel="Kyrgyzstan"></apex:selectoption>
+                                        <apex:selectoption itemValue="Lao People's Democratic Republic" itemLabel="Lao People's Democratic Republic"></apex:selectoption>
+                                        <apex:selectoption itemValue="Latvia" itemLabel="Latvia"></apex:selectoption>
+                                        <apex:selectoption itemValue="Lebanon" itemLabel="Lebanon"></apex:selectoption>
+                                        <apex:selectoption itemValue="Lesotho" itemLabel="Lesotho"></apex:selectoption>
+                                        <apex:selectoption itemValue="Liberia" itemLabel="Liberia"></apex:selectoption>
+                                        <apex:selectoption itemValue="Libyan Arab Jamahiriya" itemLabel="Libyan Arab Jamahiriya"></apex:selectoption>
+                                        <apex:selectoption itemValue="Liechtenstein" itemLabel="Liechtenstein"></apex:selectoption>
+                                        <apex:selectoption itemValue="Lithuania" itemLabel="Lithuania"></apex:selectoption>
+                                        <apex:selectoption itemValue="Luxembourg" itemLabel="Luxembourg"></apex:selectoption>
+                                        <apex:selectoption itemValue="Macao" itemLabel="Macao"></apex:selectoption>
+                                        <apex:selectoption itemValue="Macedonia, the former Yugoslav Republic of" itemLabel="Macedonia, the former Yugoslav Republic of"></apex:selectoption>
+                                        <apex:selectoption itemValue="Madagascar" itemLabel="Madagascar"></apex:selectoption>
+                                        <apex:selectoption itemValue="Malawi" itemLabel="Malawi"></apex:selectoption>
+                                        <apex:selectoption itemValue="Malaysia" itemLabel="Malaysia"></apex:selectoption>
+                                        <apex:selectoption itemValue="Maldives" itemLabel="Maldives"></apex:selectoption>
+                                        <apex:selectoption itemValue="Mali" itemLabel="Mali"></apex:selectoption>
+                                        <apex:selectoption itemValue="Malta" itemLabel="Malta"></apex:selectoption>
+                                        <apex:selectoption itemValue="Martinique" itemLabel="Martinique"></apex:selectoption>
+                                        <apex:selectoption itemValue="Mauritania" itemLabel="Mauritania"></apex:selectoption>
+                                        <apex:selectoption itemValue="Mauritius" itemLabel="Mauritius"></apex:selectoption>
+                                        <apex:selectoption itemValue="Mayotte" itemLabel="Mayotte"></apex:selectoption>                                
+                                        <apex:selectoption itemValue="Moldova, Republic of" itemLabel="Moldova, Republic of"></apex:selectoption>
+                                        <apex:selectoption itemValue="Monaco" itemLabel="Monaco"></apex:selectoption>
+                                        <apex:selectoption itemValue="Mongolia" itemLabel="Mongolia"></apex:selectoption>
+                                        <apex:selectoption itemValue="Montenegro" itemLabel="Montenegro"></apex:selectoption>
+                                        <apex:selectoption itemValue="Montserrat" itemLabel="Montserrat"></apex:selectoption>
+                                        <apex:selectoption itemValue="Morocco" itemLabel="Morocco"></apex:selectoption>
+                                        <apex:selectoption itemValue="Mozambique" itemLabel="Mozambique"></apex:selectoption>
+                                        <apex:selectoption itemValue="Myanmar" itemLabel="Myanmar"></apex:selectoption>
+                                        <apex:selectoption itemValue="Namibia" itemLabel="Namibia"></apex:selectoption>
+                                        <apex:selectoption itemValue="Nauru" itemLabel="Nauru"></apex:selectoption>
+                                        <apex:selectoption itemValue="Nepal" itemLabel="Nepal"></apex:selectoption>                                
+                                        <apex:selectoption itemValue="New Caledonia" itemLabel="New Caledonia"></apex:selectoption>
+                                        <apex:selectoption itemValue="New Zealand" itemLabel="New Zealand"></apex:selectoption>
+                                        <apex:selectoption itemValue="Nicaragua" itemLabel="Nicaragua"></apex:selectoption>
+                                        <apex:selectoption itemValue="Niger" itemLabel="Niger"></apex:selectoption>
+                                        <apex:selectoption itemValue="Nigeria" itemLabel="Nigeria"></apex:selectoption>
+                                        <apex:selectoption itemValue="Niue" itemLabel="Niue"></apex:selectoption>
+                                        <apex:selectoption itemValue="Norfolk Island" itemLabel="Norfolk Island"></apex:selectoption>
+                                        <apex:selectoption itemValue="Norway" itemLabel="Norway"></apex:selectoption>
+                                        <apex:selectoption itemValue="Oman" itemLabel="Oman"></apex:selectoption>
+                                        <apex:selectoption itemValue="Pakistan" itemLabel="Pakistan"></apex:selectoption>
+                                        <apex:selectoption itemValue="Palestinian Territory" itemLabel="Palestinian Territory"></apex:selectoption>
+                                        <apex:selectoption itemValue="Panama" itemLabel="Panama"></apex:selectoption>
+                                        <apex:selectoption itemValue="Papua New Guinea" itemLabel="Papua New Guinea"></apex:selectoption>
+                                        <apex:selectoption itemValue="Paraguay" itemLabel="Paraguay"></apex:selectoption>
+                                        <apex:selectoption itemValue="Peru" itemLabel="Peru"></apex:selectoption>
+                                        <apex:selectoption itemValue="Philippines" itemLabel="Philippines"></apex:selectoption>
+                                        <apex:selectoption itemValue="Pitcairn" itemLabel="Pitcairn"></apex:selectoption>
+                                        <apex:selectoption itemValue="Poland" itemLabel="Poland"></apex:selectoption>
+                                        <apex:selectoption itemValue="Portugal" itemLabel="Portugal"></apex:selectoption>
+                                        <apex:selectoption itemValue="Qatar" itemLabel="Qatar"></apex:selectoption>
+                                        <apex:selectoption itemValue="Reunion" itemLabel="Reunion"></apex:selectoption>
+                                        <apex:selectoption itemValue="Romania" itemLabel="Romania"></apex:selectoption>                                
+                                        <apex:selectoption itemValue="Rwanda" itemLabel="Rwanda"></apex:selectoption>
+                                        <apex:selectoption itemValue="Saint Bartholemy" itemLabel="Saint Bartholemy"></apex:selectoption>
+                                        <apex:selectoption itemValue="Saint Helena, Ascension and Tristan da Cunha" itemLabel="Saint Helena, Ascension and Tristan da Cunha"></apex:selectoption>
+                                        <apex:selectoption itemValue="Saint Kitts and Nevis" itemLabel="Saint Kitts and Nevis"></apex:selectoption>
+                                        <apex:selectoption itemValue="Saint Lucia" itemLabel="Saint Lucia"></apex:selectoption>
+                                        <apex:selectoption itemValue="Saint Martin (French part)" itemLabel="Saint Martin (French part)"></apex:selectoption>
+                                        <apex:selectoption itemValue="Saint Pierre and Miquelon" itemLabel="Saint Pierre and Miquelon"></apex:selectoption>
+                                        <apex:selectoption itemValue="Saint Vincent and the Grenadines" itemLabel="Saint Vincent and the Grenadines"></apex:selectoption>
+                                        <apex:selectoption itemValue="Samoa" itemLabel="Samoa"></apex:selectoption>
+                                        <apex:selectoption itemValue="San Marino" itemLabel="San Marino"></apex:selectoption>
+                                        <apex:selectoption itemValue="Sao Tome and Principe" itemLabel="Sao Tome and Principe"></apex:selectoption>
+                                        <apex:selectoption itemValue="Saudi Arabia" itemLabel="Saudi Arabia"></apex:selectoption>
+                                        <apex:selectoption itemValue="Senegal" itemLabel="Senegal"></apex:selectoption>
+                                        <apex:selectoption itemValue="Serbia" itemLabel="Serbia"></apex:selectoption>
+                                        <apex:selectoption itemValue="Seychelles" itemLabel="Seychelles"></apex:selectoption>
+                                        <apex:selectoption itemValue="Sierra Leone" itemLabel="Sierra Leone"></apex:selectoption>
+                                        <apex:selectoption itemValue="Singapore" itemLabel="Singapore"></apex:selectoption>
+                                        <apex:selectoption itemValue="Sint Maarten (Dutch part)" itemLabel="Sint Maarten (Dutch part)"></apex:selectoption>
+                                        <apex:selectoption itemValue="Slovakia" itemLabel="Slovakia"></apex:selectoption>
+                                        <apex:selectoption itemValue="Slovenia" itemLabel="Slovenia"></apex:selectoption>
+                                        <apex:selectoption itemValue="Solomon Islands" itemLabel="Solomon Islands"></apex:selectoption>
+                                        <apex:selectoption itemValue="Somalia" itemLabel="Somalia"></apex:selectoption>
+                                        <apex:selectoption itemValue="South Africa" itemLabel="South Africa"></apex:selectoption>
+                                        <apex:selectoption itemValue="South Georgia and the South Sandwich Islands" itemLabel="South Georgia and the South Sandwich Islands"></apex:selectoption>
+                                        <apex:selectoption itemValue="South Sudan" itemLabel="South Sudan"></apex:selectoption>
+                                        <apex:selectoption itemValue="Spain" itemLabel="Spain"></apex:selectoption>
+                                        <apex:selectoption itemValue="Sri Lanka" itemLabel="Sri Lanka"></apex:selectoption>
+                                        <apex:selectoption itemValue="Sudan" itemLabel="Sudan"></apex:selectoption>
+                                        <apex:selectoption itemValue="Suriname" itemLabel="Suriname"></apex:selectoption>
+                                        <apex:selectoption itemValue="Svalbard and Jan Mayen" itemLabel="Svalbard and Jan Mayen"></apex:selectoption>
+                                        <apex:selectoption itemValue="Swaziland" itemLabel="Swaziland"></apex:selectoption>
+                                        <apex:selectoption itemValue="Sweden" itemLabel="Sweden"></apex:selectoption>
+                                        <apex:selectoption itemValue="Switzerland" itemLabel="Switzerland"></apex:selectoption>
+                                        <apex:selectoption itemValue="Syrian Arab Republic" itemLabel="Syrian Arab Republic"></apex:selectoption>
+                                        <apex:selectoption itemValue="Tajikistan" itemLabel="Tajikistan"></apex:selectoption>
+                                        <apex:selectoption itemValue="Tanzania, United Republic of" itemLabel="Tanzania, United Republic of"></apex:selectoption>
+                                        <apex:selectoption itemValue="Thailand" itemLabel="Thailand"></apex:selectoption>
+                                        <apex:selectoption itemValue="Timor-Leste" itemLabel="Timor-Leste"></apex:selectoption>
+                                        <apex:selectoption itemValue="Togo" itemLabel="Togo"></apex:selectoption>
+                                        <apex:selectoption itemValue="Tokelau" itemLabel="Tokelau"></apex:selectoption>
+                                        <apex:selectoption itemValue="Tonga" itemLabel="Tonga"></apex:selectoption>
+                                        <apex:selectoption itemValue="Trinidad and Tobago" itemLabel="Trinidad and Tobago"></apex:selectoption>
+                                        <apex:selectoption itemValue="Tunisia" itemLabel="Tunisia"></apex:selectoption>
+                                        <apex:selectoption itemValue="Turkey" itemLabel="Turkey"></apex:selectoption>
+                                        <apex:selectoption itemValue="Turkmenistan" itemLabel="Turkmenistan"></apex:selectoption>
+                                        <apex:selectoption itemValue="Turks and Caicos Islands" itemLabel="Turks and Caicos Islands"></apex:selectoption>
+                                        <apex:selectoption itemValue="Tuvalu" itemLabel="Tuvalu"></apex:selectoption>
+                                        <apex:selectoption itemValue="Uganda" itemLabel="Uganda"></apex:selectoption>
+                                        <apex:selectoption itemValue="Ukraine" itemLabel="Ukraine"></apex:selectoption>
+                                        <apex:selectoption itemValue="United Arab Emirates" itemLabel="United Arab Emirates"></apex:selectoption> 
+                                        <apex:selectoption itemValue="Uruguay" itemLabel="Uruguay"></apex:selectoption>
+                                        <apex:selectoption itemValue="Uzbekistan" itemLabel="Uzbekistan"></apex:selectoption>
+                                        <apex:selectoption itemValue="Vanuatu" itemLabel="Vanuatu"></apex:selectoption>
+                                        <apex:selectoption itemValue="Venezuela, Bolivarian Republic of" itemLabel="Venezuela, Bolivarian Republic of"></apex:selectoption>
+                                        <apex:selectoption itemValue="Viet Nam" itemLabel="Viet Nam"></apex:selectoption>
+                                        <apex:selectoption itemValue="Virgin Islands, British" itemLabel="Virgin Islands, British"></apex:selectoption>
+                                        <apex:selectoption itemValue="Wallis and Futuna" itemLabel="Wallis and Futuna"></apex:selectoption>
+                                        <apex:selectoption itemValue="Western Sahara" itemLabel="Western Sahara"></apex:selectoption>
+                                        <apex:selectoption itemValue="Yemen" itemLabel="Yemen"></apex:selectoption>
+                                        <apex:selectoption itemValue="Zambia" itemLabel="Zambia"></apex:selectoption>
+                                        <apex:selectoption itemValue="Zimbabwe" itemLabel="Zimbabwe"></apex:selectoption>
+                                    </apex:selectList>
+                                    <span id="Slctcontry" class="errorMessage">Please Select the Country Name</span>
+                                </div>
+                                <div class="mt-2 float-left w-1/2">
+                                    <apex:outputPanel id="statePanel">
+                                        <apex:outputPanel rendered="{!countryVal == 'United States'}">
+                                            <div class="">
+                                                <div>
+                                                    <apex:selectList id="regionstate" styleClass="hs-input"  value="{!stateVal}" size="1"> 
+                                                        <apex:selectoption itemLabel="Select a State" itemValue=""></apex:selectoption>
+                                                        <apex:selectoption itemLabel="Alaska" itemValue="Alaska"></apex:selectoption>
+                                                        <apex:selectoption itemLabel="Alabama" itemValue="Alabama"></apex:selectoption>
+                                                        <apex:selectoption itemLabel="Arkansas" itemValue="Arkansas"></apex:selectoption>
+                                                        <apex:selectoption itemLabel="Arizona" itemValue="Arizona"></apex:selectoption>
+                                                        <apex:selectoption itemValue="California" itemLabel="California"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Colorado" itemLabel="Colorado"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Connecticut" itemLabel="Connecticut"></apex:selectoption>
+                                                        <apex:selectoption itemValue="District Columbia" itemLabel="District Columbia"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Delaware" itemLabel="Delaware"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Florida" itemLabel="Florida"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Georgia" itemLabel="Georgia"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Hawaii" itemLabel="Hawaii"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Iowa" itemLabel="Iowa"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Idaho" itemLabel="Idaho"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Illinois" itemLabel="Illinois"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Indiana" itemLabel="Indiana"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Kansas" itemLabel="Kansas"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Kentucky[E]" itemLabel="Kentucky"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Louisiana" itemLabel="Louisiana"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Massachusetts[E]" itemLabel="Massachusetts"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Maryland" itemLabel="Maryland"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Maine" itemLabel="Maine"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Michigan" itemLabel="Michigan"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Minnesota" itemLabel="Minnesota"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Missouri" itemLabel="Missouri"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Mississippi" itemLabel="Mississippi"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Montana" itemLabel="Montana"></apex:selectoption>
+                                                        <apex:selectoption itemValue="North Carolina" itemLabel="North Carolina"></apex:selectoption>
+                                                        <apex:selectoption itemValue="North Dakota" itemLabel="North Dakota"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Nebraska" itemLabel="Nebraska"></apex:selectoption>
+                                                        <apex:selectoption itemValue="New Hampshire" itemLabel="New Hampshire"></apex:selectoption>
+                                                        <apex:selectoption itemValue="New Jersey" itemLabel="New Jersey"></apex:selectoption>
+                                                        <apex:selectoption itemValue="New Mexico" itemLabel="New Mexico"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Nevada" itemLabel="Nevada"></apex:selectoption>
+                                                        <apex:selectoption itemValue="New York" itemLabel="New York"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Ohio" itemLabel="Ohio"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Oklahoma" itemLabel="Oklahoma"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Oregon" itemLabel="Oregon"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Pennsylvania[E]" itemLabel="Pennsylvania"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Puerto Rico" itemLabel="Puerto Rico"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Rhode Island[F]" itemLabel="Rhode Island"></apex:selectoption>
+                                                        <apex:selectoption itemValue="South Carolina" itemLabel="South Carolina"></apex:selectoption>
+                                                        <apex:selectoption itemValue="South Dakota" itemLabel="South Dakota"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Tennessee" itemLabel="Tennessee"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Texas" itemLabel="Texas"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Utah" itemLabel="Utah"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Virginia[E]" itemLabel="Virginia"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Vermont" itemLabel="Vermont"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Washington" itemLabel="Washington"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Wisconsin" itemLabel="Wisconsin"></apex:selectoption>
+                                                        <apex:selectoption itemValue="West Virginia" itemLabel="West Virginia"></apex:selectoption>
+                                                        <apex:selectoption itemValue="Wyoming" itemLabel="Wyoming"></apex:selectoption>                                
+                                                    </apex:selectList>
+                                                    <span id="Selectstate" class="errorMessage">Please Select the State Name</span>
+                                                </div>
+                                            </div>
+                                        </apex:outputPanel>
+                                    </apex:outputPanel>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    
+                    <div class="mt-8 mb-8 h-1" style="background:#00b373;"></div>
+                    
+                    <fieldset class="form-section-2">
+                        <legend class="slds-form-element__label">
+                            <p class="h2-heading">Opportunity Details</p>
+                        </legend>
+                        <div class="form-columns-2 clearfix">
+                            <div class="slds-form-element__row">
+                                <div class="mt-2 pr-2 float-left w-1/2" style="margin-bottom:7px;">
+                                    <label class="slds-form-element__label sr-only" for="input-13">Opportunity Name (Partner CRM)
+                                        <abbr class="slds-required" title="required">* </abbr>
+                                    </label>
+                                    <apex:inputText id="OppNamePc" styleclass="slds-input bgcolr" html-placeholder="Opportunity Name (Partner CRM) *" value="{!oppNamePartnerCRM}"/>
+                                    <span id="OppName" class="errorMessage">Please Enter the Opportunity Name</span>
+                                </div>
+                                <div class="mt-2 float-left w-1/2">
+                                    <label class="slds-form-element__label sr-only" for="input-10">Product Interest
+                                        <abbr class="slds-required" title="required">* </abbr>
+                                    </label>
+                                    <apex:selectList id="ProductInterestVal" styleclass="hs-input" value="{!productInterest}" multiselect="false" size="1">
+                                        <apex:selectOptions value="{!ProductInterstOptions}"/>
+                                    </apex:selectList>
+                                    <span id="productInterest" class="errorMessage">Please Select Product Interest</span>
+                                </div>
+                            </div>
+                            <div class="slds-form-element__row">
+                                <div class="mt-2 w-full">
+                                    <label class="slds-form-element__label sr-only" for="input-14">Opportunity Description (eg. Client Use Case, Pain, Competition, Budget, Key Personas, Timing, Risk)
+                                        <abbr class="slds-required" title="required">* </abbr>
+                                    </label>
+                                    <apex:inputTextArea id="Oppdescription" style="width:100%;height:100px" styleclass="slds-input bgcolr" html-placeholder="Opportunity Description (eg. Client Use Case, Pain, Competition, Budget, Key Personas, Timing, Risk)" value="{!oppDescription}"/>
+                                    <span id="OppDesc" class="errorMessage">Please Enter the Opportunity Description</span>
+                                </div>
+                            </div>
+                            <div class="slds-form-element__row radio-row clearfix">
+                                <div class="mt-4 pr-2 w-full">
+                                    <label class="radio-heading h4-heading" for="input-15">Sectigo client discovery completed?
+                                        <!-- <abbr class="slds-required" title="required">* </abbr> -->
+                                    </label>
+                                    <apex:selectRadio layout="pageDirection" id="discoveryCheck" onchange="setDiscoveryCheck(this)">
+                                        <apex:selectOption itemValue="Yes" itemlabel="Yes"/>
+                                        <apex:selectOption itemValue="No" itemlabel="No" /> 
+                                    </apex:selectRadio> <span id="discoveryConform" class="errorMessage">Please confirm discovery</span>
+                                </div>
+                            </div>
+                            <div class="slds-form-element__row">
+                                <div class="mt-2 pr-2 float-left w-1/2">
+                                    <label class="slds-form-element__label h4-heading mb-2 block" for="input-16">Date Discovery Completed <span>(or expected)</span></label>
+                                    <apex:input type="date" id="Datediscomplet" styleclass="hs-input hs-date bgcolr" html-placeholder="Discovery Completed" value="{!sectigoClientDiscoveryOn}"/>
+                                    <span id="Datedisc" class="errorMessage">Please Enter the Date Discovery Completed</span>
+                                </div>
+                                <div class="mt-2 float-left w-1/2">
+                                    <label class="slds-form-element__label h4-heading mb-2 block" for="input-17">Expected Close Date
+                                    </label>
+                                    <apex:input type="date" id="Expectedclosedate" styleclass="hs-input hs-date bgcolr" html-placeholder="Expected Close Date" value="{!expectedCloseDate}"/>
+                                    <span id="ExpClsdat" class="errorMessage">Please Enter the Expected Close Date</span>
+                                </div>
+                            </div>
+                            <div class="slds-form-element__row">
+                                <div class="mt-2 float-left w-full">
+                                    <label class="slds-form-element__label sr-only" for="input-18">Expected Opportunity Value 
+                                        <abbr class="slds-required" title="required">* </abbr>
+                                    </label>
+                                    <apex:input type="number" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))" id="ExpectedOpporValue" styleclass="slds-input bgcolr" html-placeholder="Expected Opportunity Value - Please Enter Numbers Only" value="{!expectedOppVal}" />
+                                    <span id="ExpectOppValue" class="errorMessage">Please Enter the Expected Opportunity Value</span>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    
+                    <div class="mt-8 mb-8 h-1" style="background:#00b373;"></div>
+                    
+                    <fieldset class="form-section-3 mb-8">
+                        <legend class="slds-form-element__label">
+                            <p class="h2-heading">Partner Information</p>
+                        </legend>
+                        <div class="form-columns-2 clearfix">
+                            <div class="slds-form-element__row">
+                                <div class="mt-2 pr-2 float-left w-1/2">
+                                    <label class="slds-form-element__label sr-only" for="input-19">Partner Company Name
+                                        <abbr class="slds-required" title="required">* </abbr></label>
+                                    <apex:inputText id="PartnerCmpName" styleclass="slds-input bgcolr" html-placeholder="Partner Company Name" value="{!partnerCompanyName}"/>
+                                    <span id="PrtCmpName" class="errorMessage">Please Enter the Partner Company Name</span>
+                                </div>
+                                <div class="mt-2 float-left w-1/2">
+                                    <label class="slds-form-element__label sr-only" for="input-20">Lead Source
+                                    </label>              
+                                    <apex:selectList id="leadsource" styleclass="hs-input" multiselect="false" size="1" value="{!leadSourceVal}" >
+                                        <apex:selectOption itemValue="" itemLabel="How did you hear about us?"/>
+                                        <apex:selectOption itemValue="HubSpot" itemLabel="HubSpot"/> 
+                                        <apex:selectOption itemValue="Campaign" itemLabel="Campaign"/> 
+                                        <apex:selectOption itemValue="Partner" itemLabel="Partner"/> 
+                                        <apex:selectOption itemValue="Trade Show" itemLabel="Trade Show"/> 
+                                        <apex:selectOption itemValue="Webform" itemLabel="Webform"/> 
+                                        <apex:selectOption itemValue="Cold Call" itemLabel="Cold Call"/> 
+                                        <apex:selectOption itemValue="CA Customer" itemLabel="CA Customer"/> 
+                                        <apex:selectOption itemValue="Inbound Phone Call" itemLabel="Inbound Phone Call"/> 
+                                        <apex:selectOption itemValue="Inbound email" itemLabel="Inbound email"/> 
+                                        <apex:selectOption itemValue="Chat" itemLabel="Chat"/> 
+                                        <apex:selectOption itemValue="Free SSL" itemLabel="Free SSL"/>
+                                        <apex:selectOption itemValue="Referral" itemLabel="Referral"/> 
+                                        <apex:selectOption itemValue="Webinar" itemLabel="Webinar"/> 
+                                    </apex:selectList>
+                                    <span id="ledsource" class="errorMessage" >Please Select where you heard</span>
+                                </div>                                
+                            </div>
+                            <div class="slds-form-element__row">
+                                <div class="mt-2 pr-2 float-left w-1/2">
+                                    <label class="slds-form-element__label sr-only" for="input-21">Partner (First Name)
+                                        <abbr class="slds-required" title="required">* </abbr></label>
+                                    <apex:inputText id="AccountMangFName"  styleclass="slds-input bgcolr" html-placeholder="Partner First Name" value="{!partnerAccountManagerFirstName}"/>
+                                    <span id="AccntMangFrstName" class="errorMessage">Please Enter the Partner Account Manager First Name</span>
+                                </div>
+                                <div class="mt-2 float-left w-1/2">
+                                    <label class="slds-form-element__label sr-only" for="input-22">
+                                        Partner (Last Name)
+                                        <abbr class="slds-required" title="required">* </abbr>
+                                    </label>
+                                    <apex:inputText id="AccountManglastName"  styleclass="slds-input bgcolr" html-placeholder="Partner Last Name" value="{!partnerAccountManagerLastName}"/>
+                                    <span id="AccntManglastName" class="errorMessage">Please Enter the Partner Account Manager Last Name</span>
+                                </div>
+                            </div>
+                            <div class="slds-form-element__row">
+                                <div class="mt-2 pr-2 float-left w-1/2">
+                                    <label class="slds-form-element__label sr-only" for="input-23">Primary Email Address
+                                        <abbr class="slds-required" title="required">* </abbr></label>
+                                    <apex:inputText id="PartnerEmailAddre" styleclass="slds-input bgcolr" html-placeholder="Primary Email Address" value="{!partnerEmailAddress}" onkeyup="dupemailchecker()"/>
+                                    <span id="PrtnrEmailAddre" class="errorMessage">Please Enter the Primary Email Address</span>
+                                    <span id="PrtnrDuplicateEmail" class="errorMessage">Please Enter the Different Email ID</span>
+                                </div>
+                                <div class="mt-2 float-left w-1/2">
+                                    <label class="slds-form-element__label sr-only" for="input-24">Partner Phone Number
+                                    </label>
+                                    <apex:inputText id="PartnerNumber" styleclass="slds-input bgcolr" html-placeholder="Partner Phone Number" value="{!partnerPhoneNumber}"/>
+                                    <span id="PrtnrPhoneNum" class="errorMessage">Please Enter the Phone Number</span>
+                                </div>
+                            </div>  
+                            <div class="slds-form-element__row">
+                                <div class="mt-2 float-left w-1/2">
+                                    <label class="slds-form-element__label sr-only" for="input-24">Are you currently working with a Sectigo rep? If yes who?
+                                    </label>
+                                    <apex:inputText id="areYouCurrentlyWorking" styleclass="slds-input bgcolr" title="If not put N/A" html-placeholder="Are you currently working with a Sectigo rep? If yes who?" value="{!areYouCurrentWorking}"/>
+                                    <span id="areYoucurntwrkng" class="errorMessage">Please Enter the Name</span>
+                                </div>
+                            </div>  
+                        </div>
+                    </fieldset>
+                    
+                    <apex:commandButton style="fLOAT: left;" value="Submit" title="Submit" onclick="saveRedirect();return false;" styleClass="btn btn-primary"   />
+                    <span id="errorMsg" style="fLOAT: left;display:none;color:white;background-color: #ff4a4a;padding: 11px;border-radius: 5px;width: 16%;margin-top: 5px;">Please fill all the details properly</span><br/>
+                </div>
+                <apex:actionFunction action="{!SubmitAction}" name="saveAndRedirect111" oncomplete="saveRedirect23();" reRender="tst" status="pageStatus"/>
+                <input type="hidden" id="hiddenval" name="hiddenselected" value=""/> 
+                <apex:actionStatus id="pageStatus">                                            
+                    <apex:facet name="start">
+                        <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.75; z-index: 1000; background-color: grey;">
+                            &nbsp;
+                        </div>
+                        <div style="position: fixed; left: 0; top: 0; bottom: 0; right: 0; z-index: 1001; margin: 22% 42%">
+                            <img src="{!$Resource.Loading}" width="130" height="170" / >
+                        </div>
+                    </apex:facet> 
+                </apex:actionStatus>
+                
+                <apex:outputPanel id="tst">
+                    <script>
+                    function saveRedirect23(){
+                        var caseerror = '{!hasError}';        
+                        console.log('$$caseerror $$$$'+caseerror);
+                        console.log('in re direct method ');
+                        if(caseerror  === 'success'){                        
+                            window.top.location.href= 'apex/Sec_Contactus_Thanks' ;                        
+                        }else{
+                            document.getElementById('errorMsg').style.display = 'block';
+                            return false;
+                        }
+                    }
+                    </script>
+                </apex:outputPanel>
+                
+            </apex:form>
+            
+            <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>            
+            <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/additional-methods.js"></script>
+            
+            
+            
+            <script>
+                
+                $("#hovermessage").hover(
+                function () {
+                    $(this).find("span").text("HOVERING!!!!!");
+                },
+                function () { 
+                    $(this).find("span").text("");
+                },
+            );
+                
+                
+                
+                
+                //console.log('sanity check');
+                window.onload = function() {
+                // Send the size of the form on page load
+                // Because this is async we'll request that the parent acknowledge the message and
+                // we'll re-send the message every 2 seconds until we get confirmation
+                var formHeight = document.getElementsByClassName('hs-form')[0].scrollHeight;
+                var dealRegistrationFormAcknowledgmentInterval;
+                var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+                var eventer = window[eventMethod];
+                var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+                
+                // receipt messages from the parent
+                eventer(messageEvent,function(e) {
+                    //console.log("Resource form iframe listener got a message: ");
+                    //console.log(e.data);
+                    
+                    // Check that message being passed concerns the resource form
+                    if ((typeof (e.data) == 'object') && e.data.dealRegistrationForm) {
+                        // If its a receipt message
+                        if ( e.data.dealRegistrationForm.receipt) {
+                            //console.log("It's a receipt! For the dealRegistrationForm!");
+                            clearInterval(dealRegistrationFormAcknowledgmentInterval);
+                        }
+                    }
+                    
+                });
+                
+                message = {
+                    dealRegistrationForm: {
+                        height: formHeight,
+                        acknowledgeReceipt: true
+                    }
+                };
+                
+                //console.log('dealRegistrationForm sending initial size message');
+                parent.postMessage(message, '*');
+                
+                dealRegistrationFormAcknowledgmentInterval = setTimeout(function() {
+                    //console.log('dealRegistrationForm sending size message again...');
+                    parent.postMessage(message, '*');
+                }, 2000);
+                
+                
+                // Alert parent of re-size
+                window.onresize = function(event) {
+                    var newFormHeight = document.getElementsByClassName('hs-form')[0].scrollHeight;
+                    var heightDiff = formHeight - newFormHeight;
+                    if ( heightDiff > 10 || heightDiff < -10 ) {
+                        formHeight = newFormHeight;
+                        
+                        message = {
+                            dealRegistrationForm: {
+                                height: formHeight
+                            }
+                        };
+                        
+                        parent.postMessage(message,"*");
+                    }
+                }
+            }
+            var discoveryValue = '';
+            function setDiscoveryCheck(val){
+                console.log(val.value);
+                discoveryValue = val.value;
+                $('[id$=hiddenval]').val(discoveryValue);
+                
+            }
+            
+            function dupemailchecker(){
+                var email = $('[id$=EmailAddre]').val();
+                var PrEmailId = $('[id$=PartnerEmailAddre]').val();
+                console.log('Email '+email);
+                console.log('PrEmailId '+PrEmailId);
+                if(email && PrEmailId && email == PrEmailId){
+                    $('[id$=PrtnrDuplicateEmail]').css('display','block');
+                    $('[id$=userDuplicateEmail]').css('display','block');
+                    checkValidation=false;
+                }else{
+                    $('[id$=DuplicateEmail]').css('display','none'); 
+                }
+            }
+            
+            function saveRedirect(){
+                var Companyid = $('[id$=companyname]').val();
+                var frstname = $('[id$=frstname]').val();
+                var lastname = $('[id$=lastname]').val();
+                var titleposition = $('[id$=titlepos]').val();
+                var Phonenum = $('[id$=Phonenumber]').val();
+                var email = $('[id$=EmailAddre]').val();
+                var Streetadd = $('[id$=StreetAddres]').val();
+                var city = $('[id$=CityName]').val();
+                var Postalcode = $('[id$=Postalcode]').val();
+                var Oppname = $('[id$=OppNamePc]').val();
+                var OppDesc = $('[id$=Oppdescription]').val();
+                var Seclectedval = $('[id$=input-15]').val();
+                
+                var datedisccompleted = $('[id$=Datediscomplet]').val();
+                var Expcloseddate = $('[id$=Expectedclosedate]').val();
+                var Expvalue = $('[id$=ExpectedOpporValue]').val();
+                var Partnercompname = $('[id$=PartnerCmpName]').val();
+                var LdsourceVal = $('[id$=leadsource]').val();
+                var AccounManfirstname = $('[id$=AccountMangFName]').val();
+                var AccounManLastName = $('[id$=AccountManglastName]').val();
+                var PrEmailId = $('[id$=PartnerEmailAddre]').val();
+                var parPhone = $('[id$=PartnerNumber]').val();
+                var areYouCurntlyWrkng = $('[id$=areYouCurrentlyWorking]').val();
+                var country =  $('[id$=region]').val();
+                var stateval = $('[id$=regionstate]').val();
+                var productInterest = $('[id$=ProductInterestVal]').val();
+                var selected = $('[id$=hiddenval]').val();
+                console.log('weretr'+selected);
+                var checkValidation=true;
+                
+                console.log("Validate",{!sectigoClientDiscovery});
+                console.log("Validate",Expvalue);
+                $( "input" ).remove( ".hello" );
+                if(Companyid.length < 1){                      
+                    $('[id$=companyError]').css('display','block');                    
+                    checkValidation=false;                            
+                }else{
+                    $('[id$=companyError]').css('display','none'); 
+                }
+                
+                if(frstname.length < 1){                      
+                    $('[id$=Stakeholderfrstname]').css('display','block');                    
+                    checkValidation=false;                            
+                }else{
+                    $('[id$=Stakeholderfrstname]').css('display','none'); 
+                }
+
+                if(lastname < 1){                      
+                    $('[id$=keyStakeholderlastname]').css('display','block');                    
+                    checkValidation=false;                            
+                }else{
+                    $('[id$=keyStakeholderlastname]').css('display','none'); 
+                }
+                if(titleposition < 1){                      
+                    $('[id$=titlePosn]').css('display','block');                    
+                    checkValidation=false;                            
+                }else{
+                    $('[id$=titlePosn]').css('display','none'); 
+                }
+                if(Phonenum < 1){                      
+                    $('[id$=Phonenum]').css('display','block');                    
+                    checkValidation=false;                            
+                }else{
+                    $('[id$=Phonenum]').css('display','none'); 
+                }
+                if(email < 1){                      
+                    $('[id$=Emailid]').css('display','block');                    
+                    checkValidation=false;                            
+                }else{
+                    $('[id$=Emailid]').css('display','none'); 
+                }
+                if(Streetadd < 1){                      
+                    $('[id$=StrtAdd]').css('display','block');                    
+                    checkValidation=false;                            
+                }else{
+                    $('[id$=StrtAdd]').css('display','none'); 
+                }
+                if(city < 1){                      
+                    $('[id$=Citnam]').css('display','block');                    
+                    checkValidation=false;                            
+                }else{
+                    $('[id$=Citnam]').css('display','none'); 
+                }
+                if(Postalcode < 1){                      
+                    $('[id$=Postalcod]').css('display','block');                    
+                    checkValidation=false;                            
+                }else{
+                    $('[id$=Postalcod]').css('display','none'); 
+                }
+                if(Oppname < 1){                      
+                    $('[id$=OppName]').css('display','block');                    
+                    checkValidation=false;                            
+                }else{
+                    $('[id$=OppName]').css('display','none'); 
+                }
+                if(OppDesc < 1){                      
+                    $('[id$=OppDesc]').css('display','block');                    
+                    checkValidation=false;                            
+                }else{
+                    $('[id$=OppDesc]').css('display','none'); 
+                }
+                
+                if(!Expvalue){                      
+                    $('[id$=ExpectOppValue]').css('display','block'); 
+                    checkValidation=false;                            
+                }else{
+                    
+                    $('[id$=ExpectOppValue]').css('display','none'); 
+                }
+                if(Partnercompname < 1){                      
+                    $('[id$=PrtCmpName]').css('display','block');                    
+                    checkValidation=false;                            
+                }else{
+                    $('[id$=PrtCmpName]').css('display','none'); 
+                }
+                if(LdsourceVal < 1){                      
+                    $('[id$=ledsource]').css('display','block');                    
+                    checkValidation=false;                            
+                }else{
+                    $('[id$=ledsource]').css('display','none'); 
+                }
+                if(AccounManfirstname < 1){                      
+                    $('[id$=AccntMangFrstName]').css('display','block');                    
+                    checkValidation=false;                            
+                }else{
+                    $('[id$=AccntMangFrstName]').css('display','none'); 
+                }
+                if(AccounManLastName < 1){                      
+                    $('[id$=AccntManglastName]').css('display','block');                    
+                    checkValidation=false;                            
+                }else{
+                    $('[id$=AccntManglastName]').css('display','none'); 
+                }
+                if(PrEmailId < 1){                      
+                    $('[id$=PrtnrEmailAddre]').css('display','block');                    
+                    checkValidation=false;                            
+                }else{
+                    $('[id$=PrtnrEmailAddre]').css('display','none'); 
+                }
+                if(parPhone < 1){                      
+                    $('[id$=PrtnrPhoneNum]').css('display','block');                    
+                    checkValidation=false;                            
+                }else{
+                    $('[id$=PrtnrPhoneNum]').css('display','none'); 
+                }
+                if(areYouCurntlyWrkng < 1){                      
+                    $('[id$=areYoucurntwrkng]').css('display','block');                    
+                    checkValidation=false;                            
+                }else{
+                    $('[id$=areYoucurntwrkng]').css('display','none'); 
+                }
+                if(country < 1){
+                    console.log("sdhvfsdjvfdsj");
+                    $('[id$=Slctcontry]').css('display','block');                    
+                    checkValidation=false;
+                }else{ 
+                    
+                    $('[id$=Slctcontry]').css('display','none');
+                }
+                if(country == 'United States' && stateval.length < 1){
+                    $('[id$=Selectstate]').css('display','block');                    
+                    checkValidation=false;                            
+                }else{
+                    $('[id$=Selectstate]').css('display','none'); 
+                }
+                if(!productInterest){
+                    $('[id$=productInterest]').css('display','block'); 
+                }else{
+                    $('[id$=productInterest]').css('display','none'); 
+                }
+                console.log(discoveryValue );
+                if(!datedisccompleted ){                      
+                    $('[id$=Datedisc]').css('display','block');                    
+                    checkValidation = false;                            
+                }else{
+                    $('[id$=Datedisc]').css('display','none'); 
+                }
+                if(!Expcloseddate){                      
+                    $('[id$=ExpClsdat]').css('display','block');                    
+                    checkValidation=false;                            
+                }else{
+                    $('[id$=ExpClsdat]').css('display','none'); 
+                }
+                if(discoveryValue){
+                    
+                    $('[id$=discoveryConform]').css('display','none');
+                }else if(discoveryValue && discoveryValue == 'No'){
+                    $('[id$=Datedisc]').css('display','none');
+                    $('[id$=ExpClsdat]').css('display','none'); 
+                    $('[id$=discoveryConform]').css('display','none');
+                }else{
+                    $('[id$=discoveryConform]').css('display','block');
+                }
+                if(email && PrEmailId && email == PrEmailId){
+                    $('[id$=PrtnrDuplicateEmail]').css('display','block');
+                    $('[id$=userDuplicateEmail]').css('display','block');
+                    checkValidation=false;
+                }else{
+                    $('[id$=DuplicateEmail]').css('display','none'); 
+                }
+                if(checkValidation){
+                    console.log(checkValidation ==true);
+                    saveAndRedirect111();
+                    
+                }
+                
+                
+            }
+            
+            
+            
+            </script>
+            
+        </body>
+        
+    </html>
+    
+</apex:page>

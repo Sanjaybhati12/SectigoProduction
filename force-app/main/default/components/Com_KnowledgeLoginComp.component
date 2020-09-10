@@ -1,0 +1,38 @@
+<apex:component controller="Com_KnowledgeController">
+    <apex:stylesheet value="{!$Page.Comodo_DesignCss}" />
+    <div id="leftloginsubscribebox">
+        <form method="post" action="https://support.comodo.com/index.php?/Base/User/Login" name="LoginForm">
+            <div class="tabrow" id="leftloginsubscribeboxtabs">
+                <a id="leftloginsubscribeboxlogintab" href="javascript:void(0);" onclick="ActivateLoginTab();" class="atab">
+                 <span class="tableftgap">&nbsp;</span>
+                 <span class="tabbulk">
+                 <span class="tabtext" title="Login">Login</span>
+                 </span>
+                 </a>
+            </div>
+            <div id="leftloginbox" class="switchingpanel active">
+                <input type="hidden" name="_redirectAction" value="/Knowledgebase/List/Index" />
+                <input type="hidden" name="_csrfhash" value="1x8tbevtdbf4eez9j3rkyf2jg2yn0f5w" />
+                <div class="inputframe zebraeven">
+                    <input class="loginstyledlabel" value="Your email address" onfocus="javascript: ResetLabel(this, 'Your email address', 'loginstyled');" name="scemail" type="text" />
+                </div>
+                <div class="inputframe zebraodd">
+                    <input class="loginstyled" value="" name="scpassword" type="password" autocomplete="off" />
+                </div>
+                <div class="inputframe zebraeven">
+                    <input id="leftloginboxrememberme" name="rememberme" value="1" type="checkbox" />
+                    <label for="leftloginboxrememberme">
+                    <span id="leftloginboxremembermetext">Remember me</span>
+                    </label>
+                </div>
+                <hr class="vdivider" />
+                <div id="logintext">
+                    <a href="https://support.comodo.com/index.php?/Base/UserLostPassword/Index" title="Lost password">Lost password</a>
+                </div>
+                <div id="loginsubscribebuttons">
+                    <input class="rebutton" value="Login" type="submit" title="Login" />
+                </div>
+            </div>
+        </form>
+    </div>
+</apex:component>

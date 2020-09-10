@@ -1,0 +1,27 @@
+<apex:component controller="Com_KnowledgeController1">
+    <apex:stylesheet value="{!$Page.Comodo_DesignCss}" />
+    <div class="leftnavboxbox">
+        <div class="leftnavboxtitle">
+            <span class="leftnavboxtitleleftgap">&nbsp;</span>
+            <span class="leftnavboxtitlebulk">
+              <span class="leftnavboxtitletext">Most Viewed</span>
+            </span>
+        </div>
+    </div>
+    <div class="leftnavboxcontent">
+        <!-- mosteviewed part-->
+        <ul>
+            <knowledge:articleList articleVar="article" categories="{!categoryGroupName}:{!rootCategoryName}" sortBy="mostViewed" pageSize="10" language="{!currentLanguage}">
+                <li>
+                    <!--  
+                       <a href="{!URLFOR($Action.KnowledgeArticle.View, article.id) + '&' + languageParameterName + '=' +currentLanguage}">{!article.title}</a>
+                       
+                    <apex:outputlink value="{!VF_Apex}/Com_KnowledgeDetailPage?id={!article.id}" target="_parent">
+                        {!article.title}
+                    </apex:outputlink>-->
+                    <a href="{!URLFOR($Page.Com_KnowledgeDetailPageSectigo, null, [Id= article.id])}">{!article.title}</a>
+                </li>
+            </knowledge:articleList>
+        </ul>
+    </div>
+</apex:component>

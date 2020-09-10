@@ -1,0 +1,45 @@
+<apex:page showHeader="false" standardStylesheets="false" controller="ES_KnowledgeControllerFaq" applyBodyTag="false" applyHtmlTag="false">
+    <html>
+
+    <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+
+})(window,document,'script','dataLayer','GTM-TLDP6LF');</script>
+        <title>EnterpriseSSL FAQ</title>
+        <meta name="description" content="Comodo CA is the world's largest certificate authority with over 100,000,000 TLS/SSL certificates issued.As the leading certificate authority, we're here to help you get the best ssl certificate, from purchasing, to setting up, account management, the works. Start your free trial, request a demo, or buy a certificate." /> 
+        <meta charset="UTF-8" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <apex:stylesheet value="{!URLFOR($Resource.ES_KnowledgeFiles, '/styles/Styles.css')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.ES_KnowledgeFiles,'/styles/CCAFoundation.css')}" />
+        <link rel="shortcut icon" type="image/png" href="{!$Resource.ES_FavIcon}" />
+        <link rel="icon" type="image/png" href="{!$Resource.ES_FavIcon}" /> 
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,900" rel="stylesheet"/>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" crossorigin="anonymous" />
+      <!--  <script src="https://www.comodoca.com/CMSPages/GetResource.ashx?scriptfile=/CMSScripts/Custom/jquery-3.2.1.min.js"></script> -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <apex:includeScript value="{!$Resource.pkb_js_base}" /> 
+    </head>
+
+    <body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TLDP6LF"
+
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <c:ES_KnowledgeHeaderFaq />
+        <div class="body">
+            <div class="widgets">
+                <div class="widget" id="comodoMainCntainer">
+                    <c:ES_KnowledgeHomeCompFaq />
+                </div>
+            </div>
+        </div>
+       <c:ES_KnowledgeFooter /> 
+    </body>
+    </html>
+</apex:page>

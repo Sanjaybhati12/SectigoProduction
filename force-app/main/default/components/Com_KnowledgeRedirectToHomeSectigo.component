@@ -1,0 +1,37 @@
+<apex:component >
+ <apex:stylesheet value="{!$Page.Comodo_DesignCss}" />
+
+<style>
+.sectigo-knowladge-home{
+    font-weight: 500;
+    color: #fff !important;
+    -moz-border-radius: 999px;
+    -webkit-border-radius: 999px;
+    border-radius: 999px;
+    border: 1px solid #00b073;
+    cursor: pointer;
+    background-color: #00b073;
+    padding: 10px 25px;
+    margin-top: 10px;
+}
+.sectigo-knowladge-home:hover{
+    background-color: #008e5d;
+    border-color: #008e5d;
+}
+</style>
+ <script>
+    function newLocation() {
+        window.$Label = window.$Label || {};
+        // assigning the label to the JS variable.
+        $Label.customLabel= '{!($Label.sectigoknowledgeHome)}';
+        var x =  $Label.customLabel;
+        self.location = x;
+    }
+</script>
+
+    <div class="row" style="text-align: center; background-color: #fff; margin: 0px;">
+        <div class="small-12 columns" >
+            <button type="button" onclick="newLocation();return false;" class="sectigo-knowladge-home">HOME</button>
+        </div>
+    </div>
+</apex:component>

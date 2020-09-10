@@ -1,0 +1,209 @@
+<apex:component >
+    
+    <style>
+    body footer a:hover { color: #65b2e8; }
+    footer {
+        padding: 3rem 0rem;
+        background-color: #fff;
+    }
+    footer .footer-nav>ul>li { text-transform: inherit; }
+    footer .footer-nav>ul h3 {font-size: 20px; font-weight: 700;margin: 1rem 0rem 0.5rem 0rem; color: #ffffff;}
+    footer li, footer p { font-size: 14px; /*font-size: 1.8rem;*/ font-weight: 400; }
+    @media print, screen and (min-width: 40em) {
+        footer .footer-nav>ul>li { width: 25%; padding-right: 50px; }
+    }
+    
+    footer .footer-nav ul ul li {display: block;padding: 5px 0px;font-size: 16px; font-weight: 400;}
+    
+    .footer-social ul.socials { text-align: left; }
+    .footer-social ul.socials li a { padding: 2px; }
+    .footer-social [class*="fa fa-"] {
+        background-color: #fff;
+        border-radius: 6px;
+        color: #091c2c;
+        display: inline-block;
+        height: 32px;
+        line-height: 32px;
+        margin: auto 3px;
+        width: 32px;
+        font-size: 20px;
+        text-align: center;
+    }
+    .footer-social [class*="fa fa-"]:hover { 
+        background-color: #65b2e8;
+    }
+    .footer-certificates a {
+        margin-left: .5rem;
+        margin-right: .5rem;
+    }
+    footer.ps-footer:before {
+        /*content: "";
+        display: block;
+        position: absolute;
+        left: 0;
+        /* top: 0; */
+        width: 100%;
+        height: 15px;
+        background: linear-gradient(180deg,#eee 0,hsla(0,0%,100%,0));
+        box-sizing: border-box; */
+    }
+   
+    </style>
+    <footer class="black ps-footer" style="background: #051c2c;">
+        <div class="row" style="margin-top: 40px; margin-bottom: 20px;">
+            <div class="small-12 medium-9 columns">
+                <a class="" href="https://www.enterprisessl.com/"><img src="https://www.enterprisessl.com/uploads/logos/enterprisessl-logo-white.svg" alt="Sectigo" width="277" height="54" class="block my-0 mx-auto lg:mx-0" /></a>
+            </div>
+            <div class="small-12 medium-3 columns footer-social">
+                <ul class="socials">
+                    <li>
+                        <a class="black" href="https://twitter.com/sectigohq" title="Sectigo on Twitter" target="_blank">
+                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                        <span class="show-for-sr"> Sectigo on Twitter</span>
+                      </a>
+                    </li>
+                    <li>
+                        <a class="black" href="https://www.linkedin.com/company/sectigo/" title="Sectigo on LinkedIn" target="_blank">
+                        <i class="fa fa-linkedin" aria-hidden="true"></i>
+                        <span class="show-for-sr"> Sectigo on LinkedIn</span>
+                      </a>
+                    </li>
+                    <li>
+                        <a class="black" href="https://www.youtube.com/channel/UCpBIBygkjPsEdrGkkWNGOsQ/featured?disable_polymer=1" title="Sectigo on Facebook" target="_blank">
+                        <i class="fa fa-youtube" aria-hidden="true"></i>
+                        <span class="show-for-sr"> Sectigo on Youtube</span>
+                      </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+                <div class="footer-nav">
+                    <ul id="menuElem" class="">
+                        <li>
+                            <h3>
+                            <a href="https://www.enterprisessl.com/compare-ssl-certificates" >
+                  Certificates
+                  </a>
+                            </h3>
+                            <ul>
+                                <li class=""><a href="https://www.enterprisessl.com/products/ssl-certificate" >EnterpriseSSL</a></li>
+                                <li class=""><a href="https://www.enterprisessl.com/products/ssl-pro-certificate" >EnterpriseSSL Pro</a></li>
+                                <li class=""><a href="https://www.enterprisessl.com/products/ssl-multi-domain-certificate" >EnterpriseSSL Multi-domain</a></li>
+                                <li class=""><a href="https://www.enterprisessl.com/products/ssl-pro-wildcard-certificate" >EnterpriseSSL Pro Wildcard</a></li>
+                                <li class=""><a href="https://www.enterprisessl.com/products/ssl-pro-ev-extended-validation-certificate" >EnterpriseSSL Pro EV</a></li>
+                                <li class=""><a href="https://www.enterprisessl.com/products/ssl-pro-ev-multi-domain-certificate" >EnterpriseSSL Pro EV Multi-domain</a></li>
+                                
+                            </ul>
+                        </li>
+                        
+                        <li class="Highlighted">
+                            <h3>Resources</h3>
+                            <ul>
+                                <li class="" ><a href="https://www.enterprisessl.com/resources" >Knowledge Base</a></li>
+                                <li class="" ><a href="https://www.enterprisessl.com/about-tls-ssl-certificates" >About SSL Certificates</a></li>
+                                <li class="" ><a href="https://sectigo.com/blog?__hstc=223426884.d7107bfd2bf79ace0ccb0f618f36e6f6.1559714170321.1559714170321.1559724440102.2&__hssc=223426884.1.1559724440102&__hsfp=1800966072" target="_blank" >Blog</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li>
+                            <h3>Support</h3>
+                     <ul>
+                         
+                          <li class="" ><a href="https://www.enterprisessl.com/contact-us" >Contact Us</a></li>
+                  <li class="" ><a href="tel:+18882666361" >+1 (888) 266 6361</a></li>
+                  <li class="" ><a href="mailto:sales@enterprisessl.com" >Sales@enterprisessl.com</a></li>
+                  <li class="" ><a href="https://www.enterprisessl.com/enterprisessl-ticketing-system" target="_blank" >Ticketing System</a></li>
+              
+                         
+                                    
+        
+    </ul>
+                        </li>
+                        
+                        <li>
+                             <h3><a href="https://www.enterprisessl.com/about-enterprisessl">
+                  About EnterpriseSSL
+                  </a></h3>
+                            <ul>
+                            
+                             <li class="" ><a href="https://sectigo.com/media-coverage?__hstc=223426884.d7107bfd2bf79ace0ccb0f618f36e6f6.1559714170321.1559714170321.1559724440102.2&__hssc=223426884.1.1559724440102&__hsfp=1800966072" target="_blank" >News</a></li>
+                  <li class="" ><a href="https://www.enterprisessl.com/ssl-certificate-terms-conditions" >Terms and Conditions</a></li>
+                  <li class="" ><a href="https://www.enterprisessl.com/privacy-policy" >Privacy Policy</a></li>
+                  <li class="" ><a href="https://www.enterprisessl.com/ssl-legal-repository" >Sectigo Legal Repository</a></li>
+              
+                            
+                            
+                           
+                                </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div style="background: #fff;">
+            <div class="row" style="align-items: center;">
+                <div class="small-12 columns footer-certificates" style="text-align: center; padding: 20px 0px;">
+                    <a href="https://sectigo.com/uploads/files/ComodoCA_SOC3_Report.pdf" target="_blank" class="inline-block mx-1 sm:mx-2">
+                      <!--  <img src="https://sectigo.com/_ui/img/soc3-EY.879551206.jpg" alt="SOC3 EY" /> -->
+                                                                    <apex:image value="{!$Resource.PS_FooterImage6}" alt="SOC3 EY"/>
+    
+                    </a>
+                    <a href="https://www.cpacanada.ca/webtrustseal?sealid=10006" target="_blank" class="inline-block mx-1 sm:mx-2">
+                                                <apex:image value="{!$Resource.PS_FooterImage4}" alt="WebTrust for Certification Authorities"/>
+    
+                       <!-- <img src="https://staging-sectigo.matternow.com/_ui/img/webtrust-logo-small.393860728.png"  /> -->
+                    </a>
+                    <a href="https://www.cpacanada.ca/webtrustseal?sealid=10007" target="_blank" class="inline-block mx-1 sm:mx-2">
+                                                                <apex:image value="{!$Resource.PS_FooterImage2}" alt="WebTrust for CA - Extended Validation"/>
+    
+                      <!--  <img src="https://staging-sectigo.matternow.com/_ui/img/webtrust-logo-small.393860728.png" alt="WebTrust for CA - Extended Validation" /> -->
+                    </a>
+                    <a href="https://www.cpacanada.ca/webtrustseal?sealid=10008" target="_blank" class="inline-block mx-1 sm:mx-2">
+                                                                <apex:image value="{!$Resource.PS_FooterImage3}" alt="WebTrust for CA - Extended Validation Code Signing"/>
+    
+                      <!--  <img src="https://staging-sectigo.matternow.com/_ui/img/webtrust-logo-small.393860728.png" alt="WebTrust for CA - Extended Validation Code Signing" /> -->
+                    </a>
+                    <a href="https://www.cpacanada.ca/webtrustseal?sealid=10009" target="_blank" class="inline-block ml-1 sm:ml-2 md:mx-2">
+                                                                <apex:image value="{!$Resource.PS_FooterImage1}" alt="WebTrust for CA - SSL Baseline with Network Security"/>
+    
+                      <!--  <img src="https://staging-sectigo.matternow.com/_ui/img/webtrust-logo-small.393860728.png" alt="WebTrust for CA - SSL Baseline with Network Security" /> -->
+                    </a>
+                </div>
+            </div>
+        </div>
+            <div>
+                <div class="row" style="align-items: center;">
+                   
+                    <div class="small-12 columns legal light" style="color: #fff;font-size: 18px; font-weight: 400; text-align: left; ">© 2019 Sectigo Limited. All Rights Reserved.</div>
+                 </div>
+                <script type="application/ld+json">
+                    {
+                        "@context": "http://schema.org",
+                        "@type": "Organization",
+                        "name": "Comodo CA",
+                        "legalName": "Comodo CA",
+                        "url": "https://comodoca.com",
+                        "logo": "http://www.comodoca.com/ComodoCA/media/comodoca/comodo-logo.png?ext=.png",
+                        "foundingDate": "2001",
+                        "address": {
+                            "@type": "PostalAddress",
+                            "streetAddress": "1255 Broad Street",
+                            "addressLocality": "Clifton",
+                            "addressRegion": "NJ",
+                            "postalCode": "07013",
+                            "addressCountry": "US"
+                        },
+                        "contactPoint": {
+                            "@type": "ContactPoint",
+                            "contactType": "customer support",
+                            "telephone": "+1-888-266-6361",
+                            "email": "support@comodoca.com"
+                        },
+                        "sameAs": ["https://twitter.com/comodo_ssl", "https://www.linkedin.com/company/comodo-ca-limited/"]
+                    }
+                </script>
+        </div>
+    </footer>
+</apex:component>

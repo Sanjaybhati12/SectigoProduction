@@ -1,0 +1,57 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global"
+                controller="NewsComponentController">
+    <aura:handler name = "init" value = "{!this}" action = "{!c.doInit}" />
+    <aura:attribute name="UserData" type="Account" />
+    <aura:attribute name="NewsList" type="List"></aura:attribute>
+    <aura:attribute name="today" type="Date" />
+    <aura:attribute name="isNews" type="Boolean" default="false"></aura:attribute>
+    
+    <div class = "pdd " style = " background-color: #D3D3D3;
+                                 margin-top: -12px;
+                                 margin-left: -12px;"><br/><br/>
+        <div class="slds-text-heading_large gbc" style = "font-weight: bold;font-size: xx-large;" >News you can use</div>
+        
+        <div class="slds-text-color_success clr gbe" style = "font-weight: bold;font-size: 20px;">
+            <ui:outputDate value="{!v.today}" /></div> <br/>
+        <aura:if isTrue="{!v.UserData.Contact.Account}">
+            <div class="slds-text-color_success clr gbd" style = "font-weight: bold;font-size: initial;">Service Account Manager :</div>
+            {!v.UserData.Account.Service_Account_Manager__r.Name} <br/> 
+            {!v.UserData.Account.Service_Manager_Email__c} <br/>
+            {!v.UserData.Account.Service_Manager_Phone__c}<br/>
+        </aura:if>
+        
+        
+        
+        <br></br>
+        
+        <div class="slds-text-color_success clr gbd" style = "font-weight: bold;font-size: initial;">In the News… </div> 
+        <aura:iteration items="{!v.NewsList}" var="News">
+            
+            <div class="slds-text-heading_small gbe" style = "font-weight: bold">
+                <ui:outputText class="slds-text-title_bold"  value="{!News.Name}" />
+            </div>
+            
+            <div  style= "width:84%;">
+                
+                <aura:unescapedHtml value="{!News.Description__c}" /><br/>
+                Click <a href = "{!News.Link__c}" target="_blank">here</a> to learn more <br/><br/>
+                
+            </div>
+            
+            
+            
+        </aura:iteration>
+        <aura:if isTrue="{!v.isNews}">
+        	No News For this month..
+        </aura:if>
+        <br/><br/>
+        <div class="slds-text-color_success clr gbd " style = "font-weight: bold;font-size: initial;"> Contact Us:</div>
+        • Create a <a href="https://comodocacommunity.force.com">Ticket here</a><br></br>
+        • Support: 877-770-4775<br></br>
+        <br></br>
+        Support Management<br></br>
+        Escalation: 613-972-4779<br></br><br></br>
+    </div>
+    
+    
+</aura:component>

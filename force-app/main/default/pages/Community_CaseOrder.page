@@ -1,0 +1,85 @@
+<apex:page controller="Community_CaseOrderCtrl" sidebar="false" showHeader="false">
+  <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+    <head>
+      <meta charset="utf-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <title>View CaseOrder Cases</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <!-- Import the Design System style sheet -->
+      <apex:slds />
+          <style>
+          
+          .titlecss{
+                font-color: #FF0000;
+            }
+          </style>
+    </head>  
+    
+    </html>
+    <apex:form >
+    
+    
+        <div class="slds-text-color_error slds-text-align_center slds-text-heading_large" > {!$Label.Community_CaseOrderPageTitle} </div><br/>
+
+           <table class="slds-table slds-table_bordered slds-table_cell-buffer" >
+                <thead>
+              <tr class="slds-text-title_caps">
+                   <th>
+                      <div class="slds-truncate" title="CaseNumber">CaseNumber</div>
+                   </th>
+                   <th>
+                      <div class="slds-truncate" title="status">status</div>
+                   </th>
+                   <th>
+                      <div class="slds-truncate" title="subject">subject</div>
+                   </th>
+                   <th>
+                      <div class="slds-truncate" title="OrderNumber">OrderNumber</div>
+                   </th>
+                    <th>
+                      <div class="slds-truncate" title="CreatedDate">CreatedDate</div>
+                   </th>
+                    <th>
+                      <div class="slds-truncate" title="LastModifiedDate">LastModifiedDate</div>
+                   </th>
+              </tr>
+              </thead>
+               <tbody>
+                     <apex:repeat value="{!ExistingOrderCases}" var="order" id="List">
+                     <tr>
+                         <td> 
+                             <div class="slds-truncate">
+                             <apex:outputLink value="/Community_Case_Detail?id={!order.id}" >
+                             <apex:OutputField value="{!order.CaseNumber}"/>
+                             </apex:outputLink>
+                             </div>
+                               
+                        </td>
+                        <td> 
+                             <div class="slds-truncate">
+                             <apex:OutputField value="{!order.status}"/></div>
+                        </td>
+                        <td> 
+                             <div class="slds-truncate">
+                             <apex:OutputField value="{!order.subject}"/></div>
+                        </td>
+                        <td> 
+                             <div class="slds-truncate">
+                             <apex:OutputField value="{!order.Order_Number__c}"/></div>
+                        </td>
+                        <td> 
+                             <div class="slds-truncate">
+                             <apex:OutputField value="{!order.CreatedDate}"/></div>
+                        </td>
+                        <td> 
+                             <div class="slds-truncate">
+                             <apex:OutputField value="{!order.LastModifiedDate}"/></div>
+                        </td>
+                     </tr>   
+                     </apex:repeat>
+               </tbody>
+           </table>
+       
+            
+    </apex:form>
+</apex:page>

@@ -1,0 +1,1079 @@
+<apex:component >
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation.min.css" />
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/motion-ui/1.2.3/motion-ui.min.css"/>-->
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation-prototype.min.css"/>
+      <link href='https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css' rel='stylesheet' type='text/css'/>-->
+
+    <style type="text/css">
+        body ul li::before {
+            content: none !important;
+        }
+        
+        .responsive_menu {
+            top: 0px !important;
+            left: 0px !important;
+        }
+        
+        .responsive_menu .accordion {
+            display: none;
+        }
+        
+        
+        
+        .mega-menu-header {
+            color: #051c2c;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .top_header,
+        .top-bar ul {
+            background-color: #f3f3f2;
+            padding-right: 13px;
+        }
+        
+        .top_header .dropdown.menu a {
+            color: #051c2c;
+        }
+        
+        .site-logo img {
+            
+            height: 60px;
+        }
+        
+        .bottom_header a {
+            color: #051c2c;
+        }
+        
+        .bottom_header nav dl,
+        ol,
+        ul {
+            margin-bottom: 0px;
+        }
+        
+        .bottom_header .fa {
+            padding-top: 9px;
+            font-size: 23px;
+        }
+        
+        .menu.medium-horizontal {
+            background: #fff;
+        }
+        
+        #header {
+            background: #fff;
+            width: 100%;
+            position: relative;
+            /*box-shadow: 0 3px 6px rgba(0,0,0,.16);*/
+        }
+        
+        #header:after {
+            content: "";
+            clear: both;
+            display: block
+        }
+        
+        .search {
+            float: right;
+            padding: 30px
+        }
+        
+        input {
+            border: none;
+            padding: 10px;
+            border-radius: 20px
+        }
+        
+        .logo {
+            float: left;
+            padding: 0px 0 26px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+        
+        .logo a {
+            font-size: 28px;
+            display: block;
+            padding: 0 0 0 20px
+        }
+        
+        #menu-icon {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            margin-top: -12px;
+            margin-right: 30px;
+            display: none
+        }
+        
+        #menu-icon span {
+            border: 2px solid #888;
+            width: 30px;
+            margin-bottom: 5px;
+            display: block;
+            -webkit-transition: all .2s;
+            transition: all .1s
+        }
+        
+        .pad-brdr-right {
+            border-right: 1px solid #cdcdcd;
+            height: 222px;
+            padding-left: 0px;
+        }
+        
+        .side_brdr {
+            border-right: 1px solid #cdcdcd;
+            min-height: 330px;
+        }
+        
+        .side_brdr1 {
+            border-left: 1px solid #cdcdcd;
+            min-height: 300px;
+            padding-left: 10px;
+        }
+        
+        .side_brdr2 {
+            border-left: 1px solid #cdcdcd;
+            padding-left: 10px;
+            margin-left: 0px;
+        }
+        
+        .side_brdr3 {
+            border-left: 1px solid #cdcdcd;
+            padding-left: 0px;
+            margin-left: 10px;
+        }
+        
+        .hero-section {
+            background: url("https://sectigo.com/uploads/backgrounds/_backgroundImage/Sectigo_Header_05.jpg") 50% no-repeat;
+            background-size: cover;
+            height: 20vh;
+            text-align: center;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-align-items: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-justify-content: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+        }
+        
+        .grid-container {
+            border: 1px solid gray;
+            padding: 0;
+        }
+        
+        .callout {
+            border-radius: 0;
+            padding: .5rem;
+        }
+        
+        .callout.alert {
+            background-color: #fea803;
+            border: 0;
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 0;
+            text-align: center;
+        }
+        
+        .menu-icon::after {
+            /* the block itself, the first line */
+            background: #fecf0f;
+            /* middle and bottom */
+            box-shadow: 0 7px 0 #fecf0f, 0 14px 0 #fecf0f;
+            /* respect WebKit */
+            -webkit-box-shadow: 0 7px 0 #fecf0f, 0 14px 0 #fecf0f;
+        }
+        
+        .menu-icon:hover::after {
+            background: #202020;
+            -webkit-box-shadow: 0 7px 0 #202020, 0 14px 0 #202020;
+            box-shadow: 0 7px 0 #202020, 0 14px 0 #202020;
+        }
+        
+        .top-bar {
+            padding: 0;
+            background: transparent;
+        }
+        
+        .no-js .top-bar {
+            display: none;
+        }
+        
+        .dropdown.menu.medium-horizontal>li.is-dropdown-submenu-parent>a {
+            font-size: 18px;
+        }
+        
+        .top-bar-right {
+            padding-top: 18px;
+        }
+        
+        .top_header .top-bar-right .dropdown.menu a:hover {
+            border-bottom: none;
+            padding-bottom: 11px;
+        }
+        
+        .bottom_header .dropdown.menu.vertical>li .is-dropdown-submenu {
+            background: #fff;
+        }
+        
+        .dropdown.menu a:hover {
+            border-bottom: 4px solid #00b073;
+            padding-bottom: 33px;
+        }
+        
+        .bottom_header .dropdown.menu.medium-horizontal>li.opens-left>.is-dropdown-submenu {
+            background-color: #fff;
+            top: 67px !important;
+        }
+        
+        .bottom_header .menu.vertical {
+            background-color: #fff;
+        }
+        
+        .dropdown .is-dropdown-submenu a:hover {
+            padding: .7rem 1rem;
+            border: none;
+        }
+        
+        .top_header .top-bar .top-bar-right {
+            padding-top: 0px;
+        }
+        
+        h3.mega-menu-header {
+            font-weight: bold;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1.36;
+            letter-spacing: normal;
+            text-align: left;
+            font-size: 18px;
+            color: #000;
+        }
+        
+        .dropdown .is-dropdown-submenu a {
+            color: #000;
+            font-size: 15px;
+        }
+        
+        .menu.medium-horizontal {
+            font-size: 18px;
+        }
+        
+        .is-dropdown-submenu {
+            border: none;
+        }
+        
+        .dropdown.menu.medium-horizontal>li.opens-left>.is-dropdown-submenu {
+            top: 78px;
+            right: 0;
+            left: auto;
+        }
+        
+        .empty_cl {
+            height: 20px;
+        }
+        
+        .bottom_header .top-bar .top-bar-right {
+            padding-top: 27px;
+        }
+        
+        .search_txt {
+            display: none;
+        }
+        
+        @media print,
+        screen and (min-width: 40em) {
+            footer .footer-nav>ul>li {
+                width: 28% !important;
+                padding-right: 50px;
+            }
+            footer .footer-nav>ul>li:nth-child(4) {
+                width: 16% !important;
+            }
+            .no-js .top-bar {
+                display: block;
+            }
+            .no-js .title-bar,
+            .dropdown.menu.medium-horizontal > li.is-dropdown-submenu-parent > a::after {
+                display: none;
+            }
+            .dropdown-pane {
+                width: 52.88rem;
+            }
+            .is-dropdown-submenu-item {
+                list-style-type: none;
+            }
+            .dropdown-pane {
+                max-width: 52.88rem;
+                margin: 0 auto !important;
+            }
+            .hero-section .hero-section-text {
+                color: #fefefe;
+                text-shadow: 1px 1px 2px #0a0a0a;
+                /*position: absolute;*/
+                left: 20px;
+                top: 267px;
+            }
+            .dropdown.menu>li.is-dropdown-submenu-parent>a::after {
+                border-color: #000 transparent transparent;
+                content: "\f107";
+                font-family: 'FontAwesome';
+                border: 6px;
+                margin-top: -11px;
+                right: 16px;
+            }
+            .bottom_header nav li li a:hover {
+                border-bottom: none;
+                padding-bottom: 0px;
+            }
+            .dropdown.menu>li.is-dropdown-submenu-parent>a {
+                font-size: 14px;
+            }
+            .top_header .dropdown.menu a {
+                font-size: 14px;
+                line-height: 21px;
+            }
+            .bottom_header nav .dropdown.last_menu .head strong {
+                font-size: 18px;
+            }
+        }
+        
+        @media only screen and (max-with: 1170px) {
+            .dropdown.menu.medium-horizontal>li.is-dropdown-submenu-parent>a {
+                font-size: 17px;
+            }
+        }
+        
+        @media only screen and (min-width: 960px) {
+            .responsive_menu .accordion {
+                display: none;
+            }
+        }
+        
+        @media only screen and (max-width: 959px) {
+            .responsive_menu .accordion {
+                display: block;
+            }
+            nav {
+                display: none;
+                width: 100%;
+                clear: both;
+                float: none;
+                max-height: 400px;
+                overflow-y: scroll
+            }
+            .responsive_menu .accordion-title {
+                color: #000;
+                font-size: 18px;
+                border: 0px;
+                border-bottom: 1px solid #000;
+                font-size: 16px;
+                font-weight: bold;
+            }
+            .responsive_menu .accordion-content {
+                border: 0px solid #e6e6e6
+            }
+            .responsive_menu .accordion > li:last-child > a {
+                display: block;
+                border-bottom: 1px solid #000;
+                padding: 0.5rem;
+                font-size: 18px;
+            }
+            .responsive_menu .accordion-item:first-child>:first-child {
+                background: #fff;
+            }
+            .responsive_menu ul {
+                padding-left: 0px;
+            }
+            .responsive_menu ul>li {
+                list-style-type: none;
+            }
+            .responsive_menu ul>li a {
+                padding-left: 20px;
+                color: #000;
+                font-size: 15px;
+            }
+            .responsive_menu .accordion-title:focus,
+            .accordion-title:hover {
+                background: #fff;
+            }
+            .menu_header {
+                font-weight: bold;
+                font-size: 17px;
+            }
+            .logo {
+                float: none;
+                /*box-shadow: 0 3px 6px rgba(0,0,0,.16);*/
+            }
+            .menu_large {
+                display: none;
+            }
+            .srch_icn {
+                float: right;
+                padding-top: 18px;
+                padding-right: 13px;
+                color: #d9d8d6;
+            }
+            .accordion-title::before {
+                content: "˅";
+                font-weight: bold;
+            }
+            .is-active>.accordion-title::before {
+                content: "˄";
+                font-weight: bold;
+            }
+            .search {
+                float: none
+            }
+            .search input {
+                width: 100%
+            }
+            .bottom_header nav {
+                padding: 10px
+            }
+            .bottom_header nav ul {
+                float: none
+            }
+            .bottom_header nav li {
+                float: none
+            }
+            .btm_brdr {
+                border-bottom: 1px solid #cdcdcd;
+                margin-bottom: 5px;
+                padding-top: 10px;
+            }
+            .dropdown-header {
+                padding-top: 10px;
+            }
+            .side_brdr {
+                min-height: auto;
+                border: none;
+            }
+            .site-logo img {
+                width: 146px;
+                height: 42px;
+                float: right;
+            }
+            .side_brdr1 {
+                min-height: auto;
+                border: none;
+            }
+            .side_brdr2 {
+                min-height: auto;
+                border: none;
+            }
+            .side_brdr3 {
+                min-height: auto;
+                border: none;
+            }
+            .hero-section-text h1 {
+                font-size: 2.5rem;
+                color: #fff;
+            }
+            .bottom_header nav li a {
+                float: none;
+            }
+            .hvrcenter {
+                display: none;
+            }
+            .bottom_header h3.mega-menu-header {
+                padding-top: 16px;
+            }
+            .bottom_header .menu-icon::after {
+                background: #000;
+            }
+            .bottom_header {
+                box-shadow: 0 7px 0 #000, 0 14px 0 #000;
+                -webkit-box-shadow: 0 7px 0 #000, 0 14px 0 #000;
+            }
+            .bottom_header .top-bar-title {
+                padding-left: 16px;
+            }
+            .bottom_header .drilldown a {
+                border-bottom: 1px solid #000;
+            }
+            .bottom_header .drilldown .is-drilldown-submenu-parent>a::after {
+                border-color: transparent transparent transparent #000;
+            }
+            .search_txt {
+                display: inline-block;
+                padding-top: 4px;
+                padding-left: 14px;
+                padding-bottom: 16px;
+            }
+            .bottom_header .fa {
+                display: inline-block;
+                padding-top: 8px;
+                float: right;
+            }
+            .bottom_header .drilldown .js-drilldown-back>a::before {
+                border-color: transparent transparent transparent #000;
+            }
+            .top_header .dropdown.menu>li.is-dropdown-submenu-parent>a:hover {
+                border: none;
+            }
+            .is-drilldown {
+                overflow: auto;
+            }
+            .dropdown.menu>li.is-dropdown-submenu-parent>a::after {
+                border-color: #000 transparent transparent;
+            }
+            .top_header .dropdown.menu a {
+                font-size: 12px;
+                line-height: 23px;
+                padding-right: 4px;
+            }
+            .hero-section {
+                height: 30vh;
+            }
+            .accordion-title {}
+            .srch_l {
+                height: 53px;
+                padding-top: 7px;
+                font-size: 16px;
+                font-weight: bold;
+            }
+        }
+        
+        @media (min-width: 768px) and (max-width: 991px) {
+            .responsive_menu .accordion {
+                display: block;
+            }
+            nav {
+                display: none;
+                width: 100%;
+                clear: both;
+                float: none;
+                max-height: 400px;
+                overflow-y: scroll
+            }
+            .responsive_menu .accordion-title {
+                color: #000;
+                font-size: 18px;
+            }
+            .responsive_menu .accordion-item:first-child>:first-child {
+                background: #fff;
+            }
+            .responsive_menu .accordion-title {
+                border-bottom: 1px solid #000;
+            }
+            .responsive_menu ul {
+                padding-left: 0px;
+            }
+            .responsive_menu ul>li {
+                list-style-type: none;
+            }
+            .responsive_menu ul>li a {
+                padding-left: 20px;
+                color: #000;
+                font-size: 15px;
+            }
+            .responsive_menu .accordion-title:focus,
+            .accordion-title:hover {
+                background: #fff;
+            }
+            .menu_header {
+                font-weight: bold;
+                font-size: 17px;
+            }
+            .logo {
+                float: none;
+                /*box-shadow: 0 3px 6px rgba(0,0,0,.16); */
+            }
+            .menu_large {
+                display: none;
+            }
+            .srch_l {
+                height: 45px;
+            }
+            .srch_icn {
+                float: right;
+                padding-top: 18px;
+                padding-right: 13px;
+            }
+            .search {
+                float: none
+            }
+            .search input {
+                width: 100%
+            }
+            .bottom_header nav {
+                padding: 10px
+            }
+            .bottom_header nav ul {
+                float: none
+            }
+            .bottom_header nav li {
+                float: none
+            }
+            .btm_brdr {
+                border-bottom: 1px solid #cdcdcd;
+                margin-bottom: 5px;
+                padding-top: 10px;
+            }
+            .dropdown-header {
+                padding-top: 10px;
+            }
+            .side_brdr {
+                min-height: auto;
+                border: none;
+            }
+            .site-logo img {
+                width: 146px;
+                height: 42px;
+                float: right;
+            }
+            .side_brdr1 {
+                min-height: auto;
+                border: none;
+            }
+            .side_brdr2 {
+                min-height: auto;
+                border: none;
+            }
+            .side_brdr3 {
+                min-height: auto;
+                border: none;
+            }
+            .hero-section-text h1 {
+                font-size: 2.5rem;
+                color: #fff;
+            }
+            .bottom_header nav li a {
+                float: none;
+            }
+            .hvrcenter {
+                display: none;
+            }
+            .bottom_header h3.mega-menu-header {
+                padding-top: 16px;
+            }
+            .bottom_header .menu-icon::after {
+                background: #000;
+            }
+            .bottom_header {
+                -webkit-box-shadow: 0 7px 0 #000, 0 14px 0 #000;
+                box-shadow: 0 7px 0 #000, 0 14px 0 #000;
+            }
+            .bottom_header .top-bar-title {
+                padding-left: 16px;
+            }
+            .bottom_header .drilldown a {
+                border-bottom: 1px solid #000;
+            }
+            .bottom_header .drilldown .is-drilldown-submenu-parent>a::after {
+                border-color: transparent transparent transparent #000;
+            }
+            .search_txt {
+                display: inline-block;
+                padding-top: 10px;
+                padding-left: 14px;
+                padding-left: 20px;
+                font-size: 18px;
+            }
+            .bottom_header .fa {
+                display: inline-block;
+                padding-top: 15px;
+                float: right;
+            }
+            .bottom_header .drilldown .js-drilldown-back>a::before {
+                border-color: transparent transparent transparent #000;
+            }
+            .top_header .dropdown.menu>li.is-dropdown-submenu-parent>a:hover {
+                border: none;
+            }
+            .is-drilldown {
+                overflow: auto;
+            }
+            .dropdown.menu>li.is-dropdown-submenu-parent>a::after {
+                border-color: #000 transparent transparent;
+            }
+            .top_header .dropdown.menu a {
+                font-size: 12px;
+                line-height: 23px;
+                padding-right: 4px;
+            }
+            .hero-section {
+                height: 30vh;
+                position: relative;
+            }
+            .hero-section .hero-section-text {
+                color: #fefefe;
+                text-shadow: 1px 1px 2px #0a0a0a;
+                /* position: absolute;*/
+                left: 20px;
+                top: 116px;
+            }
+        }
+        
+        .responsive_menu .accordion .accordion-content ul {
+            margin-left: 0px;
+        }
+        
+        .responsive_menu .accordion .accordion-content ul h3.menu_header a {
+            padding-left: 0px;
+        }
+    </style>
+    <div class="top_header">
+        <div class="top-bar row" id="example-menu">
+            <div class="top-bar-right">
+                <ul class="dropdown menu" data-dropdown-menu="data-dropdown-menu">
+                    <li>
+                        <a href="https://sectigo.com/about/contact">Phone Numbers</a>
+                        <ul class="menu vertical">
+
+                            <li><a href="tel:18882666361"><strong>United States:</strong><br/>+1-888-266-6361</a></li>
+                            <li><a href="tel:+17035816361"><strong>International:</strong><br/>+1-703-581-6361</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#chat">Chat</a></li>
+                    <li>
+                        <a href="#">US Dollar</a>
+                        <ul class="menu vertical">
+                            <li><a href="#">US Dollar</a></li>
+                            <li><a href="#">Euro</a></li>
+                            <li><a href="#">British Pound</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Login</a>
+                        <ul class="menu vertical">
+                            <li><a href="https://cert.sectigo.com/clientarea.php">Customers</a></li>
+                            <li><a href="https://secure.trust-provider.com/products/">Partners</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="bottom_header row">
+        <div id="header">
+            <div class="logo">
+                <a class="site-logo" href="https://sectigo.com"><img src="{!$Resource.SectigoNewlogo}" alt="Sectigo" class="block my-0 mx-auto lg:mx-0" /></a>
+                <div class="top-bar-title">
+                    <span data-responsive-toggle="responsive_menu1" data-hide-for="large">
+                  <button class="menu-icon" type="button" data-toggle="responsive_menu1" ></button>
+                  </span>
+                </div>
+            </div>
+            <div class="responsive_menu" id="responsive_menu1" data-dropdown="data-dropdown">
+                <div class="">
+                    <div class="">
+                        <ul class="accordion" data-accordion="dta-accordion" data-allow-all-closed="true">
+                            <li class="srch_l" style="border-bottom: 1px solid #ccc;"><span class="search_txt">Search</span><i class="fa fa-search srch_icn" aria-hidden="true"></i></li>
+                            <li class="accordion-item" data-accordion-item="data-accordion-item">
+                                <a href="https://sectigo.com/products" class="accordion-title">Products</a>
+                                <div class="accordion-content" data-tab-content="data-tab-content">
+                                    <ul class="">
+
+                                        <h3 class="menu_header"><a href="https://sectigo.com/products/ssl-certificates-tls">TLS/SSL Certificates</a></h3>
+                                        <li><a href="https://sectigo.com/products/ssl-certificates-tls/ev-extended-validation">SectigoSSL EV</a></li>
+                                        <li><a href="https://sectigo.com/products/ssl-certificates-tls/ov-organization-validation">                                                        SectigoSSL OV
+                                                        </a></li>
+                                        <li><a href="https://sectigo.com/products/ssl-certificates-tls/dv-domain-validation">                                                        SectigoSSL DV
+                                                        </a></li>
+                                        <li><a href="https://sectigo.com/products/ssl-certificates-tls/wildcard">                                                        SectigoSSL Wildcard
+                                                        </a></li>
+                                        <li><a href="https://sectigo.com/products/ssl-certificates-tls/multi-domain-san-ucc">                                                        SectigoSSL Multi-Domain
+                                                        </a></li>
+                                        <li><a href="https://sectigo.com/ssl-certificates/free-trial">                                                        SectigoSSL Trial
+                                                        </a></li>
+                                        <li><a href="https://sectigo.com/products/ssl-certificates-tls/compare">                                                        Compare Certificates
+                                                        </a></li>
+                                    </ul>
+                                    <ul class="">
+                                        <h3 class="menu_header"><a href="https://sectigo.com/solutions/enterprise">                                                        Enterprise
+                                                        </a></h3>
+                                        <li><a href="https://sectigo.com/products/management-solutions/sectigo-certificate-manager">Certificate Manager</a></li>
+                                        <li><a href="https://sectigo.com/products/management-solutions/private-ca">Private CA</a></li>
+                                        <li><a href="https://sectigo.com/products/management-solutions/iot">IoT Manager</a></li>
+                                        <li><a href="https://sectigo.com/products/signing-certificates/email-smime-certificate">                                                        Corporate Email Encryption (S/MIME)
+                                                        </a></li>
+                                    </ul>
+                                    <ul class="">
+                                        <h3 class="menu_header"><a href="https://sectigo.com/products/signing-certificates">Signing Certificates</a></h3>
+                                        <li><a href="https://sectigo.com/products/signing-certificates/code-signing">Code Signing</a></li>
+                                        <li><a href="https://sectigo.com/products/signing-certificates/email-smime-certificate">Secure Email (S/MIME)</a></li>
+                                    </ul>
+                                    <ul class="">
+                                        <h3 class="menu_header">Additional Products</h3>
+                                        <li><a href="https://sectigo.com/products/code-guard-website-backup">CodeGuard Website Backup &amp; Recovery</a></li>
+                                        <li><a href="https://sectigo.com/products/pci-scanning">HackerGuardian PCI Scanning</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="accordion-item" data-accordion-item="data-accordion-item">
+                                <a href="#" class="accordion-title">Solutions</a>
+                                <div class="accordion-content" data-tab-content="data-tab-content">
+                                    <ul class="">
+
+                                        <h3 class="menu_header"><a href="https://sectigo.com/solutions/enterprise">                                                       For Enterprise
+                                                        </a></h3>
+                                        <h3 class="menu_header"><a href="https://sectigo.com/solutions/small-business">For Small &amp; Medium Business</a></h3>
+                                    </ul>
+                                    <ul class="">
+                                        <h3 class="menu_header"><a href="https://sectigo.com/solutions/industries">Industries</a></h3>
+                                        <li><a href="https://sectigo.com/solutions/industries/ecommerce">E-commerce</a></li>
+                                        <li><a href="https://sectigo.com/solutions/industries/financial-services">Finance</a></li>
+                                        <li><a href="https://sectigo.com/solutions/industries/healthcare">Healthcare</a></li>
+                                        <li><a href="https://sectigo.com/solutions/industries/education">Education</a></li>
+                                        <li><a href="https://sectigo.com/solutions/industries/technology">Technology</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="accordion-item" data-accordion-item="data-accordion-item">
+                                <a href="https://sectigo.com/partners" class="accordion-title">Partners</a>
+                                <div class="accordion-content" data-tab-content="data-tab-content">
+                                    <ul class="">
+                                        <li>
+                                            <h3 class="menu_header"><a href="https://sectigo.com/partners/channel">Channel Partners</a></h3>
+                                        </li>
+                                        <li>
+                                            <h3 class="menu_header"><a href="https://sectigo.com/partners/technology">Technology Partners</a></h3>
+                                        </li>
+                                        <li>
+                                            <h3 class="menu_header"><a href="https://sectigo.com/partner-resources">Partner Resources</a></h3>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="accordion-item" data-accordion-item="data-accordion-item">
+                                <a href="https://sectigo.com/support" class="accordion-title">Support</a>
+                                <div class="accordion-content" data-tab-content="data-tab-content">
+                                    <ul class="">
+                                        <h3 class="menu_header"><a href="https://sectigo.com/support">Technical and Validation Support</a></h3>
+                                        <li><a href="https://support.sectigo.com/Com_KnowledgeMainPageFaq">FAQs</a></li>
+                                        <li><a href="https://support.sectigo.com/Com_KnowledgeMainPage">KnowledgeBase</a></li>  
+                                        <li><a href="https://sectigo.com/support-ticket">Ticketing System</a></li>
+                                        <li><a href="https://sectigo.com/support/report-abuse">Report Abuse</a></li>
+                                        <li><a href="https://sectigo.com/enterprise-support-validation-service">Premier Support</a></li>
+                                        <li><a href="https://secure.trust-provider.com/products/ORDERSTATUSCHECKER">{!$Label.Check_my_Order_Status}</a></li>
+                                        <!--<li><a href="https://sslanalyzer.comodoca.com">Certificate Analyzer</a></li>-->
+                                    </ul>
+                                    <ul class="">
+                                        <h3 class="menu_header"><a href="https://sectigo.com/resources">Resource Library</a></h3>
+                                        <li><a href="https://sectigo.com/resources?type=white-paper">Whitepapers</a></li>
+                                        <li><a href="https://sectigo.com/resources?type=solutions-briefs">Solution Briefs</a></li>
+                                        <li><a href="https://sectigo.com/resources?type=data-sheet">Data Sheets</a></li>
+                                        <li><a href="https://sectigo.com/resources?type=on-demand-webcast-collateral">On-Demand Webcasts</a></li>
+                                        <li><a href="https://sectigo.com/resources?type=podcast">                                                        Podcasts
+                                                        </a></li>
+                                        <li><a href="https://sectigo.com/resources?type=videos">Product Videos</a></li>
+                                        <li><a href="https://sectigo.com/resources?type=case-study">                                                        Case Studies
+                                                        </a></li>
+                                        <li><a href="https://sectigo.com/resources?type=technical-documents">Technical Documents &amp; Guides</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="accordion-item" data-accordion-item="data-accordion-item">
+                                <a href="#" class="accordion-title">About</a>
+                                <div class="accordion-content" data-tab-content="data-tab-content">
+                                    <ul>
+                                        <li>
+                                            <a href="https://sectigo.com/about">
+                                                <h3 class="menu_header">About Sectigo</h3>
+                                            </a>
+                                        </li>
+                                        <li><a href="https://sectigo.com/about/leadership">Leadership</a></li>
+                                        <li><a href="https://sectigo.com/newsroom">Press Releases</a></li>
+                                        <li><a href="https://sectigo.com/media-coverage">In The News</a></li>
+                                        <li><a href="https://sectigo.com/blog">Blog</a></li>
+                                        <li><a href="https://sectigo.com/awards">Awards</a></li>
+                                        <li><a href="https://sectigo.com/about/careers">Careers</a></li>
+                                        <li><a href="https://sectigo.com/about/contact">Contact</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="srch_l"><a href="https://sectigo.com/sectigo-story-faq" class="">Comodo CA is Now Sectigo</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="top-bar menu_large" id="responsive-menu">
+                <div class="top-bar-right">
+                    <ul class="vertical menu drilldown medium-horizontal" data-responsive-menu="drilldown medium-dropdown">
+                        <li><a href="https://sectigo.com/sectigo-story-faq" class="">Comodo CA is Now Sectigo</a></li>
+                        <li>
+                            <a href="https://sectigo.com/products" data-toggle="mega-menu1" class="hvrcenter">Products</a>
+                            <ul class="dropdown-pane vertical-menu" id="mega-menu1" data-dropdown="data-dropdown" data-options="closeOnClick:true; hover: true; hoverPane: true; vOffset:11">
+                                <li>
+                                    <div class="grid-x">
+                                        <div class="cell medium-3">
+                                            <ul class="menu vertical side_brdr1">
+                                                <h3 class="mega-menu-header"><a href="https://sectigo.com/products/ssl-certificates-tls">TLS/SSL Certificates</a></h3>
+                                                <li><a href="https://sectigo.com/products/ssl-certificates-tls/ev-extended-validation">                                                        SectigoSSL EV
+                                                        </a></li>
+                                                <li><a href="https://sectigo.com/products/ssl-certificates-tls/ov-organization-validation">                                                        SectigoSSL OV
+                                                        </a></li>
+                                                <li><a href="https://sectigo.com/products/ssl-certificates-tls/dv-domain-validation">                                                        SectigoSSL DV
+                                                        </a></li>
+                                                <li><a href="https://sectigo.com/products/ssl-certificates-tls/wildcard">                                                        SectigoSSL Wildcard
+                                                        </a></li>
+                                                <li><a href="https://sectigo.com/products/ssl-certificates-tls/multi-domain-san-ucc">                                                        SectigoSSL Multi-Domain
+                                                        </a></li>
+                                                <li><a href="https://sectigo.com/ssl-certificates/free-trial">                                                        SectigoSSL Trial
+                                                        </a></li>
+                                                <li><a href="https://sectigo.com/products/ssl-certificates-tls/compare">                                                        Compare Certificates
+                                                        </a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="cell medium-3">
+                                            <ul class="menu vertical side_brdr1">
+                                                <h3 class="mega-menu-header"><a href="https://sectigo.com/solutions/enterprise">                                                        Enterprise
+                                                        </a></h3>
+                                                <li><a href="https://sectigo.com/products/management-solutions/sectigo-certificate-manager">Certificate Manager</a></li>
+                                                <li><a href="https://sectigo.com/products/management-solutions/private-ca">Private CA</a></li>
+                                                <li><a href="https://sectigo.com/products/management-solutions/iot">IoT Manager</a></li>
+                                                <li><a href="https://sectigo.com/products/signing-certificates/email-smime-certificate">                                                        Corporate Email Encryption (S/MIME)
+                                                        </a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="cell medium-3">
+                                            <ul class="menu vertical side_brdr1">
+                                                <h3 class="mega-menu-header"><a href="https://sectigo.com/products/signing-certificates">Signing Certificates</a></h3>
+                                                <li><a href="https://sectigo.com/products/signing-certificates/code-signing">Code Signing</a></li>
+                                                <li><a href="https://sectigo.com/products/signing-certificates/email-smime-certificate">Secure Email (S/MIME)</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="cell medium-3">
+                                            <ul class="menu vertical side_brdr1">
+                                                <h3 class="mega-menu-header">Additional Products</h3>
+                                                <li><a href="https://sectigo.com/products/code-guard-website-backup">CodeGuard Website Backup &amp; Recovery</a></li>
+                                                <li><a href="https://sectigo.com/products/pci-scanning">HackerGuardian PCI Scanning</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" data-toggle="mega-menu3">Solutions</a>
+                            <ul class="dropdown-pane vertical-menu" id="mega-menu3" data-dropdown="data-dropdown" data-options="closeOnClick:true; hover: true; hoverPane: true; vOffset:11">
+                                <li>
+                                    <div class="grid-x">
+                                        <div class="cell medium-6 small-6">
+                                            <ul class="menu vertical side_brdr1">
+                                                <h3 class="mega-menu-header"><a href="https://sectigo.com/solutions/enterprise">                                                       For Enterprise
+                                                        </a></h3>
+                                                <h3 class="mega-menu-header"><a href="https://sectigo.com/solutions/small-business">For Small &amp; Medium Business</a></h3>
+                                            </ul>
+                                        </div>
+                                        <div class="cell medium-6 small-6">
+                                            <ul class="menu vertical side_brdr1">
+                                                <h3 class="mega-menu-header"><a href="https://sectigo.com/solutions/industries">Industries</a></h3>
+                                                <li><a href="https://sectigo.com/solutions/industries/ecommerce">E-commerce</a></li>
+                                                <li><a href="https://sectigo.com/solutions/industries/financial-services">Finance</a></li>
+                                                <li><a href="https://sectigo.com/solutions/industries/healthcare">Healthcare</a></li>
+                                                <li><a href="https://sectigo.com/solutions/industries/education">Education</a></li>
+                                                <li><a href="https://sectigo.com/solutions/industries/technology">Technology</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="https://sectigo.com/partners">Partners</a>
+                            <ul class="vertical menu side_brdr2">
+                                <li class="empty_cl"></li>
+                                <li class="side_brdr2">
+                                    <a href="https://sectigo.com/partners/channel">
+                                        <h3 class="mega-menu-header">Channel Partners</h3>
+                                    </a>
+                                </li>
+                                <li class="side_brdr2">
+                                    <a href="https://sectigo.com/partners/technology">
+                                        <h3 class="mega-menu-header">Technology Partners</h3>
+                                    </a>
+                                </li>
+                                <li class="side_brdr2">
+                                    <a href="https://sectigo.com/partner-resources">
+                                        <h3 class="mega-menu-header">Partner Resources</h3>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="https://sectigo.com/support" data-toggle="mega-menu2" class="hvrcenter">Support</a>
+                            <ul class="dropdown-pane vertical-menu" id="mega-menu2" data-dropdown="data-dropdown" data-options="closeOnClick:true; hover: true; hoverPane: true; vOffset:11">
+                                <li>
+                                    <div class="grid-x">
+                                        <div class="cell medium-6">
+                                            <ul class="menu vertical side_brdr1">
+                                                <h3 class="mega-menu-header"><a href="https://sectigo.com/support">Technical and Validation Support</a></h3>
+                                                <li><a href="https://support.sectigo.com/Com_KnowledgeMainPageFaq">FAQs</a></li>
+                                                <li><a href="https://support.sectigo.com/Com_KnowledgeMainPage">KnowledgeBase</a></li>
+                                                <li><a href="https://sectigo.com/support-ticket">Ticketing System</a></li>
+                                                <li><a href="https://sectigo.com/support/report-abuse">Report Abuse</a></li>
+                                                <li><a href="https://sectigo.com/enterprise-support-validation-service">Premier Support</a></li>
+                                                <li><a href="https://secure.trust-provider.com/products/ORDERSTATUSCHECKER">{!$Label.Check_my_Order_Status}</a></li>
+                                                <!--<li><a href="https://sslanalyzer.comodoca.com">Certificate Analyzer</a></li>-->
+                                            </ul>
+                                        </div>
+                                        <div class="cell medium-6">
+                                            <ul class="menu vertical  side_brdr1">
+                                                <h3 class="mega-menu-header"><a href="https://sectigo.com/resources">Resource Library</a></h3>
+                                                <li><a href="https://sectigo.com/resources?type=white-paper">Whitepapers</a></li>
+                                                <li><a href="https://sectigo.com/resources?type=solutions-briefs">Solution Briefs</a></li>
+                                                <li><a href="https://sectigo.com/resources?type=data-sheet">Data Sheets</a></li>
+                                                <li><a href="https://sectigo.com/resources?type=on-demand-webcast-collateral">On-Demand Webcasts</a></li>
+                                                <li><a href="https://sectigo.com/resources?type=podcast">                                                        Podcasts
+                                                        </a></li>
+                                                <li><a href="https://sectigo.com/resources?type=videos">Product Videos</a></li>
+                                                <li><a href="https://sectigo.com/resources?type=case-study">                                                        Case Studies
+                                                        </a></li>
+                                                <li><a href="https://sectigo.com/resources?type=technical-documents">Technical Documents &amp; Guides</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="">About</a>
+                            <ul class="vertical menu">
+                                <li class="empty_cl"></li>
+                                <li class="side_brdr3">
+                                    <a href="#">
+                                        <h3 class="mega-menu-header">About Sectigo</h3>
+                                    </a>
+                                </li>
+                                <li class="side_brdr3"><a href="https://sectigo.com/about/leadership">Leadership</a></li>
+                                <li class="side_brdr3"><a href="https://sectigo.com/newsroom">Press Releases</a></li>
+                                <li class="side_brdr3"><a href="https://sectigo.com/media-coverage">In The News</a></li>
+                                <li class="side_brdr3"><a href="https://sectigo.com/blog">Blog</a></li>
+                                <li class="side_brdr3"><a href="https://sectigo.com/awards">Awards</a></li>
+                                <li class="side_brdr3"><a href="https://sectigo.com/about/careers">Careers</a></li>
+                                <li class="side_brdr3"><a href="https://sectigo.com/about/contact">Contact</a></li>
+                            </ul>
+                        </li>
+                        <li><span class="search_txt">Search</span><i class="fa fa-search" aria-hidden="true" data-reveal-id="firstModal"></i></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hero-section">
+        <div class="hero-section-text">
+            <h1 style="font-weight: 900;">Sectigo FAQ</h1>
+        </div>
+    </div>
+    <div id="firstModal" class="reveal-modal" data-reveal="data-reveal" aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog">
+        <h2 id="firstModalTitle">This is a modal.</h2>
+        <p>Reveal makes these very easy to summon and dismiss. The close button is simply an anchor with a unicode character icon and a class of <code>close-reveal-modal</code>. Clicking anywhere outside the modal will also dismiss it.</p>
+        <p>Finally, if your modal summons another Reveal modal, the plugin will handle that for you gracefully.</p>
+        <p><a href="#" data-reveal-id="secondModal" class="secondary button">Second Modal...</a></p>
+        <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    </div>
+    <!--<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.min.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/motion-ui/1.2.3/motion-ui.min.js"></script>-->
+    <script>
+        $(document).foundation();
+    </script>
+</apex:component>

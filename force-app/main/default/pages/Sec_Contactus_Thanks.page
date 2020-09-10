@@ -1,0 +1,37 @@
+<apex:page controller="Sec_ContactusCntrl" showHeader="false" sidebar="false" standardStylesheets="false">
+
+    <head>
+    
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5RNMLZ9');</script>
+<!-- End Google Tag Manager -->
+
+         <apex:stylesheet value="{!URLFOR($Resource.Sectigo_styles)}"/>
+         <apex:stylesheet value="{!URLFOR($Resource.Sectigo_stylesEnterprise)}"/>   
+         <style>
+             .small-descriptor { color: #00B373; }
+             .h1-heading, .lead { color: #091927; }
+         </style>      
+    </head>
+    
+    <body class="thankyou-iframe-container enterprise-page">
+    
+  <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5RNMLZ9"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+        <div class="p-8">
+            <!-- Begin Default Content -->
+            <h1 class="small-descriptor">Thank You</h1>
+            <p class="h1-heading">Your information has been submitted. </p>
+            <p class="lead">A member of our team will reach out to you soon. If you have any questions, feel free to contact us by phone.</p>
+            <!-- End Default Content -->
+        </div>
+    </body>
+    
+</apex:page>

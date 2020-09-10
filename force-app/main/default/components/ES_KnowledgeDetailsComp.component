@@ -1,0 +1,111 @@
+<apex:component controller="ES_KnowledgeController" >
+    <apex:stylesheet value="{!$Page.ES_DesignCss}" />
+<script type="text/javascript">
+   function createCase(){
+       location.href = "https://www.enterprisessl.com/enterprisessl-ticketing-system";
+ } 
+   
+    function redirecttoOrder(){
+       location.href = "https://secure.trust-provider.com/products/ORDERSTATUSCHECKER";
+ } 
+</script>
+    <div id="maincore">
+        <div class="innerwrapper row">
+            <!--Start Mobile Search Box Top view --->
+              <div class="show-for-small-only">
+                  <c:ES_KnowledgeSearchBoxComp />
+              </div>
+              <!--End Mobile Search Box Top view --->
+                      
+            <!--Start Left side Box --->
+            <div id="maincoreleft" class="small-12 medium-4 large-3 columns">
+             <div class="hide-for-small-only">
+                                                  <button id="create-button" type="submit" onclick="redirecttoOrder();"  class="searchbutton button large" >{!$Label.Check_my_Order_Status}</button>
+
+                    <button id="create-button" type="submit" onclick="createCase();"  class="searchbutton button large" >{!$Label.Submit_a_Ticket}</button>
+                </div>
+
+                <div class="leftnavboxbox">
+                    <div class="leftnavboxtitle">
+                        <span class="leftnavboxtitleleftgap">&nbsp;</span>
+                        <span class="leftnavboxtitlebulk">
+                           <span class="leftnavboxtitletext">EnterPriseSSL Articles</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="leftnavboxcontent">
+                    <!-- mosteviewed part-->
+                    <c:ES_knowledgeCategories />
+                </div>
+            </div>
+            <!--End Left side Box --->
+            <!--Start Main content Box --->
+            <div id="maincorecontent" class="small-12 medium-8 large-9 columns">
+                <!--Will main content will come  ---->
+                 <div class="hide-for-small-only">
+                  <c:ES_KnowledgeSearchBoxComp />
+                </div>
+
+                <apex:outputPanel styleClass="pkbResultPanel" layout="block">
+                    <apex:outputPanel styleClass="pkbResultTop" layout="block" />
+                    <apex:outputPanel styleClass="pkbResultInner detail" layout="block">
+                        <apex:outputPanel styleClass="pkbResultSelectedCategories" layout="block">
+                            <h1>
+                               <a title="PositiveSSL Home" href="{!URLFOR($Page.ES_KnowledgeMainPage)}">
+                                         <apex:image url="{!$Resource.ES_WhiteLogo}" height="18px" width="auto"/>
+                                </a>
+                                {!knowledgedetails.Title}
+                            </h1>
+                        </apex:outputPanel>
+                        <apex:pageBlock >
+                            <apex:pageBlockSection columns="1"> 
+                                
+                                <apex:outputField value="{!knowledgedetails.Title}" />
+                          
+                                <apex:outputField value="{!knowledgedetails.Summary_Data__c}"/>
+                               
+                                
+                            </apex:pageBlockSection>
+                        </apex:pageBlock>
+                        <!-- Attchements Section start -->
+                        <div class="attachment-section article-section row">
+                           
+                         <div class="columns small-12">
+                            <apex:outputPanel rendered="{!hasAttachment}">
+                                <div class="kbrightstrip">
+                                   <h3>Attachments</h3>   
+                                </div>
+                                <ol>
+                               <apex:repeat value="{!attchList}" var="lnk">
+                                        <li>
+                                                <apex:outputLink value="{!lnk.attchUrl}">{!lnk.attchName}</apex:outputLink> 
+                                                
+                                        </li>
+                                    </apex:repeat>
+                                    </ol>
+ 
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!isVideo}">
+                                <div class="kbrightstrip">
+                                   <h3>Support Video</h3>   
+                                </div>
+                                <div class="support-video">
+                                    <iframe width="100%" height="315" src="{!videoLink}" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+                                </div>
+                            </apex:outputPanel>
+                         </div>
+                         </div>
+                    </apex:outputPanel>
+                </apex:outputPanel>
+                
+                <div class="show-for-small-only" style="padding-top:20px;">
+                                  <button id="create-button" type="submit" onclick="redirecttoOrder();"  class="searchbutton button large" >{!$Label.Check_my_Order_Status}</button>
+
+                    <button id="create-button" type="submit" onclick="createCase();"  class="searchbutton button large" >{!$Label.Submit_a_Ticket}</button>
+                </div>
+                
+            </div>
+            <!--End Main content Box--->
+        </div>
+    </div>
+</apex:component>

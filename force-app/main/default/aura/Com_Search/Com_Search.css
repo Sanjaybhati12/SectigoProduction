@@ -1,0 +1,20 @@
+/* NEW CSS for slds vertical tabs*/
+.THIS.slds-scope .slds-vertical-tabs__content {
+    max-height: 460px;
+    overflow:hidden;
+    overflow-y:Auto;
+}
+.THIS.slds-scope .slds-vertical-tabs {
+    border-color: #fff;
+}
+.THIS.slds-scope .slds-vertical-tabs__nav {
+    background: #fff;
+    width: 8rem;
+}
+.THIS.slds-scope .slds-vertical-tabs__nav-item {
+    border-color: #fff;
+}
+.THIS.slds-scope .slds-vertical-tabs__nav-item.slds-is-active {
+    border: 1px solid rgb(221, 219, 218);
+    border-left: 3px solid #0a5a26;
+}
