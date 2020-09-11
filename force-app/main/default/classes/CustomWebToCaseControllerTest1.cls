@@ -98,9 +98,11 @@ public class CustomWebToCaseControllerTest1{
         
         
         Case_Reason_Category__c crc = new Case_Reason_Category__c();
-        crc.Name = 'Technincal Support';
-        crc.Case_Reason__c = 'Test1,Test2,Test3';
-        crc.Type__c = 'Parent';
+        crc.Name = 'Billing';
+        crc.Case_Reason__c = 'Billing';
+        crc.API_Name__c='Billing';
+        crc.Type__c = '';
+        crc.Case_Type__c = 'Biling';
         insert crc;
         
         PageReference myVfPage = Page.Com_KnowledgeWeb2Casepagesectigo ;
@@ -119,8 +121,8 @@ public class CustomWebToCaseControllerTest1{
         customWeb.Descriptions = 'testing my value';
         customWeb.caseNumer = '734673';
         customWeb.displaymessage1 = 'for error message';
-        customWeb.ReasonforTicket = 'Billing';
-        customWeb.getCaseTypeList();
+        customWeb.caseTypeforTicket = 'Billing';
+        customWeb.getReasons4CaseTypeList();
         customWeb.retriveCaseReason();
         customWeb.retriveCaseSubReason();
         

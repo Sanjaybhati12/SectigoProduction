@@ -33,9 +33,10 @@ global class CustomWebToCaseController1{
     public Map<String, String> attachmentList {get; set;}
     public String knowledgeQuery{get; set;}    
     public List<String> attachmentNames{get; set;}    
-    Public String ReasonforTicket {get;set;}      
+    Public String caseTypeforTicket {get;set;}      
     Public String ReasonforTicket1 {get;set;}
     public String caseNumer {get; set;}
+    public List<SelectOption> CaseTypeValues {get; set;}
     public List<SelectOption> reasonValues {get; set;}
     public List<KnowledgeArticlesWrapper> knowledgeArticleList {get; set;}    
     public List<KnowledgeArticlesWrapper> mostRecentKnowledge {get; set;}    
@@ -86,20 +87,28 @@ global class CustomWebToCaseController1{
         caseReasonList.add(new SelectOption('','please select..'));
         dmlerror = false; 
         reasonValues = new List<SelectOption>();
-        reasonValues.add(new SelectOption('','please select..'));
-        for(Ticketing_Case_Reason__c tr : [select id,Name, API_Name__c,Label__c from Ticketing_Case_Reason__c]){
-            reasonValues.add(new SelectOption(tr.API_Name__c,tr.Label__C));
+        reasonValues.add(new SelectOption('','Please select a case reason..'));
+        CaseTypeValues = new List<SelectOption>();
+        CaseTypeValues.add(new SelectOption('','Please select a case type..'));
+        Set<String> setCaseTypes = new Set<String>();
+        for(Case_Reason_Category__c tr : [select id,Name,API_Name__c,Case_Type__c,Case_Reason__c from Case_Reason_Category__c]){
+            setCaseTypes.add(tr.Case_Type__c);
+        }
+        for(String sct : setCaseTypes){
+            CaseTypeValues.add(new SelectOption(sct,sct));
         }
         
     }
     
-    public List<SelectOption> getCaseTypeList(){
-        List<SelectOption> caseTypeList = new List<SelectOption>();
-        caseTypeList.add(new SelectOption('','please select case type...'));
-        for(Case_Reason_Category__c  cr : [select id,Name,Case_Reason__c from Case_Reason_Category__c Where Type__c ='Parent']){
-            caseTypeList.add(new SelectOption(cr.Name,cr.Name));
+    
+    public List<SelectOption> getReasons4CaseTypeList(){
+        system.debug('caseTypeforTicket ' + caseTypeforTicket);
+        reasonValues = new List<SelectOption>();
+        reasonValues.add(new SelectOption('','Please select a case reason...'));
+        for(Case_Reason_Category__c tr : [select id,Name,API_Name__c,Case_Type__c,Case_Reason__c from Case_Reason_Category__c WHERE Case_Type__c =: caseTypeforTicket]){
+            reasonValues.add(new SelectOption(tr.API_Name__c,tr.Case_Reason__c));
         }
-        return caseTypeList ;
+        return null ;
     }
     
     public void retriveCaseReason(){
@@ -340,6 +349,19 @@ global class CustomWebToCaseController1{
         caseType = '';
         caseReason = '';
         subCaseReason = '';
+        caseTypeforTicket = '';
+        ReasonforTicket1 = '';
+        reasonValues = new List<SelectOption>();
+        reasonValues.add(new SelectOption('','Please select a case reason..'));
+        CaseTypeValues = new List<SelectOption>();
+        CaseTypeValues.add(new SelectOption('','Please select a case type..'));
+        Set<String> setCaseTypes = new Set<String>();
+        for(Case_Reason_Category__c tr : [select id,Name,API_Name__c,Case_Type__c,Case_Reason__c from Case_Reason_Category__c]){
+            setCaseTypes.add(tr.Case_Type__c);
+        }
+        for(String sct : setCaseTypes){
+            CaseTypeValues.add(new SelectOption(sct,sct));
+        }
     }
     public class KnowledgeArticlesWrapper{    
         public String subject{get; set;}
