@@ -220,7 +220,7 @@
                     
                     // $("#spinner").css('display','block');
                     caseTypeChanged();  // call spinner
-                    saveJsDataRemote(fir_name,last_name,email,webcompany,phone,reason,ordernumber,subject,description);
+                    saveJsDataRemote(fir_name,last_name,email,webcompany,phone,reason,ordernumber,subject,description,caseType);
                     
                 }       
                 
@@ -245,13 +245,13 @@
             }
             
             
-            function saveJsDataRemote(fir_name,last_name,email,webcompany,phone,reason,ordernumber,subject,description){
+            function saveJsDataRemote(fir_name,last_name,email,webcompany,phone,reason,ordernumber,subject,description,caseType){
                 var spamNum = document.getElementById("antiSpam").value;
                 console.log(spamNum , ' spamNum');
                 $("#spinner").css('display','block');
                 Visualforce.remoting.Manager.invokeAction(
                     '{!$RemoteAction.CustomWebToCaseController1.saveDataRemoting}',
-                    fir_name,last_name,email,webcompany,phone,reason,ordernumber,subject,description,ipAddress,spamNum,
+                    fir_name,last_name,email,webcompany,phone,reason,ordernumber,subject,description,ipAddress,spamNum,caseType,
                     function(result, event){
                         $("#spinner").css('display','none');
                         if (event.status) {

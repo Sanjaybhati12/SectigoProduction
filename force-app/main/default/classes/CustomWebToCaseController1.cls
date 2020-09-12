@@ -141,7 +141,7 @@ global class CustomWebToCaseController1{
     
     
     @RemoteAction()
-    global static responseWrapper saveDataRemoting(String fir_name,String last_name,String email,String webcompany,String phone,String reason,String ordernumber,String subject,String description,String ipAddress,String antiSpam){
+    global static responseWrapper saveDataRemoting(String fir_name,String last_name,String email,String webcompany,String phone,String reason,String ordernumber,String subject,String description,String ipAddress,String antiSpam,String caseType){
         Id devRecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByName().get(Label.Default_Public_Record_Type).getRecordTypeId();
         Database.DMLOptions dmo = new Database.DMLOptions(); 
         Integer antiSpamNum = Integer.valueOf(antiSpam);
@@ -165,7 +165,7 @@ global class CustomWebToCaseController1{
                     caseObject.SuppliedEmail = email;
                     caseObject.Description = Description;
                     caseObject.recordTypeId = devRecordTypeId ;
-                    //caseObject.Parent_Case_Reason__c = caseType;
+                    caseObject.Parent_Case_Reason__c = caseType;
                     //caseObject.Case_Sub_Reason__c = subCaseReason;
                     if(conObj != null){   
                         caseObject.contactId = conObj.Id;                     

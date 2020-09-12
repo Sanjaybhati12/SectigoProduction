@@ -96,7 +96,6 @@ public class CustomWebToCaseControllerTest1{
         cases.Status = 'Closed';
         update cases;
         
-        
         Case_Reason_Category__c crc = new Case_Reason_Category__c();
         crc.Name = 'Billing';
         crc.Case_Reason__c = 'Billing';
@@ -143,9 +142,9 @@ public class CustomWebToCaseControllerTest1{
         //String attachList = '[{"Name":"test","Body":"'+EncodingUtil.base64Encode(body)+'"}]';
         String ipAddress1 = 'true';
         
-        CustomWebToCaseController1.saveDataRemoting(fir_name, last_name, email, webcompany, phone, reason, ordernumber1, subject, description, ipAddress1,'30');
-        CustomWebToCaseController1.saveDataRemoting(fir_name, last_name, email, webcompany, phone, reason, ordernumber1, subject, description, ipAddress1,'23');
-        CustomWebToCaseController1.saveDataRemoting(fir_name, last_name, email, webcompany, phone, reason, ordernumber1, subject, description, ipAddress1,'3');
+        CustomWebToCaseController1.saveDataRemoting(fir_name, last_name, email, webcompany, phone, reason, ordernumber1, subject, description, ipAddress1,'30',caseType);
+        CustomWebToCaseController1.saveDataRemoting(fir_name, last_name, email, webcompany, phone, reason, ordernumber1, subject, description, ipAddress1,'23',caseType);
+        CustomWebToCaseController1.saveDataRemoting(fir_name, last_name, email, webcompany, phone, reason, ordernumber1, subject, description, ipAddress1,'3',caseType);
         //  CustomWebToCaseController1.saveDataRemoting(fir_name,last_name,email,webcompany,phone,caseType,reason,subCaseReason,ordernumber1,subject,description,ipAddress1);       
         
         Ticketing_Case_Reason__c casereason = new Ticketing_Case_Reason__c();

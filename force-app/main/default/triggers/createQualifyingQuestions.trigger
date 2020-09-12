@@ -15,6 +15,7 @@ trigger createQualifyingQuestions on Lead (before Insert,before update,after upd
         // Except Channel Partner Round Robin
         leadTriggerHelper.RoundRobinFunctionality(trigger.new);
         //Round Robin for channel Partner
+        
     }
     
     // Update Qualifying question related to lead
@@ -58,7 +59,10 @@ trigger createQualifyingQuestions on Lead (before Insert,before update,after upd
         leadTriggerHelper.setNoOfEmployee(trigger.new);
         leadTriggerHelper.TerritoryAssignment(Trigger.New);
         
-        
+        // checks email domain
+        if(!leadTriggerHelper.isDomainUpdate){
+            leadTriggerHelper.checkIsUniversityDomain(trigger.new);  // email domain check
+        }
          
     }
     if(trigger.isUpdate && trigger.isAfter){
@@ -70,6 +74,7 @@ trigger createQualifyingQuestions on Lead (before Insert,before update,after upd
     }
     // On record creation fire lead assignment rule.
     if(trigger.isInsert && trigger.isAfter){
+        
         if(!leadTriggerHelper.isLeadAssignment){
             leadTriggerHelper.fireLeadAssignment(trigger.new);
         }
