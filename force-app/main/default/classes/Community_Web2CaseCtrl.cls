@@ -165,7 +165,8 @@ public class Community_Web2CaseCtrl{
 }*/
                 
                 if(ReasonforTicket1 !=null)
-                    caseObject.Reason = ReasonforTicket1 ;            
+                    caseObject.Reason = ReasonforTicket1 ; 
+               	caseObject.Parent_Case_Reason__c =  caseTypeforTicket;
                 caseObject.Origin = 'Community';
                 caseObject.Web_Company_Name__c = Accname;
                 caseObject.Order_Number__c = OrderNumber;
