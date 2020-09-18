@@ -1,0 +1,16 @@
+<apex:page standardController="Account" >
+    <apex:includeLightning />
+    <div id="Acc" />
+    <script>
+    //var parentId ="{!$CurrentPage.parameters.id}";
+    $Lightning.use("c:AccountEnterpriseDetailsApp", function() {
+        $Lightning.createComponent(
+            "c:AccountEnterpriseDetails", 
+            {'recordId' : "{!$CurrentPage.parameters.id}" },
+            "Acc",
+            function(component) {
+                console.log('Component created');
+            });
+    });
+    </script>
+</apex:page>

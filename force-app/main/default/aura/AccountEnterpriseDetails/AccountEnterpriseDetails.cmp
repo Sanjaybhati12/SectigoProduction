@@ -1,0 +1,175 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global"
+                controller="AccountEnterpriseDetails">
+    <aura:attribute name="parentId" type="Id" />
+    <aura:attribute name="contactList" type="list" />
+    <aura:attribute name="iconNames" type="String" />
+    <aura:attribute name="onBOardDate" type="String" />
+    
+    <aura:attribute name="contentDocumentList" type="List" />
+    <aura:attribute name="portalAccessDate" type="String" />
+    <aura:attribute name="contentDocLinkId" type="String" />
+    <aura:attribute name="fileName" type="String" />
+    <aura:attribute name="uploadButtonShowHide" type="Boolean" default="true" />
+    <aura:attribute name="rowIndex" type="String" />
+    <aura:attribute name="expand" type="Boolean" default="false" />
+    <aura:attribute name="label" type="String" />
+    <aura:attribute name="uploading" type="Boolean" default="false" />
+    <aura:attribute name="isEnterprisePreimer" type="Boolean" default="false" />
+    <aura:attribute name="serviceAccManager" type="String" default="" />
+    <aura:attribute name="totalPrimerAmount" type="Decimal" default="0" />
+    <aura:attribute name="account" type="Account" default="{ 'sobjectType': 'Account' }"/>
+    
+    <aura:handler event="aura:waiting" action="{!c.waiting}" />
+    <aura:handler event="aura:doneWaiting" action="{!c.doneWaiting}" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:if isTrue="{!v.uploading}">
+        <lightning:spinner alternativeText="Loading" size="large" />
+    </aura:if>
+    <div class="slds-box">
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_1-of-1">
+                <div class="slds-text-heading_medium"><b>Enterprise Premier Customer Details</b></div>
+            </div>
+            <div class="slds-col slds-size_1-of-1"> 
+                <ui:inputCheckbox class="uiCheckbox" aura:id="checkbox" value="{!v.isEnterprisePreimer}" label="Enterprise Premier Support " /> <!-- change="{!c.onCheck}"  -->
+            </div>
+            <div class="slds-col slds-size_1-of-1">
+                Total Quote Amount :
+                <ui:outputText value="{!v.totalPrimerAmount}" title="Service Account Manager" /> <!-- change="{!c.onCheck}"  -->
+            </div>
+            <div class="slds-col slds-size_1-of-1">
+                <lightning:input disabled="true" value="{!v.serviceAccManager}" label="Service Account Manager" />
+            </div>
+            
+            <div class="slds-col slds-size_1-of-1">
+                <div> <lightning:input label="Onboarding Date" type="date" name="input2" disabled="true"  value="{!v.onBOardDate}"/></div>  
+            </div>
+            <div class="slds-col slds-size_1-of-1">
+                <aura:if isTrue="{!not(empty(v.portalAccessDate))}">
+                    <lightning:input label="Portal Access Date" type="date" name="input2" disabled="true"  value="{!v.portalAccessDate}"/>
+                </aura:if>
+            </div>  
+            <div class="slds-col slds-size_1-of-1">
+                <lightning:accordion aura:id="accordion" class="slds-p-top_xx-small slds-p-bottom_xx-small" allowMultipleSectionsOpen="true" >
+                    <lightning:accordionSection name="A" label="Upload Document">
+                        <div>  
+                            <!-- <aura:if isTrue="True"> {!v.uploadButtonShowHide} -->
+                            <div>
+                                <div class="slds-file-selector slds-file-selector_files">
+                                    <div class="slds-file-selector__dropzone">
+                                        
+                                        <input aura:id="file" class="slds-file-selector__input slds-assistive-text" type="file" id="file-upload-input-01"
+                                               aria-labelledby="file-selector-primary-label file-selector-secondary-label" />
+                                        
+                                        <label class="slds-file-selector__body" for="file-upload-input-01" id="file-selector-secondary-label">
+                                            <span class="slds-file-selector__button slds-button slds-button_neutral">
+                                                <lightning:icon iconName="utility:upload" size="xx-small" alternativeText="upload" />Upload
+                                                Files</span>
+                                            <span class="slds-file-selector__text slds-medium-show">or Drop Files</span>
+                                            <span>
+                                                <ui:button label="Upload" press="{!c.save}" />
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- </aura:if>  -->
+                            
+                            <div class="slds-m-top_small" style="height:150px;overflow-y:scroll">
+                                <table class="slds-table slds-table_bordered" >
+                                    <thead>
+                                        <tr class="slds-text-heading_label" style="width:100%;"   >
+                                            <th scope="col" style="width:10%;text-align: center; border-right:1px solid #C2DBF1; position:sticky;top:0;z-index:1; border-top:1px solid  #C2DBF1;" ><div class="slds-truncate" title="SNo">S.No.</div></th>
+                                            <th scope="col" style="width:20%;text-align: Center; border-right:1px solid #C2DBF1;  position:sticky;top:0;z-index:1; border-top:1px solid  #C2DBF1;border-left: 1px solid #C2DBF1; "><div class="slds-truncate" title="UserName">NAME</div></th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        
+                                        <aura:iteration  items="{!v.contentDocumentList}" var="doc" indexVar="index">
+                                            <tr  style="{'background:#90ee90; width:100%;':' width:100%;'}">
+                                                <td style="word-wrap: break-word;white-space: normal;text-align: center; width:10%;z-index:0; border-right: 1px solid #C2DBF1;border-left: 1px solid #C2DBF1;">{!index+1}</td>
+                                                <td style="word-wrap: break-word;white-space: normal;text-align: center; width:20%;z-index:0; border-right: 1px solid #C2DBF1;border-left: 1px solid #C2DBF1;"><a target="_blank"  href="{!'/'+doc.contentDocLinkId}">{!doc.name}</a></td>
+                                                
+                                            </tr>
+                                        </aura:iteration>
+                                    </tbody>
+                                </table>
+                                
+                                <!--<a onclick="{!c.navigateToRecord}" > {!v.fileName}   </a>  -->
+                                <!--<aura:iteration items="{!v.contentDocumentList}" var="doc">
+                                    <div > 
+                                        <a onclick="{!c.navigateToRecord}" data-value="{!doc.contentDocLinkId}" > {!doc.name}   </a>
+                                    </div>
+                                </aura:iteration>-->
+                            </div>
+                        </div> 
+                    </lightning:accordionSection>
+                    <lightning:accordionSection name="B" label="Related Premier Contacts">
+                        <!--  <table class="slds-table slds-table- -bordered slds-table- -cell-buffer">
+                        <thead>
+                            <tr class="slds-text-title- -caps slds-theme_alt-inverse">
+                                <th scope="col" >
+                                    <lightning:buttonIconStateful iconName="{!v.iconNames}" alternativeText="Utility image" variant="border-filled" title="Image" onclick="{!c.toggle}" />
+                                    
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table> -->
+                        <div class="slds-scrollable">
+                            <table class="slds-table slds-table--bordered slds-table--cell-buffer ">
+                                <aura:if isTrue="{!v.contactList.length>0}">
+                                    <!--<aura:if isTrue="{!v.expand}">  -->
+                                    <div class="slds-scrollable_x">
+                                        <thead>
+                                            <tr class="slds-text-title--caps ">
+                                                <th scope="col">
+                                                    <div class="slds-truncate" title="Last Name">Name</div>
+                                                </th>
+                                                <th scope="col">
+                                                    <div class="slds-truncate" title="Email">Email</div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <aura:iteration items="{!v.contactList}" var="ct" indexVar="index">
+                                            <tbody>
+                                                <tr>
+                                                    <td data-label="Last Name">
+                                                        <div class="slds-truncate" title="{! ct.LastName }">{! ct.FirstName } &nbsp;{! ct.LastName }</div>
+                                                    </td>
+                                                    <td data-label="Email">
+                                                        <div class="slds-truncate" title="{! ct.Email }">{! ct.Email }</div>
+                                                    </td>
+                                                    <!-- <td data-label="Email">
+                                                <div class="slds-truncate" title="{! ct.Email }">{! ct.Email }</div>
+                                            </td>-->
+                                                </tr>
+                                            </tbody>
+                                        </aura:iteration>
+                                    </div>
+                                    <!--</aura:if>  -->
+                                </aura:if>
+                            </table>
+                        </div>
+                    </lightning:accordionSection>
+                    <lightning:accordionSection name="C" label="3rd Party Integration Product">
+                        
+                        <lightning:recordEditForm aura:id="intProduct"
+                                                  recordId="{!v.recordId}"
+                                                  objectApiName="Account"
+                                                  onsubmit="{!c.IntegrationProduct}">
+                            <lightning:messages />
+                            <lightning:inputField  fieldName="X3rd_Party_Integration_Product__c" variant="label-hidden"/>
+                             
+                                <lightning:button variant="Brand" class="slds-m-top_small slds-float_right" type="submit" label="Save" />
+                           
+                            </lightning:recordEditForm>
+                        
+                        </lightning:accordionSection>
+                    </lightning:accordion>
+                </div>
+            </div>
+        </div>
+    </aura:component>
