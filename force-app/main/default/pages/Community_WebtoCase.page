@@ -260,7 +260,7 @@
                                                 <div class="small-12 columns">
                                                     <label>Order Number
                                                         <!--<apex:inputField value="{!caseObject.Order_Number__c}"/>-->
-                                                        <apex:inputText value="{!OrderNumber }"/>
+                                                        <input type="number" value="{!OrderNumber }"/>
                                                         <span class="errorChar"></span>
                                                     </label>
                                                 </div>

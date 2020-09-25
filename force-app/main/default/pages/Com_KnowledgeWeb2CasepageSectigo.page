@@ -624,7 +624,7 @@
                                         <div class="row">
                                             <div class="small-12 columns">
                                                 <label class="slds-form-element__label sr-only">Order Number </label>
-                                                <input type="text" class="roundBorder" placeholder="Order Number" id="ordernumber"/>
+                                                <input type="number" class="roundBorder" placeholder="Order Number" id="ordernumber"/>
                                                 <!-- <apex:inputText id="ordernumber" value="{!OrderNumber }"/> -->
                                                 <span class="errorChar"></span>
                                                 
