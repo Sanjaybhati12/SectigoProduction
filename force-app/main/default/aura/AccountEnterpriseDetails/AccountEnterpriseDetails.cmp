@@ -38,7 +38,15 @@
                 <ui:outputText value="{!v.totalPrimerAmount}" title="Service Account Manager" /> <!-- change="{!c.onCheck}"  -->
             </div>
             <div class="slds-col slds-size_1-of-1">
+                
+                <lightning:recordEditForm recordId="{!v.recordId}"
+                                          objectApiName="Account"
+                                                  >
+                            <lightning:inputField disabled="true" fieldName="Service_Account_Manager__c"/>
+                </lightning:recordEditForm>
+                <!--
                 <lightning:input disabled="true" value="{!v.serviceAccManager}" label="Service Account Manager" />
+                -->
             </div>
             
             <div class="slds-col slds-size_1-of-1">
