@@ -24,137 +24,64 @@
             
             <style>
                 .leftnavboxcontent a {
-                color: red !important;
+                    color: red !important;
                 }
                 .error,.errorChar{
-                color: red;
-                display: block;
+                    color: red;
+                    display: block;
                 }
                 
                 .searchbutton.button.large{
-                background-color:#00b073;
-                border-radius:999px;
-                font-size: 1.50rem;
-                font-weight:bold;
+                    background-color:#00b073;
+                    border-radius:999px;
+                    font-size: 1.50rem;
+                    font-weight:bold;
                 }
                 .searchbutton.button.large:hover{
-                background-color: #008e5d;
-                border-color: #008e5d;
+                    background-color: #008e5d;
+                    border-color: #008e5d;
                 }
                 
-                .button {
-                background-color: #00b073; /* Green */
-                border: none;
-                color: white;
-                padding: 15px 32px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                margin: 4px 2px;
-                cursor: pointer;
-                border-radius: 999px;
-                font-size: 1.50rem;
-                font-weight: bold; 
-                }
                 
-                .button:hover{
-                background-color: #008e5d;
-                border-color: #008e5d;
-                }
-                /* The Modal (background) */
-                .modal {
-                display: none; /* Hidden by default */
-                position: fixed; /* Stay in place */
-                z-index: 1; /* Sit on top */
-                padding-top: 100px; /* Location of the box */
-                left: 0;
-                top: 0;
-                width: 100%; /* Full width */
-                height: 100%; /* Full height */
-                overflow: auto; /* Enable scroll if needed */
-                background-color: rgb(0,0,0); /* Fallback color */
-                background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-                }
                 
-                /* Modal Content */
-                .modal-content {
-                background-color: #fefefe;
-                margin: auto;
-                padding: 20px;
-                border: 1px solid #888;
-                width: 28%;
-                }
-                
-                /* The Close Button */
-                .close {
-                color: #aaaaaa;
-                float: right;
-                font-size: 28px;
-                font-weight: bold;
-                }
-                
-                .close:hover,
-                .close:focus {
-                color: #000;
-                text-decoration: none;
-                cursor: pointer;
-                }
-                .thanks{
-                color:seagreen;font-weight:bold;font-size:20px;margin-top: 15px;
-                }
                 .attchError{
-                color:red;
-                font-weight:bold;
-                margin-left:1%;
+                    color:red;
+                    font-weight:bold;
+                    margin-left:1%;
                 }
                 .orderButton{
-                padding: 10px;
-                background-color: white;
-                border-radius: 4px;
-                float: right;
+                    padding: 10px;
+                    background-color: white;
+                    border-radius: 4px;
+                    float: right;
                 }
                 
                 .row:not(.expanded) .row {
-                max-width: none;
-                padding-top: 10px;
+                    max-width: none;
+                    padding-top: 10px;
+                    font-size: 15px;
                 }
                 
                 .roundBorder {
-                width: 100%;
-                height: 30px;
-                margin: 0 auto;
-                border: auto;
-                border-radius: .25rem;
+                    appearance: none;
+                    width: 100%;
+                    background-color: #f0efef !important;
+                    font-weight: 300;
+                    color: #051c2c;
+                    border-radius: .25rem;
+                    padding-top: .75rem;
+                    padding-bottom: .75rem;
+                    padding-left: 1rem;
+                    padding-right: 1rem;
+                    line-height: 1.125;
+                    font-size: 15px !important;
                 
                 }
-                
-                
-            </style>
-            <style type="text/css">
-                .custPopup{
-                background-color: white;
-                border-width: 2px;
-                border-style: solid;
-                z-index: 9999;
-                left: 50%;
-                padding:10px;
-                position: absolute;
-                width: 500px;
-                margin-left: -250px;
-                top:100px;
+                ::placeholder{
+                    font-style: initial;
+                    font-size: 15px;
                 }
-                .popupBackground{
-                background-color:black;
-                opacity: 0.20;
-                filter: alpha(opacity = 20);
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                top: 0;
-                left: 0;
-                z-index: 9998;
-                }
+                
                 
             </style>
             <script type="text/javascript">
@@ -174,6 +101,13 @@
             function redirecttoOrder1(){
                 window.top.location.href = "https://ssl.comodo.com/return-or-exchange";
             } 
+            
+            function caseTypeChanged(){
+                console.log('test spinner');
+                $("#spinner2").css('display','block');
+                setTimeout(function(){$("#spinner2").css('display','none');}, 3000);
+                // $("#spinner2").css('display','none');
+            }
             
             function uploadFileRemoting() {
                 $("#attchmentErrorMessage").text('');  
@@ -229,14 +163,16 @@
                 isOderValidation = true;
                 validateForm();
             }
+            
             function validateForm(){
-                
+               
                 var fir_name = $('[id$=first_name]').val();
                 var last_name = $('[id$=last_name]').val();
                 var email = $('[id$=com_email]').val();
                 var webcompany = $('[id$=com_webcompany]').val();
                 var phone =  $('[id$=com_phone]').val(); 
                 var reason =  $('[id$=ReasonforTicket1]').val();
+                var caseType = $('[id$=caseTypeforTicket]').val();
                 var subject = $('[id$=com_subject]').val();
                 var description =  $('[id$=com_description]').val(); 
                 var ordernumber =  $('[id$=ordernumber]').val();               
@@ -266,7 +202,11 @@
                 if(reason.length < 1){                      
                     $('[id$=ReasonforTicket1]').before('<span class="error">Please select Reason for the Ticket</span>');    
                     checkValidation=false;                        
-                }
+                } 
+                if(caseType.length < 1){                      
+                    $('[id$=caseTypeforTicket]').before('<span class="error">Please select Case type for the Ticket</span>');    
+                    checkValidation=false;                        
+                } 
                 if(subject.length < 1){                      
                     $('[id$=com_subject]').before('<span class="error">Please enter Subject</span>');
                     checkValidation=false;                            
@@ -278,8 +218,9 @@
                 
                 if(checkValidation){
                     
-                    $("#spinner").css('display','block');
-                    saveJsDataRemote(fir_name,last_name,email,webcompany,phone,reason,ordernumber,subject,description);
+                    // $("#spinner").css('display','block');
+                    caseTypeChanged();  // call spinner
+                    saveJsDataRemote(fir_name,last_name,email,webcompany,phone,reason,ordernumber,subject,description,caseType);
                     
                 }       
                 
@@ -296,7 +237,7 @@
                         a.value = parseInt(a.value) + 1;
                     }
                 }
-                console.log('line 282');
+                console.log('line 304');
                 setTimeout("antiSpam()", 1000);
             }
             if(isSuccess == false ){
@@ -304,13 +245,13 @@
             }
             
             
-            function saveJsDataRemote(fir_name,last_name,email,webcompany,phone,reason,ordernumber,subject,description){
+            function saveJsDataRemote(fir_name,last_name,email,webcompany,phone,reason,ordernumber,subject,description,caseType){
                 var spamNum = document.getElementById("antiSpam").value;
                 console.log(spamNum , ' spamNum');
                 $("#spinner").css('display','block');
                 Visualforce.remoting.Manager.invokeAction(
                     '{!$RemoteAction.CustomWebToCaseController1.saveDataRemoting}',
-                    fir_name,last_name,email,webcompany,phone,reason,ordernumber,subject,description,ipAddress,spamNum,
+                    fir_name,last_name,email,webcompany,phone,reason,ordernumber,subject,description,ipAddress,spamNum,caseType,
                     function(result, event){
                         $("#spinner").css('display','none');
                         if (event.status) {
@@ -404,8 +345,18 @@
                     $("#ticketSubmitted").css('display','block');
                 }
                 $("#spinner").css('display','none');
-                reFreshPage();
-                generateCaptcha();
+                
+                
+                $('[id$=first_name]').val('');
+                $('[id$=last_name]').val('');
+                $('[id$=com_email]').val('');
+                $('[id$=com_webcompany]').val('');
+                $('[id$=com_phone]').val(''); 
+                $('[id$=ReasonforTicket1]').val('');
+                $('[id$=com_subject]').val('');
+                $('[id$=com_description]').val(''); 
+                $('[id$=ordernumber]').val('');    
+                 generateCaptcha();
             }
             function closeThankYou(){
                 $("#thankYouModal").css('display','none');
@@ -474,21 +425,90 @@
                 });
                 
             });
+            
             function verifycallback(){
                 document.getElementsByClassName('submitButton')[0].disabled   = false
             }
-            var onloadCallback = function(){
-                grecaptcha.render('captcha-element', {
-                    'sitekey':'6Lf19LMZAAAAAHIPliFqrKpeuJOV34FkbH__QPEd',
-                    'callback':verifycallback, 
-                });
-                // captcha function
-            } 
+            
+            
             </script>
+            
+            <style>
+                /* COMPACT CAPTCHA WHITE */
+                
+                .capbox {
+                    background: #FFFFFF;
+                    border: #999999 0px solid;
+                    border-width: 1px;
+                    box-sizing: border-box;
+                    -moz-box-sizing: border-box;
+                    -webkit-box-sizing: border-box;
+                    display: inline-block;
+                    padding: 4px 140px 0px 0px;
+                    border-radius: 4px;
+                    margin-left:1%;
+                }
+                
+                .capbox-inner {
+                    font: bold 12px arial, sans-serif;
+                    color: #000000;
+                    background: transparent;
+                    margin: 0px auto 0px auto;
+                    padding: 3px 10px 5px 10px;
+                    border-radius: 4px;
+                    display: -webkit-inline-box;
+                    vertical-align: middle;
+                    width: 100px;
+                }
+                
+                #CaptchaDiv {
+                    color: #000000;
+                    font: normal 25px Impact, Charcoal, arial, sans-serif;
+                    font-style: italic;
+                    text-align: center;
+                    vertical-align: middle;
+                    background: transparent;
+                    user-select: none;
+                    display: inline-block;
+                    padding: 3px 14px 3px 8px;
+                    margin-right: 4px;
+                    border-radius: 4px;
+                }
+                
+                #CaptchaInput {
+                    border: #000000 1px solid;
+                    margin: 3px 0px 1px 0px;
+                    width: 105px;
+                }
+                .subbutx3 {
+                    background-color: green ;
+                    border: none;
+                    border-style: outset;         
+                    color: white;
+                    padding: 8px 30px;
+                    text-align: center;
+                    inline-size: max-content;
+                    text-decoration: none;
+                    display: inline-block;
+                    font-size: 1.0rem;
+                }
+                .button.small {
+                    font-size: 1.6rem;
+                }
+                
+            </style>
+        </head>
+        
+        <apex:actionFunction name="reFreshPage" action="{!cleardata}" reRender="formData,formData1,detailForm"/>
+        <apex:actionFunction action="{!fetchKnowledgeArticles}" name="fetchArticles" reRender="knowledgeSection">
+            <apex:param name="subjectValue" value="" />
+        </apex:actionFunction>
+        
+        <apex:outputPanel id="detailForm">
             <script>
             var captcha;
-            
             function generateCaptcha() {
+                console.log('Calling generate captcha');
                 document.getElementsByClassName('submitButton')[0].disabled = true;
                 $("#captchaButton").text("Verify");
                 var a = Math.floor((Math.random() * 10));
@@ -519,85 +539,6 @@
                 }
             }
             </script>
-            <style>
-                /* COMPACT CAPTCHA WHITE */
-                
-                .capbox {
-                background: #FFFFFF;
-                border: #999999 0px solid;
-                border-width: 2px 2px 2px 20px;
-                box-sizing: border-box;
-                -moz-box-sizing: border-box;
-                -webkit-box-sizing: border-box;
-                display: inline-block;
-                padding: 5px 99px 5px 8px;
-                border-radius: 4px 4px 4px 4px;
-                }
-                
-                .capbox-inner {
-                font: bold 12px arial, sans-serif;
-                color: #000000;
-                background: transparent;
-                margin: 0px auto 0px auto;
-                padding: 3px 10px 5px 10px;
-                border-radius: 4px;
-                display: -webkit-inline-box;
-                vertical-align: middle;
-                width: 100px;
-                }
-                
-                #CaptchaDiv {
-                color: #000000;
-                font: normal 25px Impact, Charcoal, arial, sans-serif;
-                font-style: italic;
-                text-align: center;
-                vertical-align: middle;
-                background: transparent;
-                user-select: none;
-                display: inline-block;
-                padding: 3px 14px 3px 8px;
-                margin-right: 4px;
-                border-radius: 4px;
-                }
-                
-                #CaptchaInput {
-                border: #000000 1px solid;
-                margin: 3px 0px 1px 0px;
-                width: 105px;
-                }
-                .subbutx3 {
-                background-color: green ;
-                border: none;
-                border-style: outset;         
-                color: white;
-                padding: 5px 10px;
-                text-align: center;
-                inline-size: max-content;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 1.0rem;
-                }
-                .button.small {
-                font-size: 1.6rem;
-                }
-                
-            </style>
-        </head>
-        
-        <apex:actionFunction name="reFreshPage" action="{!cleardata}" reRender="formData,formData1"/>
-        <apex:actionFunction action="{!fetchKnowledgeArticles}" name="fetchArticles" reRender="knowledgeSection">
-            <apex:param name="subjectValue" value="" />
-        </apex:actionFunction>
-        <!-- Spinner Start -->
-        <div id="spinner" style="display:none;">
-            <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.75; z-index: 1000; background-color: grey;">
-                &nbsp;
-            </div>
-            <div style="position: fixed; left: 0; top: 0; bottom: 0; right: 0; z-index: 1001; margin: 22% 42%">
-                <img src="{!$Resource.Loading}" width="130" height="170" / >
-            </div>
-        </div>
-        <apex:outputPanel id="detailForm">
             <div class="body">
                 <div align="left">
                     <button id="create-button" type="submit" onclick="redirecttoOrder();"  class="searchbutton button large" >{!$Label.Check_my_Order_Status}</button>
@@ -655,8 +596,26 @@
                                         </div>
                                         <div class="row">
                                             <div class="small-12 columns">
+                                                <label class="slds-form-element__label sr-only">Case type for the ticket<span class="star">*</span></label>
+                                                <apex:selectList styleClass="roundBorder" id="caseTypeforTicket" value="{!caseTypeforTicket}" size="1">
+                                                    <apex:actionSupport event="onchange" action="{!getReasons4CaseTypeList}" onsubmit="caseTypeChanged();" reRender="ReasonforTicket1"/>
+                                                    <apex:selectOptions value="{!CaseTypeValues}"/>
+                                                </apex:selectList>
+                                                
+                                            </div>
+                                        </div>
+                                        <div id="spinner2" style="display:none;">
+                                            <div style="position: fixed; top: 0px; left: 0px; right: 0px; bottom: 0px; opacity: 0.75; z-index: 1000; background-color: grey;">
+                                                &nbsp;
+                                            </div>
+                                            <div style="position: fixed; left: 1px; top: 1px; bottom: 1px; right: 1px; z-index: 1001; margin: 22% 42%">
+                                                <img src="{!$Resource.Loader_spinner}" width="130" height="170" / >
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="small-12 columns">
                                                 <label class="slds-form-element__label sr-only">Reason for the ticket<span class="star">*</span></label>
-                                                <apex:selectList styleClass="roundBorder" id="ReasonforTicket1" value="{!ReasonforTicket1}" size="1">
+                                                <apex:selectList styleClass="roundBorder hs-input" id="ReasonforTicket1" value="{!ReasonforTicket1}" size="1"  >
                                                     <apex:selectOptions value="{!reasonValues}"/>
                                                 </apex:selectList>
                                                 
@@ -689,27 +648,7 @@
                                         </div> 
                                     </apex:outputPanel>
                                     <div class="row">
-                                        <div class="medium-9 columns"> <!--
-<div id="captcha-element" class="g-recaptcha" data-sitekey="6Lf19LMZAAAAAHIPliFqrKpeuJOV34FkbH__QPEd"></div> -->
-                                            <body onload="generateCaptcha()">
-                                                <div class="capbox">
-                                                    <div id="CaptchaDiv">
-                                                    </div>
-                                                    <div class="capbox-inner" >
-                                                        <input type="text" id="captcha" style="display:none;" hidden="true" disabled="true"/> 
-                                                        <input type="text" id="inputText"/>
-                                                        <!--<button onclick="generateCaptcha()" class="subbutx3">Refresh</button>  -->
-                                                        <button onclick="check();return false;" id="captchaButton" class="button small subbutx3">Verify</button>
-                                                        
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <apex:outputText value="{!$Label.Captcha_Box_Message}"/>
-                                                </div>
-                                            </body>
-                                            <apex:commandButton disabled="true" id="saveButton" onclick="validateForm();return false;"  value="Submit" styleClass="button large submitButton" >                                                
-                                            </apex:commandButton> 
-                                            
+                                        <div class="medium-12 columns"> 
                                             <div id="displayMessage" style="display:none;">
                                                 <p id="ticketSubmitted1" style="font-size: 20px;color: seagreen;">Thank You!</p>
                                                 <p id="successBtnMessage1" style="width: 126%;font-size: 18px;color: seagreen;"></p>
@@ -717,12 +656,44 @@
                                             </div>
                                         </div>
                                         
+                                            
                                     </div>
                                     <apex:outputPanel id="formData1">
                                         <div class="row">
                                             <div class="small-12 columns">
-                                                <input type="file" id="attachmentFile"/> 
-                                                <input type="button" onclick="uploadFileRemoting();"  value="Upload" style="width:9%;height: 30px;margin: 0 auto;border: auto;border-radius: 25px;" styleClass="" /> 
+                                                <div class="row">
+                                                    <body onload="generateCaptcha();">
+                                                        <div class="capbox">
+                                                            <div id="CaptchaDiv">
+                                                            </div>
+                                                            <div class="capbox-inner" >
+                                                                <input type="text" id="captcha" style="display:none;" hidden="true" disabled="true"/> 
+                                                                <input type="text" id="inputText"/>
+                                                                <!--<button onclick="generateCaptcha()" class="subbutx3">Refresh</button>  -->
+                                                                <button onclick="check();return false;" id="captchaButton" class="button small subbutx3">Verify</button>
+                                                                
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </body>
+                                                </div>
+                                                <div class="row">
+                                                    <apex:outputText value="{!$Label.Captcha_Box_Message}"/>
+                                                </div>
+                                            </div>
+                                            <div class="small-12 columns">
+                                                <div class="row">
+                                                    <div class="small-3 columns">
+                                                        <input type="file" id="attachmentFile"/> 
+                                                    </div>
+                                                    <div class="small-6 columns">
+                                                        <input type="button" onclick="uploadFileRemoting();"  value="Upload" style="padding: 5px 30px;background-color: #00b073 !important;color: white;border: solid 1px white;border-radius: 3px;" styleClass="uploadButton" />
+                                                    </div>
+                                                    <div class="small-3 columns">
+                                                        <apex:commandButton id="saveButton"  onclick="validateForm();return false;"  value="Submit" styleClass="button large submitButton" style="padding: 10px 60px;background-color: #00b073 !important;color: white;border: solid 1px white;border-radius: 3px;margin-top: -2px;">                                                
+                                                        </apex:commandButton> 
+                                                    </div>
+                                                </div>
                                             </div>                                               
                                         </div>
                                         <div class="row"><div style="margin-left:1%;margin-top: 15px;"> <b> Related Files </b></div></div>
@@ -819,58 +790,5 @@
                 </div>
             </div>
         </apex:outputPanel>
-        <!-- Thank you modal -->
-        <div id="thankYouModal" class="modal">
-            
-            <!-- Modal content -->
-            <!-- <div class="modal-content" style="width:57%;padding:0px;margin-top:25%">
-<div style="display:flex;width: 113%;height: 350px">
-<div style="width:19%;background-color:#111E29;color:white;">
-<apex:image url="{!$Resource.sectigoThankyoupopupLogo}" style="margin-top:30%;width:100%;"/>
-</div>
-<div style="width:70%;background-color:white;position: relative;">
-<div>
-<p style="margin-left: 2%;color:seagreen;font-weight:bold;font-size: 30px;margin-top: 15px;">Thank You!</p>
-<div style="margin-left: 2%;font-size:20px;font-weight:bold;line-height: 30px;">
-<p id="modalMessage"></p>
-</div>
-<p style="margin-left: 2%;" id="ticketSubmitted">Please review your email for instructions on how to connect with your Sectigo representative.</p>
-
-</div>
-<div style="margin-left: 2%;">
-<p style="font-size:12px;color: grey;">
-Click OK to Search the Knowledgebase<br/>
-Click RETURN to create another Ticket<br/>
-Click DONE to exit<br/>
-</p>
-</div>
-<button onclick="redirectMainPage();return false;" style="background-color: #FFC300;width: 33.3%;border-right:solid 1px #0000002e;font-weight:bold;padding:6px;position:absolute;bottom:0px;">OK</button>  
-<button onclick="closeThankYou();return false;" style="background-color: #FFC300;width: 33.3%;border-right:solid 1px #0000002e;font-weight:bold;width: 33.4%;padding:6px;position:absolute;bottom:0px;margin-left: 33.3%;">RETURN</button>
-<button onclick="redirectSupportPage();return false;" style="background-color: #FFC300;width: 33.3%;border-right:solid 1px #0000002e;font-weight:bold;padding:6px;position:absolute;bottom:0px;margin-left: 66.6%;">DONE</button>
-</div> 
-</div>
-</div> -->
-        </div> 
-        
-        <!-- Warning Popup -->
-        <div id="orderWarning" class="modal"> 
-            <!-- Modal content -->
-            
-            <!--   <div class="modal-content" style="width:40%;padding:0px;color:white;margin-top:30%">
-<div style="padding:5px;font-weight:bold;">Order Warning</div>
-<div style="background-color: #111E29;padding:10px;height: 170px">
-<div style="color:white;">{!($Label.Tickting_Order_Warning)}</div>
-<div style="color:white;margin-top:40px;display:flex;">
-<div style="width:50%">
-<button onclick="closeOrderWarning();return false;" class="orderButton" style="float:left">Return to Case</button> 
-</div>
-<div style="width:50%;text-align:right;color:white">
-<button onclick="confirmOrderNumber();return false;" class="orderButton"> Continue</button> 
-<br/><br/>(I do not have an Order Number)
-</div>
-</div>
-</div>
-</div> -->
-        </div> 
     </apex:form>
 </apex:page>
