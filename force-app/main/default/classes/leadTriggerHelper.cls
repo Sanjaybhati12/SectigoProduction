@@ -1,7 +1,6 @@
 public class leadTriggerHelper{
     public static Boolean isChannelAssignment = false;
     public static Boolean isLeadAssignment = false;
-    public static Boolean isDomainUpdate = false;
     public static void setNoOfEmployee(List<Lead> leadList){
         for(Lead led : leadList){
             system.debug('led.HubSpot_Employee_Count__c >>'+led.HubSpot_Employee_Count__c);
@@ -232,21 +231,5 @@ public class leadTriggerHelper{
         public Integer compareTo(Object objToCompare) {
             return Integer.valueOf(count- (((leadWrapper)objToCompare).count));
         }
-    }
-    
-    // checks the email domain to assign lead based on domain
-    public static void checkIsUniversityDomain(List<Lead> leadlist){
-        Map<String,LeadAssignmentRuleEmailDomain__c> customDomainList = LeadAssignmentRuleEmailDomain__c.getAll();
-        List<String> checkdomainList = new List<String>();
-        checkdomainList.addAll(customDomainList.keySet() );
-        for(Lead ld : leadlist){
-            if(ld.Email != null && ld.Email != ''){
-                String domain = ld.Email.split('@')[1];  // gets the email domian
-                if(checkdomainList.contains(domain) ){
-                    ld.Is_University_domain__c = true;
-                }
-            }
-        }
-        isDomainUpdate = true;
     }
 }

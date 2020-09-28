@@ -25,17 +25,14 @@ public class TestMilestoneTimeCalculator{
         
         mileStoneCaseReason__c mileStonCaseRea = new mileStoneCaseReason__c();
         mileStonCaseRea.Name='Brand Validation';
-        mileStonCaseRea.Label__c ='Brand Validation';
         insert mileStonCaseRea ;
         
          mileStoneCaseReason__c mileStonCaseRea1 = new mileStoneCaseReason__c();
         mileStonCaseRea1.Name='CCM Validation';
-         mileStonCaseRea1.Label__c='CCM Validation';
         insert mileStonCaseRea1 ;
         
          mileStoneCaseReason__c mileStonCaseRea2 = new mileStoneCaseReason__c();
         mileStonCaseRea2.Name='EV Validation';
-         mileStonCaseRea2.Label__c='EV Validation';
         insert mileStonCaseRea2 ;
     
         Account acc = new Account(
@@ -87,7 +84,7 @@ public class TestMilestoneTimeCalculator{
         insert ct1;
         Case cas1 = new Case(      
             Status = 'New',
-            priority = 'High (L2)',
+            priority = 'High',
             Subject = 'TestCase',
             AccountId = acc.Id,
             contactId = ct.Id,
@@ -102,7 +99,7 @@ public class TestMilestoneTimeCalculator{
         
         Case cas2 = new Case(      
             Status = 'New',
-            priority = 'High (L2)',
+            priority = 'High',
             Subject = 'TestCase1',
             contactId = ct.Id,
             EntitlementId = ent.Id      
@@ -111,7 +108,7 @@ public class TestMilestoneTimeCalculator{
         
         Case cas3 = new Case(      
             Status = 'New',
-            priority = 'Meduim (L3)',
+            priority = 'High',
             Subject = 'TestCase2',
             contactId = ct1.Id,
             EntitlementId = ent1.Id      

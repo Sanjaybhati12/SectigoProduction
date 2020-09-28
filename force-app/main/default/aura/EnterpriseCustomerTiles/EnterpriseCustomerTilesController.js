@@ -1,15 +1,14 @@
 ({
-	doInit: function(component,event,helper) {
-        
-        var action = component.get("c.getwrapper");    
+	doInit: function(cmp,event,helper) {
+        var action = cmp.get("c.getwrapper");    
         action.setCallback(this, function(response) {
             var state = response.getState();
             if (state === "SUCCESS") {
                 console.log('result:', response.getReturnValue());
                 var result = response.getReturnValue();
                 console.log(result);
-                component.set("v.isEnterprise", result.Enterprise);
-                component.set("v.isLearning", result.learning);
+                cmp.set("v.isEnterprise", result.Enterprise);
+                cmp.set("v.isLearning", result.learning);
             }
             else if (state === "INCOMPLETE") {
                 // do something
@@ -27,17 +26,5 @@
             }
         });
         $A.enqueueAction(action);
-        
-        helper.getUserDetails( component, event, helper ); // Community Buttons Merged       
-
-    },
-    
-    // Community buttons merged
-     redirect: function(component,event,helper) {
-        var loginUrl = event.currentTarget.dataset.url; //it will return thisDiv
-        if(!loginUrl.includes('https://')){
-            loginUrl = 'https://'+loginUrl;
-        }
-        window.open(loginUrl,'_blank');
-    },
+    }
 })

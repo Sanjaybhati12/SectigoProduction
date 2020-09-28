@@ -13,14 +13,11 @@ public class EnterpriseCustomerTiles_Controller_Test {
                              emailencodingkey='UTF-8', lastname='Testing', languagelocalekey='en_US',
                              localesidkey='en_US', profileid = p, country='United States',IsActive =true,
                              ContactId = con.Id,
-                             SCM_Login__c='www.testurl.com', SCM_Dev_Login__c='www.testurl.com', Show_SCM_Login__c=true,
-                             Show_SCM_Dev_Login__c=true, Reseller_Portal__c='www.testurl.com', Show_Reseller_Portal__c=true,
                              timezonesidkey='America/Los_Angeles', username='tester@noemail.com');
         
         insert user;
         system.runAs(user) {
             EnterpriseCustomerTiles_Controller.getwrapper();
-            EnterpriseCustomerTiles_Controller.getLoginUser();
         }
         
     }

@@ -15,13 +15,9 @@ global class MilestoneTimeCalculator implements Support.MilestoneTriggerTimeCalc
        //Get the Case Reasons from Custom Settings
         Map<String, mileStoneCaseReason__c> vMapNameCustomSett = mileStoneCaseReason__c.getAll();
         system.debug('>>>>'+ vMapNameCustomSett.keyset());
-        Set<String> setKeys = new Set<String>();
-        for(mileStoneCaseReason__c ms : vMapNameCustomSett.values()){
-            setKeys.add(ms.Label__C);        
-        }
        
        // if(listOfCase[0].reason == 'HackerGuardian Partner Inquiry' || listOfCase[0].reason == 'Customer Feedback' || listOfCase[0].reason == 'Consumer Relations' || listOfCase[0].reason == 'Certificate Manager'){
-       if(setKeys.contains(listOfCase[0].reason) ) {
+       if(vMapNameCustomSett.containsKey(listOfCase[0].reason) ) {
          businesshourId = system.label.CCM_Business_Hours;
        }else{
          businesshourId = system.label.COMODO_Support_Business_Hours;      

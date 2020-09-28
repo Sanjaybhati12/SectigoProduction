@@ -3,7 +3,7 @@
  <html>
 
     <head>
-        <title>Sectigo Knowledge Base</title>
+        <title>Comodo Knowledge Base</title>
         <meta name="description" content="Comodo CA is the world's largest certificate authority with over 100,000,000 TLS/SSL certificates issued.As the leading certificate authority, we're here to help you get the best ssl certificate, from purchasing, to setting up, account management, the works. Start your free trial, request a demo, or buy a certificate." /> 
         <meta charset="UTF-8" /> 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -35,7 +35,7 @@
                         <div id="p_lt_ctl03_pageplaceholder_p_lt_ctl01_CCAInteriorHero_InteriorHero" data-parallax="scroll" data-image-src="Comodo-1200-Header-Images-1.jpg" style="background:url({!URLFOR($Resource.Com_KnowledgeFiles,'/images/Comodo-1200-Header-Images-1.jpg')});" class="interior-hero text-center cover">
                             <div class="row">
                                 <div class="small-12 columns">
-                                   <h1 class="white"><span id="p_lt_ctl03_pageplaceholder_p_lt_ctl01_CCAInteriorHero_Title"></span>SECTIGO SUPPORT</h1>
+                                   <h1 class="white"><span id="p_lt_ctl03_pageplaceholder_p_lt_ctl01_CCAInteriorHero_Title"></span>COMODO CA SUPPORT</h1>
                                     <h4 id="p_lt_ctl03_pageplaceholder_p_lt_ctl01_CCAInteriorHero_Subtitle" class="white"> </h4>
                                
                                  

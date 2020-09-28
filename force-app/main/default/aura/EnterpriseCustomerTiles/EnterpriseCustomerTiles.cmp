@@ -1,14 +1,10 @@
 <aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global"
                 controller = "EnterpriseCustomerTiles_Controller">
-    
-    <!-- Scm Login -->
-    <aura:attribute name="user" type="Object" />
-    
     <aura:handler name = "init" value = "{!this}" action = "{!c.doInit}" />
     <aura:attribute name="isEnterprise" type="boolean"  default = "false"/>
     <aura:attribute name="isLearning" type="boolean"  default = "false"/>
     <div class="c-container">
-        <lightning:layout  multipleRows="true">
+        <lightning:layout multipleRows="true">
             <aura:if isTrue="{!v.isEnterprise}">
                 <lightning:layoutItem size="4" padding="around-small">
                     <c:Community_Tiles Title = "Newsletter" Icon = "{!$Resource.TileNewsletter}"   Url = "/s/newsletter"  />
@@ -22,33 +18,8 @@
                     <c:Community_Tiles Title = "Learning" Icon = "{!$Resource.TileLearning}"   Url = "https://sectigo.docebosaas.com/learn/signin"  />
                 </lightning:layoutItem>
             </aura:if>
-            
-            <aura:if isTrue="{!v.user.Show_SCM_Login__c}">
-                <lightning:layoutItem size="4" padding="around-small">
-                    <div data-url="{!v.user.SCM_Login__c}" onclick="{!c.redirect}" class="mainBox">
-                        <div class="slds-text-body_regular Title" >{!$Label.c.SCM_Button_Label}</div>
-                        <span> <img src="{!$Resource.CommunityScmLogin}" class="Logo" style=""/></span>
-                    </div>   
-                </lightning:layoutItem>
-            </aura:if>
-            <aura:if isTrue="{!v.user.Show_SCM_Dev_Login__c}">
-                <lightning:layoutItem size="4" padding="around-small">
-                    <div data-url="{!v.user.SCM_Dev_Login__c}" onclick="{!c.redirect}" class="mainBox">
-                        <div class="slds-text-body_regular Title" >{!$Label.c.SCM_Dev_Button_Label}</div>
-                        <span> <img src="{!$Resource.CommunityScmDevLogin}" class="Logo"/></span>
-                        
-                    </div>
-                </lightning:layoutItem>
-            </aura:if>
-            <aura:if isTrue="{!v.user.Show_Reseller_Portal__c}">
-                <lightning:layoutItem size="4" padding="around-small">
-                    <div data-url="{!v.user.Reseller_Portal__c}" onclick="{!c.redirect}" class="mainBox">
-                        <div class="slds-text-body_regular Title" >{!$Label.c.Reseller_Button_Portal}</div>
-                        <span> <img src="{!$Resource.CommunityReseller}" class="Logo"/></span>
-                        
-                    </div>
-                </lightning:layoutItem>
-            </aura:if>
         </lightning:layout>
     </div>
+    
+    
 </aura:component>

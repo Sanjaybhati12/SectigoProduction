@@ -23,14 +23,6 @@ public class Community_Web2CaseCtrlTest {
         cases.contactId=con.id;
         cases.AccountId=acc.id;
         
-        Case_Reason_Category__c crc = new Case_Reason_Category__c();
-        crc.Name = 'test';
-        crc.Case_Reason__c = 'Sales';
-        crc.Type__c = '';
-        crc.API_Name__c = 'Sales';
-        crc.Case_Type__c = 'Sales';
-        insert crc;
-        
         ApexPages.Standardcontroller sc = new ApexPages.Standardcontroller(cases);
         Community_Web2CaseCtrl CW = new Community_Web2CaseCtrl(sc);
         CW.ReasonforTicket='Billing';
@@ -67,6 +59,12 @@ public class Community_Web2CaseCtrlTest {
         attach.parentId=cse.id;
         insert attach;
         
+        Case_Reason_Category__c crc = new Case_Reason_Category__c();
+        crc.Name = 'Technincal Support';
+        crc.Case_Reason__c = 'Test1,Test2,Test3';
+        crc.Type__c = 'Parent';
+        insert crc;
+        
         Attachment attach1=new Attachment();     
         attach1.Name='Unit Test Attachment';
         Blob bodyBlob1=Blob.valueOf('Unit Test Attachment Body');
@@ -95,8 +93,7 @@ public class Community_Web2CaseCtrlTest {
         PageReference myVfPage = Page.Community_WebtoCase;
         Test.setCurrentPage(myVfPage);
         ApexPages.currentPage().getParameters().put('subjectValue',CW.Subjects);
-        cw.caseTypeforTicket = 'Sales';
-        cw.Reasons4CaseTypeList();
+        
        cw.caseOrdr();
         
        /* cw.getCasePriorityList();
@@ -107,7 +104,6 @@ public class Community_Web2CaseCtrlTest {
             cw.knowledgeQuery = 'Sanjay';
             cw.fetchKnowledgeArticles();
             CW.SaveData();
-            
         }
         
     }

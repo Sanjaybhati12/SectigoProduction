@@ -92,13 +92,6 @@
                 }
             }   
             
-            function caseTypeChanged(){
-                console.log('test spinner');
-                $("#spinner2").css('display','block');
-                setTimeout(function(){$("#spinner2").css('display','none');}, 3000);
-                // $("#spinner2").css('display','none');
-            }
-            
             function saveButton(){
                 console.log('>>>>mySelectedVal>>>>>>'+mySelectedVal);
                 callSaveButton(mySelectedVal); 
@@ -131,7 +124,6 @@
                 }                
                 if(checkValidation){
                     saveAndRedirect1();
-                    caseTypeChanged();
                 }
                 
                 return false;
@@ -226,41 +218,23 @@
                                 
                                 <div id="web2CaseForm" class="small-12 medium-8 columns leftnavboxcontent">
                                     <div id="leftloginsubscribebox">                                        
-                                        <apex:form id="case_data" > <!--</apex:form>prependId="false">  -->
+                                        <apex:form id="case_data" prependId="false">
                                             <apex:pageMessages id="messages" />
                                             
                                             <div class="row">
                                                 <div class="small-12 columns">
-                                                    <label>Case Type for the ticket<span class="star">*</span></label>
-                                                    <apex:selectList id="caseTypeForTicket" value="{!caseTypeforTicket}" size="1" > 
-                                                        <apex:actionSupport event="onchange" onsubmit="caseTypeChanged();" action="{!Reasons4CaseTypeList}" reRender="ReasonforTicket1"/>
-                                                        <apex:selectOptions value="{!caseTypeValues}" />
-                                                    </apex:selectList>
-                                                    
-                                                </div>
-                                            </div>
-                                            <div id="spinner2" style="display:none;">
-                                                <div style="position: fixed; top: 0px; left: 0px; right: 0px; bottom: 0px; opacity: 0.75; z-index: 1000; background-color: grey;">
-                                                    &nbsp;
-                                                </div>
-                                                <div style="position: fixed; left: 1px; top: 1px; bottom: 1px; right: 1px; z-index: 1001; margin: 22% 42%">
-                                                    <img src="{!$Resource.Loader_spinner}" width="130" height="170" / >
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="small-12 columns">
-                                                    <label>Reason for the ticket<span class="star">*</span></label>
+                                                    <label>Reason for the ticket<span class="star">*</span>
                                                         <apex:selectList id="ReasonforTicket1" value="{!ReasonforTicket1}" size="1">   
                                                            <apex:selectOptions value="{!reasonValues}"/>
                                                         </apex:selectList>
-                                                    
+                                                    </label>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="small-12 columns">
                                                     <label>Order Number
                                                         <!--<apex:inputField value="{!caseObject.Order_Number__c}"/>-->
-                                                        <input type="number" value="{!OrderNumber }"/>
+                                                        <apex:inputText value="{!OrderNumber }"/>
                                                         <span class="errorChar"></span>
                                                     </label>
                                                 </div>
@@ -282,8 +256,7 @@
                                                         <apex:inputTextArea id="com_description" value="{!Descriptions}" style="height:150px;" />
                                                     </label>
                                                 </div>
-                                            </div>  
-                                           
+                                            </div>                                  
                                             <!-- <div class="row"><div class="small-12 columns"><label>I am not Robot<span class="star">*</span> <apex:inputCheckbox value="{!isRobot}"/></label></div></div> -->                                            
                                             <apex:actionFunction action="{!fileSize}" name="fileSize" reRender="case_data, upload_file"/>   
                                             <apex:actionFunction action="{!saveData}" name="callSaveButton" oncomplete="uploadFile();" reRender="case_data" >
@@ -299,7 +272,7 @@
                                             <apex:commandButton id="saveButton" style="background-color: #00B373;border: none;border-radius: 999px;font-weight: bold;"  onclick="saveAndRedirect(); return false;" reRender="none" value="Submit"  styleClass="button large" > 
                                             </apex:commandButton>                                 
                                             
-                                            <apex:actionFunction action="{!saveData}" name="saveAndRedirect1" reRender="tst,case_data" oncomplete="saveRedirect();" >  <!-- tst1 -->                                   
+                                            <apex:actionFunction action="{!saveData}" name="saveAndRedirect1" reRender="tst,case_data" oncomplete="saveRedirect();" status="pageStatus">  <!-- tst1 -->                                   
                                                 <apex:param assignto="{!uploadBtn}" name="param3" value="false"></apex:param>
                                             </apex:actionFunction>  
                                             <apex:actionStatus id="pageStatus">                                            
