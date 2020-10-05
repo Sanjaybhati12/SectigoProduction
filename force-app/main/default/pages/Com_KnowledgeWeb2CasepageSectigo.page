@@ -24,62 +24,62 @@
             
             <style>
                 .leftnavboxcontent a {
-                    color: red !important;
+                color: red !important;
                 }
                 .error,.errorChar{
-                    color: red;
-                    display: block;
+                color: red;
+                display: block;
                 }
                 
                 .searchbutton.button.large{
-                    background-color:#00b073;
-                    border-radius:999px;
-                    font-size: 1.50rem;
-                    font-weight:bold;
+                background-color:#00b073;
+                border-radius:999px;
+                font-size: 1.50rem;
+                font-weight:bold;
                 }
                 .searchbutton.button.large:hover{
-                    background-color: #008e5d;
-                    border-color: #008e5d;
+                background-color: #008e5d;
+                border-color: #008e5d;
                 }
                 
                 
                 
                 .attchError{
-                    color:red;
-                    font-weight:bold;
-                    margin-left:1%;
+                color:red;
+                font-weight:bold;
+                margin-left:1%;
                 }
                 .orderButton{
-                    padding: 10px;
-                    background-color: white;
-                    border-radius: 4px;
-                    float: right;
+                padding: 10px;
+                background-color: white;
+                border-radius: 4px;
+                float: right;
                 }
                 
                 .row:not(.expanded) .row {
-                    max-width: none;
-                    padding-top: 10px;
-                    font-size: 15px;
+                max-width: none;
+                padding-top: 10px;
+                font-size: 15px;
                 }
                 
                 .roundBorder {
-                    appearance: none;
-                    width: 100%;
-                    background-color: #f0efef !important;
-                    font-weight: 300;
-                    color: #051c2c;
-                    border-radius: .25rem;
-                    padding-top: .75rem;
-                    padding-bottom: .75rem;
-                    padding-left: 1rem;
-                    padding-right: 1rem;
-                    line-height: 1.125;
-                    font-size: 15px !important;
+                appearance: none;
+                width: 100%;
+                background-color: #f0efef !important;
+                font-weight: 300;
+                color: #051c2c;
+                border-radius: .25rem;
+                padding-top: .75rem;
+                padding-bottom: .75rem;
+                padding-left: 1rem;
+                padding-right: 1rem;
+                line-height: 1.125;
+                font-size: 15px !important;
                 
                 }
                 ::placeholder{
-                    font-style: initial;
-                    font-size: 15px;
+                font-style: initial;
+                font-size: 15px;
                 }
                 
                 
@@ -103,7 +103,7 @@
             } 
             
             function caseTypeChanged(){
-                console.log('test spinner');
+                
                 $("#spinner2").css('display','block');
                 setTimeout(function(){$("#spinner2").css('display','none');}, 3000);
                 // $("#spinner2").css('display','none');
@@ -116,7 +116,7 @@
                 var file = document.getElementById('attachmentFile').files[0];
                 $("#spinner").css('display','none');
                 if(file != undefined) {
-                    console.log(file.size);
+                    
                     if(file.size <= maxFileSize) { 
                         document.getElementById('attachmentFile').value = "";
                         attachmentList.push(file);
@@ -165,7 +165,7 @@
             }
             
             function validateForm(){
-               
+                
                 var fir_name = $('[id$=first_name]').val();
                 var last_name = $('[id$=last_name]').val();
                 var email = $('[id$=com_email]').val();
@@ -215,6 +215,10 @@
                     $('[id$=com_description]').before('<span class="error">Please enter description</span>'); 
                     checkValidation=false;                           
                 } 
+                if(ordernumber.length > 0 && ordernumber.length < 9 ){
+                    $('[id$=ordernumber]').before('<span class="error">Order Numbers are typically 9 digits in length. If you are unsure, please leave this field blank and proceed.</span>'); 
+                    checkValidation=false;                           
+                }
                 
                 if(checkValidation){
                     
@@ -237,7 +241,7 @@
                         a.value = parseInt(a.value) + 1;
                     }
                 }
-                console.log('line 304');
+                
                 setTimeout("antiSpam()", 1000);
             }
             if(isSuccess == false ){
@@ -247,7 +251,7 @@
             
             function saveJsDataRemote(fir_name,last_name,email,webcompany,phone,reason,ordernumber,subject,description,caseType){
                 var spamNum = document.getElementById("antiSpam").value;
-                console.log(spamNum , ' spamNum');
+                
                 $("#spinner").css('display','block');
                 Visualforce.remoting.Manager.invokeAction(
                     '{!$RemoteAction.CustomWebToCaseController1.saveDataRemoting}',
@@ -255,7 +259,7 @@
                     function(result, event){
                         $("#spinner").css('display','none');
                         if (event.status) {
-                            console.log(result);
+                            
                             isSuccess = true;
                             $("#displayMessage").css('display','block');
                             afterSaveMessage(result);
@@ -293,7 +297,6 @@
                     })(attachmentList [i]);
                 }
                 
-                console.log(fileReaderList);
             }
             function uploadProcess(file, fileContents,result) {
                 var startPosition = 0;   
@@ -316,7 +319,7 @@
                             if (startPosition < endPosition) {
                                 uploadInChunk(file, fileContents, startPosition, endPosition, attachId,result);
                             } else {
-                                console.log('your File is uploaded successfully');
+                                
                             }
                         } else if (event.type === 'exception') {
                             
@@ -328,19 +331,19 @@
                 );
             }
             function afterSaveMessage(result){
-                console.log(result);
+                
                 $("#successBtnMessage1").css('display','block');
                 $("#successBtnMessage1").text(result.message);
                 $("#ticketSubmitted1").css('display','none');
                 $("#ticketSubmitted").css('display','none');
                 if(result.type == 'Order Number'){
-                    console.log('order message');
+                    
                     $("#ticketSubmitted1").css('display','block');
                 }else if(result.type == 'Ip Address'){
-                    console.log('Ip Address Message');
+                    
                     $("#ticketSubmitted1").css('display','none');
                 }else if(result.type == 'Created'){
-                    console.log('Created message');
+                    
                     $("#ticketSubmitted1").css('display','block');
                     $("#ticketSubmitted").css('display','block');
                 }
@@ -356,7 +359,7 @@
                 $('[id$=com_subject]').val('');
                 $('[id$=com_description]').val(''); 
                 $('[id$=ordernumber]').val('');    
-                 generateCaptcha();
+                generateCaptcha();
             }
             function closeThankYou(){
                 $("#thankYouModal").css('display','none');
@@ -437,63 +440,63 @@
                 /* COMPACT CAPTCHA WHITE */
                 
                 .capbox {
-                    background: #FFFFFF;
-                    border: #999999 0px solid;
-                    border-width: 1px;
-                    box-sizing: border-box;
-                    -moz-box-sizing: border-box;
-                    -webkit-box-sizing: border-box;
-                    display: inline-block;
-                    padding: 4px 140px 0px 0px;
-                    border-radius: 4px;
-                    margin-left:1%;
+                background: #FFFFFF;
+                border: #999999 0px solid;
+                border-width: 1px;
+                box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                display: inline-block;
+                padding: 4px 140px 0px 0px;
+                border-radius: 4px;
+                margin-left:1%;
                 }
                 
                 .capbox-inner {
-                    font: bold 12px arial, sans-serif;
-                    color: #000000;
-                    background: transparent;
-                    margin: 0px auto 0px auto;
-                    padding: 3px 10px 5px 10px;
-                    border-radius: 4px;
-                    display: -webkit-inline-box;
-                    vertical-align: middle;
-                    width: 100px;
+                font: bold 12px arial, sans-serif;
+                color: #000000;
+                background: transparent;
+                margin: 0px auto 0px auto;
+                padding: 3px 10px 5px 10px;
+                border-radius: 4px;
+                display: -webkit-inline-box;
+                vertical-align: middle;
+                width: 100px;
                 }
                 
                 #CaptchaDiv {
-                    color: #000000;
-                    font: normal 25px Impact, Charcoal, arial, sans-serif;
-                    font-style: italic;
-                    text-align: center;
-                    vertical-align: middle;
-                    background: transparent;
-                    user-select: none;
-                    display: inline-block;
-                    padding: 3px 14px 3px 8px;
-                    margin-right: 4px;
-                    border-radius: 4px;
+                color: #000000;
+                font: normal 25px Impact, Charcoal, arial, sans-serif;
+                font-style: italic;
+                text-align: center;
+                vertical-align: middle;
+                background: transparent;
+                user-select: none;
+                display: inline-block;
+                padding: 3px 14px 3px 8px;
+                margin-right: 4px;
+                border-radius: 4px;
                 }
                 
                 #CaptchaInput {
-                    border: #000000 1px solid;
-                    margin: 3px 0px 1px 0px;
-                    width: 105px;
+                border: #000000 1px solid;
+                margin: 3px 0px 1px 0px;
+                width: 105px;
                 }
                 .subbutx3 {
-                    background-color: green ;
-                    border: none;
-                    border-style: outset;         
-                    color: white;
-                    padding: 8px 30px;
-                    text-align: center;
-                    inline-size: max-content;
-                    text-decoration: none;
-                    display: inline-block;
-                    font-size: 1.0rem;
+                background-color: green ;
+                border: none;
+                border-style: outset;         
+                color: white;
+                padding: 8px 30px;
+                text-align: center;
+                inline-size: max-content;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 1.0rem;
                 }
                 .button.small {
-                    font-size: 1.6rem;
+                font-size: 1.6rem;
                 }
                 
             </style>
@@ -508,7 +511,7 @@
             <script>
             var captcha;
             function generateCaptcha() {
-                console.log('Calling generate captcha');
+                
                 document.getElementsByClassName('submitButton')[0].disabled = true;
                 $("#captchaButton").text("Verify");
                 var a = Math.floor((Math.random() * 10));
@@ -656,7 +659,7 @@
                                             </div>
                                         </div>
                                         
-                                            
+                                        
                                     </div>
                                     <apex:outputPanel id="formData1">
                                         <div class="row">

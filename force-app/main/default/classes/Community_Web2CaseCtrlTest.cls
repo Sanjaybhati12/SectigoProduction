@@ -39,6 +39,7 @@ public class Community_Web2CaseCtrlTest {
         CW.emailIdC='test1211@tgd.com';
         CW.WebCompanyName = acc.Name;
         CW.OrderNumber = '123';
+        CW.orderNumberInt = 123;
         CW.Subjects = 'sasa';
         // CW.UserId='ur.Id';
         CW.firstNameC='test1';

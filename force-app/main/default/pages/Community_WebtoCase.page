@@ -1,4 +1,4 @@
-<apex:page standardController="Case" extensions="Community_Web2CaseCtrl" showHeader="false" standardStylesheets="false" applyBodyTag="false" applyHtmlTag="false">
+<apex:page standardController="Case" extensions="Community_Web2CaseCtrl" showHeader="false" standardStylesheets="false" applyBodyTag="false" applyHtmlTag="false" docType="HTML-5.0">
     <html>
         <head>
             <title>Comodo Knowledge Base</title>
@@ -79,28 +79,27 @@
                 //}
             }            
             function checkFiles(fileName){
-                console.log(' Check file type ');
-                console.log(fileName);                
+                               
                 if(fileName.includes('.exe')){
-                    console.log('exe');
+                    
                     fileSize();
                 }
                 
                 if(fileName.includes('.msi')){
-                    console.log('msi');
+                    
                     fileSize();
                 }
             }   
             
             function caseTypeChanged(){
-                console.log('test spinner');
+                
                 $("#spinner2").css('display','block');
                 setTimeout(function(){$("#spinner2").css('display','none');}, 3000);
                 // $("#spinner2").css('display','none');
             }
             
             function saveButton(){
-                console.log('>>>>mySelectedVal>>>>>>'+mySelectedVal);
+                
                 callSaveButton(mySelectedVal); 
             }
             
@@ -109,7 +108,8 @@
                 var reason =  $('[id$=ReasonforTicket1]').val();
                 var subject = $('[id$=com_subject]').val();
                 var description =  $('[id$=com_description]').val(); 
-                var inputFile = $('[id$=uploadingFile]').get(0).files;                
+                var inputFile = $('[id$=uploadingFile]').get(0).files; 
+                var orderNumber = $('[id$=orderNumber]').val();
                 var checkValidation=true;
                 $(".error").remove();
                 
@@ -119,6 +119,10 @@
                 }
                 if(subject.length < 1){                      
                     $('[id$=com_subject]').before('<span class="error">Please enter Subject</span>');
+                    checkValidation=false;                            
+                }
+                if(orderNumber.length > 0 && orderNumber.length < 9){
+                    $('[id$=orderNumber]').before('<span class="error">Order Numbers are typically 9 digits in length. If you are unsure, please leave this field blank and proceed.</span>');
                     checkValidation=false;                            
                 }
                 if(description.length < 1){                      
@@ -169,30 +173,24 @@
                 <script>
                 function saveRedirect(){
                     var caseerror = '{!dmlerror}';
-                    console.log('$$caseerror $$$$'+caseerror);
+                    
                     //var alreadyExist= {!ExistCase};
                     var ExistingCaseId='{!caseId}';
                     //var ExitingOrderIds='{!existingorderMap}';
                     //var size=ExitingOrderIds.length;
                     var CaseOrderNo='{!redirect}';
-                    console.log('###AlreadyExistCase'+'{!caseId}');
-                    console.log('in re direct method ');
+                    
                     if(caseerror  === 'false'){
-                        //alert('No error');
-                        console.log('case created successfully');
-                        //alert('Case Created Successfully'); 
-                        console.log('$$$$success$$$$$'+'{!caseObject}');
-                        
                         if(CaseOrderNo=='NoOrder'){
-                            console.log('NoOrders>>>'+'{!caseObject}');
+                            
                             window.location.replace('/apex/Community_Case_Detail?id='+'{!caseObject}');
                         }
                         if(CaseOrderNo=='One'){
-                            console.log('OneOrder##'+'{!caseId}');
+                            
                             window.location.replace('/apex/Community_Case_Detail?id='+'{!caseId}');
                         }
                         if(CaseOrderNo=='more'){
-                            console.log('abc########');
+                            
                             window.location.replace('/apex/Community_CaseOrder');
                         }
                         
@@ -203,7 +201,7 @@
                         // $('#naidu1').text("case created successfully");
                         
                     }else{
-                        console.log('In Error dont refresh the page');
+                        
                         return false;
                         
                     }
@@ -226,8 +224,8 @@
                                 
                                 <div id="web2CaseForm" class="small-12 medium-8 columns leftnavboxcontent">
                                     <div id="leftloginsubscribebox">                                        
-                                        <apex:form id="case_data" > <!--</apex:form>prependId="false">  -->
-                                            <apex:pageMessages id="messages" />
+                                        <apex:form id="case_data" > 
+                                            <!--<apex:pageMessages id="messages" /> -->
                                             
                                             <div class="row">
                                                 <div class="small-12 columns">
@@ -260,7 +258,8 @@
                                                 <div class="small-12 columns">
                                                     <label>Order Number
                                                         <!--<apex:inputField value="{!caseObject.Order_Number__c}"/>-->
-                                                        <input type="number" value="{!OrderNumber }"/>
+                                                         <apex:input id="orderNumber" type="number" value="{!OrderNumberInt}"/> 
+                                                      <!--  <input type="number" id="orderNumber" value="{!OrderNumber}"/> -->
                                                         <span class="errorChar"></span>
                                                     </label>
                                                 </div>
