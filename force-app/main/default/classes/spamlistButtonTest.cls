@@ -1,10 +1,10 @@
 @isTest
 public class spamlistButtonTest{
- testMethod static void positiveTest(){
- //  integer recordId;
-       
-   
-          SLA_Setting__c slaSettings = new SLA_Setting__c();
+    testMethod static void positiveTest(){
+        //  integer recordId;
+        
+        
+        SLA_Setting__c slaSettings = new SLA_Setting__c();
         slaSettings.Followup_SLA_Time_for_Enterprise_Support__c = 30;
         slaSettings.Initial_SLA_Time_for_Enterprise_Support__c = 30;
         slaSettings.Followup_SLA_Enterprise_Premier_CP__c = 30;
@@ -26,16 +26,19 @@ public class spamlistButtonTest{
         
         mileStoneCaseReason__c mileStonCaseRea = new mileStoneCaseReason__c();
         mileStonCaseRea.Name='Brand Validation';
+        mileStonCaseRea.label__c='Brand Validation';   
         insert mileStonCaseRea ;
         
-         mileStoneCaseReason__c mileStonCaseRea1 = new mileStoneCaseReason__c();
+        mileStoneCaseReason__c mileStonCaseRea1 = new mileStoneCaseReason__c();
         mileStonCaseRea1.Name='CCM Validation';
+        mileStonCaseRea1.label__c='CCM Validation';
         insert mileStonCaseRea1 ;
         
-         mileStoneCaseReason__c mileStonCaseRea2 = new mileStoneCaseReason__c();
+        mileStoneCaseReason__c mileStonCaseRea2 = new mileStoneCaseReason__c();
         mileStonCaseRea2.Name='EV Validation';
+        mileStonCaseRea2.label__c='EV Validation';
         insert mileStonCaseRea2 ;
-    
+        
         Account acc = new Account(
             Name = 'TestAccount',
             Segment__c = 'Partner/Reseller'    
@@ -70,17 +73,17 @@ public class spamlistButtonTest{
         );
         insert ent1;
         contact ct = new contact(
-        LastName = 'test contact',
-        Email = 'vinay@dazeworks.com',
-        Phone = '1234567890',
-        accountId = acc.Id
+            LastName = 'test contact',
+            Email = 'vinay@dazeworks.com',
+            Phone = '1234567890',
+            accountId = acc.Id
         );
         insert ct;
         contact ct1 = new contact(
-        LastName = 'test contact1',
-        Email = 'vinay@dazework.com',
-        Phone = '123456789',
-        accountId = acc1.Id
+            LastName = 'test contact1',
+            Email = 'vinay@dazework.com',
+            Phone = '123456789',
+            accountId = acc1.Id
         );
         insert ct1;
         
@@ -100,20 +103,20 @@ public class spamlistButtonTest{
         myLst.add(c);
         
         
-         ApexPages.StandardsetController sc54 = new ApexPages.standardsetController(myLst);
-       spamlistButton myPageCon = new spamlistButton(sc54);
-
+        ApexPages.StandardsetController sc54 = new ApexPages.standardsetController(myLst);
+        spamlistButton myPageCon = new spamlistButton(sc54);
+        
         PageReference pageRef7 = Page.CaseSpamUpdateList;
         pageRef7.getParameters().put('id', String.valueOf(c.Id));
-
+        
         Test.setCurrentPage(pageRef7);
         
         myPageCon.doSubmit();
-
-}
-
-testMethod static void positiveTest1(){
-       SLA_Setting__c slaSettings = new SLA_Setting__c();
+        
+    }
+    
+    testMethod static void positiveTest1(){
+        SLA_Setting__c slaSettings = new SLA_Setting__c();
         slaSettings.Followup_SLA_Time_for_Enterprise_Support__c = 30;
         slaSettings.Initial_SLA_Time_for_Enterprise_Support__c = 30;
         slaSettings.Followup_SLA_Enterprise_Premier_CP__c = 30;
@@ -135,16 +138,19 @@ testMethod static void positiveTest1(){
         
         mileStoneCaseReason__c mileStonCaseRea = new mileStoneCaseReason__c();
         mileStonCaseRea.Name='Brand Validation';
+        mileStonCaseRea.label__c = 'Brand Validation';
         insert mileStonCaseRea ;
         
-         mileStoneCaseReason__c mileStonCaseRea1 = new mileStoneCaseReason__c();
+        mileStoneCaseReason__c mileStonCaseRea1 = new mileStoneCaseReason__c();
         mileStonCaseRea1.Name='CCM Validation';
+        mileStonCaseRea1.label__c='CCM Validation';
         insert mileStonCaseRea1 ;
         
-         mileStoneCaseReason__c mileStonCaseRea2 = new mileStoneCaseReason__c();
+        mileStoneCaseReason__c mileStonCaseRea2 = new mileStoneCaseReason__c();
         mileStonCaseRea2.Name='EV Validation';
+        mileStonCaseRea2.label__c='EV Validation';
         insert mileStonCaseRea2 ;
-    
+        
         Account acc = new Account(
             Name = 'TestAccount',
             Segment__c = 'Partner/Reseller'    
@@ -179,17 +185,17 @@ testMethod static void positiveTest1(){
         );
         insert ent1;
         contact ct = new contact(
-        LastName = 'test contact',
-        Email = 'vinay@dazeworks.com',
-        Phone = '1234567890',
-        accountId = acc.Id
+            LastName = 'test contact',
+            Email = 'vinay@dazeworks.com',
+            Phone = '1234567890',
+            accountId = acc.Id
         );
         insert ct;
         contact ct1 = new contact(
-        LastName = 'test contact1',
-        Email = 'vinay@dazework.com',
-        Phone = '123456789',
-        accountId = acc1.Id
+            LastName = 'test contact1',
+            Email = 'vinay@dazework.com',
+            Phone = '123456789',
+            accountId = acc1.Id
         );
         insert ct1;
         
@@ -220,26 +226,23 @@ testMethod static void positiveTest1(){
         c1.origin = 'Web';
         c1.Priority = 'Medium';
         c1.subject = 'test valli';
-                myLst.add(c1);
-
+        myLst.add(c1);
         
         
-       // insert myLst;
         
-         ApexPages.StandardsetController sc54 = new ApexPages.standardsetController(myLst);
-         sc54.setSelected(myLst);
-
-       spamlistButton myPageCon = new spamlistButton(sc54);
-
+        // insert myLst;
+        
+        ApexPages.StandardsetController sc54 = new ApexPages.standardsetController(myLst);
+        sc54.setSelected(myLst);
+        
+        spamlistButton myPageCon = new spamlistButton(sc54);
+        
         PageReference pageRef7 = Page.CaseSpamUpdateList;
         pageRef7.getParameters().put('id', String.valueOf(c.Id));
-
+        
         Test.setCurrentPage(pageRef7);
         
         myPageCon.doSubmit();
-        
-
-
-}
-
+    }
+    
 }

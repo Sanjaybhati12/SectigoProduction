@@ -74,6 +74,7 @@
              
                   <div class="slds-notify__content">
                      <h2 class="slds-text-heading_small ">DML Error Occured!.</h2>
+                      <h2 class="slds-text-heading_xx-small ">{!DisplayErrorMessage}.</h2>
                   </div>
                </div>
             </div>

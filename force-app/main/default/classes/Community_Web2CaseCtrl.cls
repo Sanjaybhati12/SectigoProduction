@@ -132,7 +132,9 @@ public class Community_Web2CaseCtrl{
         
         existingorderMap= new Map<String,Case>();
         dmlerror = false;
-        OrderNumber = String.valueOf(OrderNumberInt);
+        
+        if(OrderNumberInt == 0){ OrderNumber = '';}else{OrderNumber = String.valueOf(OrderNumberInt);} 
+        
         if(String.isNotEmpty(ReasonforTicket1) && String.isNotEmpty(Subjects) && String.isNotEmpty(Descriptions) ){  
             
             ID contactId = [Select contactid from User where id =: Userinfo.getUserid()].contactId;
