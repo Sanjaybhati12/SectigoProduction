@@ -4,9 +4,13 @@ global class caseReasonUpdateBatch implements Database.Batchable<sObject>,Databa
     global List<String> csvRowValues = new List<String>();
     
     global Database.QueryLocator start(Database.BatchableContext bc) {
-        List<String> reasonList = new List<String>{'SSL Certificate Support','Certificate Technical Support','Certificate Manager','SCM Support','Technical Certificate Manager',
+        List<String> reasonList = new List<String>{'Validation','SSL/TLS Certificate Validation (OV, DV, S/MIME, Code & Doc Signing)','Certificate Validation (OV, S/MIME, Code & Doc Signing)'};
+            /*new List<String>{'SSL Certificate Support','Certificate Technical Support','Certificate Manager','SCM Support','Technical Certificate Manager',
             'HG/HP/WI','HackerGuardian Partner Inquiry','SCM Private CA','Partner Inquiry','SCM Validation','EV Validation','Validation','SSL/TLS Certificate Technical Support',
-            'Sectigo Certificate Manager (SCM)','SSL/TLS Certificate Validation (OV, DV, S/MIME, Code & Doc Signing)'};
+            'Sectigo Certificate Manager (SCM)','SSL/TLS Certificate Validation (OV, DV, S/MIME, Code & Doc Signing)','Certificate Validation (OV, S/MIME, Code & Doc Signing)'};
+               
+                */
+                
                 String query = 'SELECT Id, Type, CaseNumber, Reason, Status FROM Case WHERE Reason IN : reasonList';
         return Database.getQueryLocator(query);
     }
@@ -15,7 +19,7 @@ global class caseReasonUpdateBatch implements Database.Batchable<sObject>,Databa
         Map<Id,Case> caseMap = new Map<Id,Case>();
         system.debug('Batch Records >>'+records);
         for(Case csRec : records){
-            if(csRec.Reason == 'SSL Certificate Support' || csRec.Reason == 'SSL/TLS Certificate Technical Support'){
+            /*if(csRec.Reason == 'SSL Certificate Support' || csRec.Reason == 'SSL/TLS Certificate Technical Support'){
                 csRec.Reason = 'Certificate Technical Support';
             }else if(csRec.Reason == 'Certificate Manager' || csRec.Reason == 'SCM Support' || csRec.Reason == 'Technical Certificate Manager' || csRec.Reason == 'Sectigo Certificate Manager (SCM)'){
                 csRec.Reason = 'Sectigo Certificate Manager (SCM) Support';
@@ -29,8 +33,9 @@ global class caseReasonUpdateBatch implements Database.Batchable<sObject>,Databa
                 csRec.Reason = 'Sectigo Certificate Manager (SCM) Validation';
             }else if(csRec.Reason == 'EV Validation'){
                 csRec.Reason = 'Extended Validation (EV) Certificates';
-            }else if(csRec.Reason == 'Validation' || csRec.Reason =='SSL/TLS Certificate Validation (OV, DV, S/MIME, Code & Doc Signing)'){
-                csRec.Reason = 'Certificate Validation (OV, S/MIME, Code & Doc Signing)';
+            }else */
+            if(csRec.Reason == 'Validation' || csRec.Reason == 'Certificate Validation (OV, S/MIME, Code & Doc Signing)'  || csRec.Reason =='SSL/TLS Certificate Validation (OV, DV, S/MIME, Code & Doc Signing)'){
+                csRec.Reason = 'Certificate Validation (OV, DV, S/MIME, Code & Doc Signing)';
             }
             caseListforUpdate.add(csRec);
             caseMap.put(csRec.Id,csRec);
