@@ -79,7 +79,7 @@
                 //}
             }            
             function checkFiles(fileName){
-                               
+                
                 if(fileName.includes('.exe')){
                     
                     fileSize();
@@ -121,9 +121,16 @@
                     $('[id$=com_subject]').before('<span class="error">Please enter Subject</span>');
                     checkValidation=false;                            
                 }
-                if(orderNumber.length > 0 && orderNumber.length < 9){
+                if(orderNumber.length > 0 && orderNumber.length < 8){
                     $('[id$=orderNumber]').before('<span class="error">Order Numbers are typically 9 digits in length. If you are unsure, please leave this field blank and proceed.</span>');
                     checkValidation=false;                            
+                }
+                if(orderNumber.length >= 8){
+                	var checkValidNumber = validOrderNumber(orderNumber);
+                    if(!checkValidNumber){
+                    $('[id$=orderNumber]').before('<span class="error">Order Numbers is Invalid. If you are unsure, please leave this field blank and proceed.</span>'); 
+                    checkValidation=false;                           
+                    }
                 }
                 if(description.length < 1){                      
                     $('[id$=com_description]').before('<span class="error">Please enter description</span>'); 
@@ -139,6 +146,14 @@
                 }
                 
                 return false;
+            }
+            
+            function validOrderNumber(orderNumber){
+                console.log('test');
+                var blacklist = {!caseOrderNumberBlackList};
+                if( blacklist.includes(parseInt(orderNumber))){
+                    return false;
+                }else {return true;}
             }
             
             $( document ).ready(function() {
@@ -248,18 +263,19 @@
                                             <div class="row">
                                                 <div class="small-12 columns">
                                                     <label>Reason for the ticket<span class="star">*</span></label>
-                                                        <apex:selectList id="ReasonforTicket1" value="{!ReasonforTicket1}" size="1">   
-                                                           <apex:selectOptions value="{!reasonValues}"/>
-                                                        </apex:selectList>
+                                                    <apex:selectList id="ReasonforTicket1" value="{!ReasonforTicket1}" size="1">   
+                                                        <apex:selectOptions value="{!reasonValues}"/>
+                                                    </apex:selectList>
                                                     
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="small-12 columns">
-                                                    <label>Order Number
+                                                    <label > Order Number 
+                                                        <span title="The order number you have provided corresponds to an existing case.  If you would you like to attach the description to this exiting case please proceed and click Submit.  If you entered an incorrect Order Number, please leave this field blank and proceed to Submit a new case">ⓘ</span>
                                                         <!--<apex:inputField value="{!caseObject.Order_Number__c}"/>-->
-                                                         <apex:input id="orderNumber" type="number" value="{!OrderNumberInt}"/> 
-                                                      <!--  <input type="number" id="orderNumber" value="{!OrderNumber}"/> -->
+                                                        <apex:input id="orderNumber" type="number" value="{!OrderNumberInt}" /> 
+                                                        <!--  <input type="number" id="orderNumber" value="{!OrderNumber}"/> -->
                                                         <span class="errorChar"></span>
                                                     </label>
                                                 </div>
@@ -282,7 +298,7 @@
                                                     </label>
                                                 </div>
                                             </div>  
-                                           
+                                            
                                             <!-- <div class="row"><div class="small-12 columns"><label>I am not Robot<span class="star">*</span> <apex:inputCheckbox value="{!isRobot}"/></label></div></div> -->                                            
                                             <apex:actionFunction action="{!fileSize}" name="fileSize" reRender="case_data, upload_file"/>   
                                             <apex:actionFunction action="{!saveData}" name="callSaveButton" oncomplete="uploadFile();" reRender="case_data" >

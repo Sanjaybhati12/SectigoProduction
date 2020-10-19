@@ -50,7 +50,7 @@ global class CustomWebToCaseController1{
     public string subCaseReason {get;set;}
     public List<SelectOption> caseReasonList {get;set;}
     public List<SelectOption> caseSubReasonList {get;set;} 
-    
+    public List<String> caseOrderNumberBlackList {get; set;}
     
     public Boolean dmlerror {get;set;}
     public List<Attachment> attchmentList;
@@ -82,6 +82,7 @@ global class CustomWebToCaseController1{
         uploadBtn = false;
         knowledgeArticleList = new List<KnowledgeArticlesWrapper>();
         mostRecentKnowledge = new List<KnowledgeArticlesWrapper>();
+        caseOrderNumberBlackList = new List<String>();
         mostRecentKnowledge = fetchMostRecentArticles();
         caseReasonList = new List<SelectOption>();
         caseReasonList.add(new SelectOption('','please select..'));
@@ -97,7 +98,7 @@ global class CustomWebToCaseController1{
         for(String sct : setCaseTypes){
             CaseTypeValues.add(new SelectOption(sct,sct));
         }
-        
+        caseOrderNumberBlackList = system.label.Case_Order_Number_Blacklist.split(';');
     }
     
     

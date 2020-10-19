@@ -53,6 +53,7 @@ public class Community_Web2CaseCtrl{
     public static List<Case> caseOrdr{get;set;}
     public List<SelectOption> reasonValues {get; set;}
     public List<SelectOption> CaseTypeValues {get; set;}
+    public List<String> caseOrderNumberBlackList {get; set;}
     Id communityRecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByName().get(Label.Default_Public_Record_Type).getRecordTypeId();
     
     public static final String CATEGORY_GROUP_NAME = 'Support_Categories';
@@ -92,11 +93,12 @@ public class Community_Web2CaseCtrl{
         UserEmail=userinfo.getUserEmail();
         mapOrderNumCases= new Map<String,List<Case>>();
         CaseWithExistingOrderNumber= new List<Case>();
+        caseOrderNumberBlackList = new List<String>();
         
         if(caseOrdr==null)
             caseOrdr=new List<Case>();
         CasePickValues();
-        
+        caseOrderNumberBlackList = system.label.Case_Order_Number_Blacklist.split(';');
     }
     
     

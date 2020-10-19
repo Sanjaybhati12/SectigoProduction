@@ -215,10 +215,19 @@
                     $('[id$=com_description]').before('<span class="error">Please enter description</span>'); 
                     checkValidation=false;                           
                 } 
-                if(ordernumber.length > 0 && ordernumber.length < 9 ){
+                if(ordernumber.length > 0 && ordernumber.length < 8 ){
                     $('[id$=ordernumber]').before('<span class="error">Order Numbers are typically 9 digits in length. If you are unsure, please leave this field blank and proceed.</span>'); 
                     checkValidation=false;                           
                 }
+                if(ordernumber.length >= 8){
+                	var checkValidNumber = validOrderNumber(ordernumber);
+                    //console.log('checkValidNumber ' + checkValidNumber + ' ordernumber ' + ordernumber );
+                    if(!checkValidNumber){
+                    $('[id$=ordernumber]').before('<span class="error">Order Numbers is Invalid. If you are unsure, please leave this field blank and proceed.</span>'); 
+                    checkValidation=false;                           
+                    }
+                }
+                
                 
                 if(checkValidation){
                     
@@ -230,6 +239,13 @@
                 
                 
                 return false;
+            }
+            
+            function validOrderNumber(orderNumber){
+                var blacklist = {!caseOrderNumberBlackList};
+                if( blacklist.includes(parseInt(orderNumber))){
+                    return false;
+                }else {return true;}
             }
             
             var antiSpam = function() {
@@ -627,7 +643,10 @@
                                         <div class="row">
                                             <div class="small-12 columns">
                                                 <label class="slds-form-element__label sr-only">Order Number </label>
+                                                
+                                                <span title="The order number you have provided corresponds to an existing case.  If you would you like to attach the description to this exiting case please proceed and click Submit.  If you entered an incorrect Order Number, please leave this field blank and proceed to Submit a new case">
                                                 <input type="number" class="roundBorder" placeholder="Order Number" id="ordernumber"/>
+                                                </span>
                                                 <!-- <apex:inputText id="ordernumber" value="{!OrderNumber }"/> -->
                                                 <span class="errorChar"></span>
                                                 
