@@ -24,49 +24,70 @@
     <aura:attribute name="communityForgotPasswordUrl" type="String" access="private"/>
     <aura:attribute name="communitySelfRegisterUrl" type="String" access="private"/>
     
-   <!-- <aura:registerevent name="sitePropagatedStartUrl" type="c:setStartUrl"/> -->
+    <!-- <aura:registerevent name="sitePropagatedStartUrl" type="c:setStartUrl"/> -->
     <aura:handler name="init" value="{!this}" action="{!c.initialize}"/>
-  <!--  <aura:dependency resource="c:setStartUrl" type="EVENT"/> -->
+    <!--  <aura:dependency resource="c:setStartUrl" type="EVENT"/> -->
     <!-- Please uncomment
     <aura:dependency resource="siteforce:registerQueryEventMap" type="EVENT"/>
     -->
-   <!-- <aura:handler event="c:setStartUrl" action="{!c.setStartUrl}"/> -->
+    <!-- <aura:handler event="c:setStartUrl" action="{!c.setStartUrl}"/> -->
     
     <div>
         <aura:renderIf isTrue="{!v.isUsernamePasswordEnabled}">
             <!-- PAGE HEADER -->
-            
-            <img src="{!$Resource.Sectigo_Logo_Small }" height="35px"/> 
-            <br/>
-            <!-- / PAGE HEADER -->
-            <span>
-                <aura:renderIf isTrue="{!v.showError}">
-                    <div id="error">
-                        <ui:outputRichText value="{!v.errorMessage}"/>
-                    </div>
-                </aura:renderIf>
-            </span>            
+            <div class="slds-align_absolute-center welcome-text">
+                Welcome to the Sectigo Community Portal
+            </div>
+            <div class="loginform">
+                <div class="slds-p-bottom_xx-medium slds-p-left_xx-large " style="text-align:center;">
+                    <img src="{!$Resource.Sectigo_Logo }" style="width: 40%;"/> 
+                </div>
+                <!-- / PAGE HEADER -->
+                <span>
+                    <aura:renderIf isTrue="{!v.showError}">
+                        <div id="error">
+                            <ui:outputRichText value="{!v.errorMessage}"/>
+                        </div>
+                    </aura:renderIf>
+                </span>
+                
+                
+                <span class="lable-align">
+                    <!-- <span id="sfdc_user" class="login-icon" data-icon="a"></span>  -->
+                    <label class="user-lable">Username</label>
+                    <ui:inputText value="" aura:id="username" placeholder="{!v.usernameLabel}" keyup="{!c.onKeyUp}" class="input sfdc_usernameinput sfdc" label="{!v.usernameLabel}" labelClass="assistiveText"/>
+                </span>
+                <span class="lable-align">
+                    <label class="user-lable">Password</label>
+                    <ui:inputSecret value="" aura:id="password" placeholder="{!v.passwordLabel}" keyup="{!c.onKeyUp}" class="input sfdc_passwordinput sfdc" label="{!v.passwordLabel}" labelClass="assistiveText"/>
+                </span>
+                <!--
             <div id="sfdc_username_container" class="sfdc">
                 <span id="sfdc_user" class="login-icon" data-icon="a"></span>
-                <ui:inputText value="" aura:id="username" placeholder="{!v.usernameLabel}" keyup="{!c.onKeyUp}" class="input sfdc_usernameinput sfdc" label="{!v.usernameLabel}" labelClass="assistiveText"/>
+                <div><span class="label-input">Username</span>
+                    <ui:inputText value="" aura:id="username" placeholder="{!v.usernameLabel}" keyup="{!c.onKeyUp}" class="input sfdc_usernameinput sfdc" label="{!v.usernameLabel}" labelClass="assistiveText"/>
+                </div>
             </div>
             
             <div id="sfdc_password_container" class="sfdc">
                 <span id="sfdc_lock" class="login-icon sfdc" data-icon="c"></span>
-                <ui:inputSecret value="" aura:id="password" placeholder="{!v.passwordLabel}" keyup="{!c.onKeyUp}" class="input sfdc_passwordinput sfdc" label="{!v.passwordLabel}" labelClass="assistiveText"/>
+                <div><span class="label-input">Password</span>
+                    <ui:inputSecret value="" aura:id="password" placeholder="{!v.passwordLabel}" keyup="{!c.onKeyUp}" class="input sfdc_passwordinput sfdc" label="{!v.passwordLabel}" labelClass="assistiveText"/>
+                </div>
             </div>
-            
-            <div class="sfdc">
-                <ui:button aura:id="submitButton" label="{!v.loginButtonLabel}" press="{!c.handleLogin}" class="sfdc_button"/>
+            -->
+                <div class="sfdc" id="login">
+                    <ui:button aura:id="submitButton" label="{!v.loginButtonLabel}" press="{!c.handleLogin}" class="sfdc_button"/>
+                </div>
+                
+                <div id="sfdc_forgot" class="sfdc">
+                    <span><a href="{!if(v.communityForgotPasswordUrl == null, v.forgotPasswordUrl, v.communityForgotPasswordUrl)}">{!v.forgotPasswordLabel}</a></span>
+                    <aura:renderIf isTrue="{!v.isSelfRegistrationEnabled}">
+                        <span style="float:right" >
+                            <a href="{!if(v.communitySelfRegisterUrl == null, v.selfRegisterUrl, v.communitySelfRegisterUrl)}">{!v.selfRegisterLabel}</a></span>
+                    </aura:renderIf>                            
+                </div> 
             </div>
-            
-            <div id="sfdc_forgot" class="sfdc">
-                <span><a href="{!if(v.communityForgotPasswordUrl == null, v.forgotPasswordUrl, v.communityForgotPasswordUrl)}">{!v.forgotPasswordLabel}</a></span>
-                <aura:renderIf isTrue="{!v.isSelfRegistrationEnabled}">
-                    <span style="float:right" >
-                        <a href="{!if(v.communitySelfRegisterUrl == null, v.selfRegisterUrl, v.communitySelfRegisterUrl)}">{!v.selfRegisterLabel}</a></span>
-                </aura:renderIf>                            
-            </div> 
         </aura:renderIf>
     </div>
     
