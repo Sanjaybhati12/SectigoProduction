@@ -18,12 +18,13 @@ public class ContactTriggerTest {
         user2.Email = 'no@emertail.com';
         user2.IsActive = true;
         insert user2;
+        
         system.runAs(user2){
             try{
                 contact con = new contact(
                     LastName = 'test contact',
                     Email = 'vinay@dazeworks.com',
-                    Phone = '1234567890'
+                    Phone = '1234567890'                    
                     
                 );
                 insert con;  
@@ -82,14 +83,27 @@ public class ContactTriggerTest {
         user u2=[select id,name from user where username='anmar.alkhafaji@sectigo.com.full1'];
                 
         system.runAs(u1){
-            
+            ContactAssignment__c conAssignment = new ContactAssignment__c(Name='Canada',Territory__c='Canada',OwnerId__c=u2.Id);
+            Insert conAssignment;
+        Id retailRecordTypeIdCon = Schema.SObjectType.Contact.getRecordTypeInfosByName().get('Retail').getRecordTypeId();
+            List<Contact> conList = new List<Contact>();
                 contact con = new contact(
                     LastName = 'test contact',
                     Email = 'vinay@dazeworks.com',
-                    Phone = '1234567890'
+                    Phone = '1234567890',
+                    Territory__c = 'Canada'
                     
                 );
-                insert con;  
+             contact con2 = new contact(
+                    LastName = 'test contact',
+                    Email = 'vinay@dazeworks.com',
+                    Phone = '1234567890',
+                    Territory__c = 'Canada',
+                    MQL_Qualified__c = true,
+                 RecordTypeId  = retailRecordTypeIdCon
+                );
+                conlist.add(con);conlist.add(con2); 
+                insert conList;  
                 
                 
             
@@ -109,6 +123,7 @@ public class ContactTriggerTest {
         con.OwnerId=u2.Id;
         con.BDR_Transfer_Date__c = system.today();
         con.BDR_Transfer__c = false;
+        con.MQL_Qualified__c = true;
         update con;
         system.debug('>>>>>>>>>>>>>'+con);
         system.debug('>>>>>>>>>>>>>'+con.Owner_Role__c);
