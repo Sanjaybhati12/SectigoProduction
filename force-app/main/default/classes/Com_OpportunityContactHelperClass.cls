@@ -32,13 +32,13 @@ public with sharing class Com_OpportunityContactHelperClass {
         }
         if(enterpriseOppIdSet.size() > 0){
             List<SBQQ__Quote__c > quotes = [SELECT Name__c, SBQQ__Account__c,SBQQ__Opportunity2__c,SBQQ__Primary__c FROM SBQQ__Quote__c  
-                              WHERE SBQQ__Primary__c = true AND SBQQ__Opportunity2__c IN :enterpriseOppIdSet ];
-        
+                                            WHERE SBQQ__Primary__c = true AND SBQQ__Opportunity2__c IN :enterpriseOppIdSet ];
+            
             for(SBQQ__Quote__c   qu : quotes){
                 QuoteMap.put(qu.SBQQ__Opportunity2__c,qu);
             }
         }
-            
+        
         // This is for atleast one contact role
         List<OpportunityContactRole> oppconroles=[select id,OpportunityId,Opportunity.Name,Role from OpportunityContactRole where OpportunityId IN:Trigger.Newmap.keyset()];
         Map<Id,OpportunityContactRole> ocrMap = new Map<Id,OpportunityContactRole>();
@@ -63,13 +63,13 @@ public with sharing class Com_OpportunityContactHelperClass {
             //This is for atleast one product 
             if(control.Check_Product_On_Retail__c){
                 if(!oppItemMap.containsKey(o.Id) && o.stageName == 'Deal Approval' && o.RecordTypeId == OppRetailRecId && oldMap.get(o.id).StageName != o.StageName)
-                        o.addError(System.Label.Error_Check_Product_On_Retail_Opportunity);
-                  
+                    o.addError(System.Label.Error_Check_Product_On_Retail_Opportunity);
+                
             } 
             //This is for atleast Primary Quote
             if(control.Check_Quote_on_Enterprise__c){
                 if(!QuoteMap.containsKey(o.Id) && o.stageName == 'Deal Approval' && o.RecordTypeId == OppEnterpriseRecId && oldMap.get(o.id).StageName != o.StageName)
-                        o.addError(System.Label.Error_Check_Primary_Quote_On_Enterprise_Opportunity);
+                    o.addError(System.Label.Error_Check_Primary_Quote_On_Enterprise_Opportunity);
             }
             // Check for Product Interest and Plateform Interest for Retail and Enterprise
             if(control.Check_Product_and_Plateform_Interest__c){
@@ -117,7 +117,7 @@ public with sharing class Com_OpportunityContactHelperClass {
             }
         }
     }
-
+    
     
     public static void setBDRTransfer(List<Opportunity> newOppList,Map<Id,Opportunity> oldMap,Map<Id,Opportunity> newMap){
         for(opportunity op : newOppList){
@@ -134,11 +134,11 @@ public with sharing class Com_OpportunityContactHelperClass {
     }
     
     
-     public static void setPriceBook(List<Opportunity> newOppList){
+    public static void setPriceBook(List<Opportunity> newOppList){
         try{
-        Id enterpriseRecordType = Schema.SObjectType.Opportunity.getRecordTypeInfosByName().get('Enterprise').getRecordTypeId();
-        Id retailPriceBook = Schema.SObjectType.Opportunity.getRecordTypeInfosByName().get('Retail').getRecordTypeId();
-        Set<Id> OppId = new Set<Id>();
+            Id enterpriseRecordType = Schema.SObjectType.Opportunity.getRecordTypeInfosByName().get('Enterprise').getRecordTypeId();
+            Id retailPriceBook = Schema.SObjectType.Opportunity.getRecordTypeInfosByName().get('Retail').getRecordTypeId();
+            Set<Id> OppId = new Set<Id>();
             system.debug('newOppList '+newOppList);
             if(newOppList.size() > 0){  
                 List<OpportunityLineItem> oppListItems = [Select id,Opportunityid from OpportunityLineItem where Opportunityid IN:newOppList];
@@ -161,10 +161,10 @@ public with sharing class Com_OpportunityContactHelperClass {
             }
         }
         catch(Exception e) {
-    System.debug('An exception occurred: ' + e.getMessage());
+            System.debug('An exception occurred: ' + e.getMessage());
         }
     } 
-
+    
     
     
     public static void aproveisPrimary(Set<Id> oppIdSet,Map<Id,Opportunity> oldMap){
@@ -187,7 +187,7 @@ public with sharing class Com_OpportunityContactHelperClass {
             String leadSource = Label.Opp_Lead_Source;
             String[] LeadSour = leadSource.split(',');
             if(OppCamp.CampaignId == Null && LeadSour.contains(OppCamp.LeadSource)){
-               OppCamp.addError(System.Label.Opp_Primary_Campaign_Source);
+                OppCamp.addError(System.Label.Opp_Primary_Campaign_Source);
             }else{
                 system.debug('Record Inserted');
             }
@@ -214,6 +214,38 @@ public with sharing class Com_OpportunityContactHelperClass {
                 opp.addError(system.label.Error_Owner_Transfer_on_Opportunity);
             }
         }
+    }
+    
+    public static void updateTCVOnCampaign(List<Opportunity> oppList){
+        List<Campaign> campListToUpdate = new List<Campaign>();
+        Set<ID> oppCampList = new Set<Id>();
+        for(Opportunity opp : oppList){
+            if(opp.CampaignId != null){
+                system.debug('opp.CampaignId ' + opp.CampaignId);
+                oppCampList.add(opp.CampaignId);
+            }
+        }
+        for(Campaign cmp : [SELECT ID,Name,TCV_Value_Won_Opportunities__c,TCV_Value_Lost_Opportunities__c,TCV_Value_Opportunities_in_Campaign__c,(SELECT Id,Name,TCV__c,StageName FROM Opportunities) FROM Campaign WHERE Id IN: oppCampList]){
+            Decimal totalTcv = 0 ;
+            Decimal totalTcvWon = 0 ;
+            Decimal totalTcvLost = 0;
+            for(Opportunity op : cmp.opportunities){
+                totalTcv += op.TCV__c;
+                if(op.StageName == 'Closed Won'){
+                    totalTcvWon += op.TCV__c;
+                }else if(op.StageName == 'Closed Lost'){
+                    totalTcvLost += op.TCV__c;
+                }
+            }
+            cmp.TCV_Value_Opportunities_in_Campaign__c = totalTcv;
+            cmp.TCV_Value_Lost_Opportunities__c = totalTcvLost;
+            cmp.TCV_Value_Won_Opportunities__c = totalTcvWon;
+            campListToUpdate.add(cmp); 
+        }
+        
+        try{
+            if(campListToUpdate.size() > 0){update campListToUpdate;}
+        }catch(dmlexception e){}
     }
     
 }

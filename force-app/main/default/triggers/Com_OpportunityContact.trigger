@@ -1,4 +1,4 @@
-trigger Com_OpportunityContact on Opportunity (before Update,after update,before insert,after insert) {
+trigger Com_OpportunityContact on Opportunity (before Update,after update,before insert,after insert, after delete) {
     
     OpportunityController__c control = OpportunityController__c.getInstance();
     if(trigger.isInsert){
@@ -68,6 +68,15 @@ trigger Com_OpportunityContact on Opportunity (before Update,after update,before
 
     if(trigger.isAfter && trigger.isUpdate){
         Com_OpportunityContactHelperClass.validateOpportunityTransfer(trigger.new ,trigger.OldMap);
+    }
+    
+    // Update TCV Values on Campaign
+    if( trigger.isAfter && (trigger.IsInsert || Trigger.IsUpdate) ){
+        Com_OpportunityContactHelperClass.updateTCVOnCampaign(trigger.new);
+    }
+    if(trigger.isAfter && trigger.isDelete){
+        system.debug(trigger.old);
+        Com_OpportunityContactHelperClass.updateTCVOnCampaign(trigger.old);
     }
     
     

@@ -2,7 +2,7 @@ global class caseAutoResponseBatch implements Database.Batchable<sObject>, Datab
     
     global Database.QueryLocator start(Database.BatchableContext bc) { 
         
-        String query = System.Label.Case_Auto_Response_Filter;
+        String query  = System.Label.Case_Auto_Response_Filter; 
         return Database.getQueryLocator(query);
     }
     
@@ -10,153 +10,94 @@ global class caseAutoResponseBatch implements Database.Batchable<sObject>, Datab
         BusinessHours bhour = [Select Id From BusinessHourS Where Name=:System.Label.Case_Auto_Response_Business_Hour];
         List<String> emailList = new List<String>();
         OrgWideEmailAddress[] owea = [select Id,Address from OrgWideEmailAddress where DisplayName=:System.Label.Auto_Response_From_Email_Address];
-        List<Case> newCustomerNotificationList = new List<Case>();
-        List<Case> sectigoNotiforTechSupList = new List<Case>();
-        List<Case> sectigoNotiforValidSupList = new List<Case>();
-        List<Case> sectigoNotiforTechSup2List = new List<Case>();
-        List<Case> sectigoNotiforValidSup2List = new List<Case>();
-        List<Case> customerNotificationList = new List<Case>();
-        List<String> caseReasonFilterforCustomer = System.label.Case_Auto_Response_Customer_Notification_Filter.split(';');
-        List<String> techSupportCaseReason = System.label.Tech_Support_Case_Reason.split(';');
-        List<String> techSupportCaseReason2 = System.label.Tech_Support_Case_Reason_2.split(';');
-        List<String> validSupportCaseReason = System.label.Validation_Case_Reasons.split(';');
-        List<String> validSupportCaseReason2 = System.label.Validation_Case_Reasons_2.split(';');
-        
+        List<String> ignoreEmailsList = system.label.Case_Auto_Response_Ignore_Emails.split(',');
         List<Messaging.SingleEmailMessage> emailMessageList = new List<Messaging.SingleEmailMessage>();
-        for(case cs : caseList){
-            List<String> ignoreEmailsList = system.label.Case_Auto_Response_Ignore_Emails.split(',');
+        List<Case> casesListToUpdate = new List<Case>();
+        List<CaseComment> caseCommentList = new List<CaseComment>();
+        List<Case_comment__c> publicCaseCommentList = new List<Case_comment__c>();
+        
+        List<CaseAutoResponseNotification__c> caseAutoRespNotiList = new List<CaseAutoResponseNotification__c>();
+        caseAutoRespNotiList = CaseAutoResponseNotification__c.getAll().values();
+        for(case caseRec : caseList){
             
-            Integer createdhour = getHourDate(cs.createdDate,bhour.Id);
-            Integer modifiedhour = getHourDate(cs.lastModifiedDate,bhour.Id);
-            if( !ignoreEmailsList.contains(cs.SuppliedEmail) && !ignoreEmailsList.contains(cs.ContactEmail) ){
+            for(CaseAutoResponseNotification__c customNotiRec : caseAutoRespNotiList){
+                Integer lastActioinHours;
+                Integer lessThanCheckHour = 0 ;
+                emailList = new List<String>();
+                String filedToUpdate = customNotiRec.Update_Field__c;
                 
-                if(createdhour >= 24 && createdhour < 48 &&  cs.X24_Hour_Notification__c == false && cs.Status == 'New' && caseReasonFilterforCustomer.contains(cs.Reason) ){
-                    newCustomerNotificationList.add(cs);
+                List<String> caseReasons = customNotiRec.Case_Reason__c.split(';');
+                if(customNotiRec.Case_Reason_Extra__c != null){
+                    system.debug('Case_Reason_Extra__c ' + customNotiRec.Case_Reason_Extra__c);
+                    caseReasons.addAll(customNotiRec.Case_Reason_Extra__c.split(';'));
                 }
-                if(modifiedhour >= 48 && cs.Status == 'Awaiting Customer Reply' && cs.X48_Hour_Customer_Notification__c == false && caseReasonFilterforCustomer.contains(cs.Reason) ){
-                    customerNotificationList.add(cs);
+                
+                if(customNotiRec.Trigger_on_Create__c == true){
+                    lastActioinHours = getHourDate(caseRec.createdDate,bhour.Id) ; 
+                }else if(caseRec.Last_Action__c != null && customNotiRec.Trigger_on_Modify__c == true){
+                    lastActioinHours = getHourDate(caseRec.Last_Action__c,bhour.Id) ;  // Last_Action__c instead of lastmodified
+                }else {
+                    lastActioinHours = getHourDate(caseRec.LastModifiedDate,bhour.Id);
+                }
+                
+                if(customNotiRec.Days_LT__c == null){
+                    lessThanCheckHour = lastActioinHours + 1;
+                }else{
+                    lessThanCheckHour = Integer.valueOf( customNotiRec.Days_LT__c );
+                }
+                
+                system.debug('caseRec ' + caseRec.Id );
+                system.debug('lastActioinHours ' + lastActioinHours + ' : customNotiRec.Days_GT__c ' + customNotiRec.Days_GT__c + ' : lessThanCheckHour ' + lessThanCheckHour);
+                if( lastActioinHours > customNotiRec.Days_GT__c && lastActioinHours < lessThanCheckHour && caseReasons.contains(caseRec.reason) && caseRec.Status == customNotiRec.Case_Status__c && !(Boolean)caseRec.get(filedToUpdate) ){
+                    
+                    if(customNotiRec.Notification_Type__c == 'Customer'){
+                        if(caseRec.SuppliedEmail != null && !ignoreEmailsList.contains(caseRec.SuppliedEmail)){
+                            emailList.add(caseRec.SuppliedEmail);
+                        }else if(caseRec.ContactEmail != null && !ignoreEmailsList.contains(caseRec.ContactEmail)){
+                            emailList.add(caseRec.ContactEmail);
+                        }
+                    }else if(customNotiRec.Recipient__c != null){
+                        emaillist = customNotiRec.Recipient__c.split(',');
+                    }
+                    system.debug('Line 56 ' + customNotiRec.Name + ' : ' + caseRec.Id + ' : ' + caseRec.Reason + ' ' + caseRec.Status);
+                    Messaging.SingleEmailMessage semRec = getMailMessage(customNotiRec.Email_Template_Id__c,caseRec.ContactId,caseRec.Id,owea[0].Id,emailList);
+                    emailMessageList.add(semRec);
+                    
+                    caseRec.Last_Action__c = system.now();
+                    caseRec.put(filedToUpdate,true);
+                    casesListToUpdate.add(caseRec);
+                    
+                    if(customNotiRec.Create_Email_Message__c){
+                        CaseComment cc = new CaseComment(ParentId = caseRec.Id,CommentBody = semRec.getPlainTextBody());
+                        caseCommentList.add(cc);
+                    }
+                    if(customNotiRec.Create_Public_Case_Comment__c){
+                        Case_comment__c publicCaseComment = new Case_comment__c(From_Address__c = owea[0].Address,
+                                                                                To_Address__c = String.Join(semRec.toaddresses,','),
+                                                                                Comment_Body__c = semRec.getHtmlBody(),
+                                                                                Email_Subject__c = semRec.getSubject(),
+                                                                                ParentId__c = caseRec.Id,
+                                                                                CurrencyIsoCode = caseRec.CurrencyIsoCode);
+                        publicCaseCommentList.add(publicCaseComment);
+                    }
                 }
             }
-            if(createdhour >= 48 && cs.X48_Hour_Notification__c == false && cs.Status == 'New'){
-                if(techSupportCaseReason.contains(cs.Reason)){
-                    sectigoNotiforTechSupList.add(cs);  // for tech support case reason
-                }
-                if(techSupportCaseReason2.contains(cs.Reason)){
-                    sectigoNotiforTechSup2List.add(cs);  // for tech support case reason 2 set
-                }
-                if(validSupportCaseReason.contains(cs.Reason)){
-                    sectigoNotiforValidSupList.add(cs);  // for Validation case reason
-                }
-                if(validSupportCaseReason2.contains(cs.Reason)){
-                    sectigoNotiforValidSup2List.add(cs);  // for Validation case reason 2 set
-                }
-            }
-        }
-        if(newCustomerNotificationList.size() > 0){ emailList = new List<String>();
-                                                   sendEmailNotification('24',newCustomerNotificationList,System.Label.X24_Hour_Notification_Email_Template,owea[0].Id,emailList);
-                                                  }
-        if(customerNotificationList.size() > 0){ emailList = new List<String>();
-                                                sendEmailNotification('Customer 48',customerNotificationList,System.Label.X48_Hour_Customer_Notification_Email_Template,owea[0].Id,emailList);
-                                               }
-        if(sectigoNotiforTechSupList.size() > 0){
-            emailList = new List<String>();
-            emailList = System.Label.X48_Hour_Tech_Support_Notification_EmailList.split(',');
-            sendEmailNotification('48',sectigoNotiforTechSupList,System.Label.X48_Hour_Notification_Email_Template,owea[0].Id,emailList);
-        }
-        if(sectigoNotiforTechSup2List.size() > 0){
-            emailList = new List<String>();
-            emailList = System.Label.X48_Hour_Tech_Support_Notification_2_EmailList.split(',');
-            sendEmailNotification('48',sectigoNotiforTechSup2List,System.Label.X48_Hour_Notification_Email_Template,owea[0].Id,emailList);
         }
         
-        if(sectigoNotiforValidSupList.size() > 0){
-            emailList = new List<String>();
-            emailList = System.Label.X48_Hour_Validation_Support_Notification_EmailList.split(',');
-            sendEmailNotification('48',sectigoNotiforValidSupList,System.Label.X48_Hour_Notification_Email_Template,owea[0].Id,emailList);
+        if(emailMessageList.size() > 0){
+            Messaging.sendEmail(emailMessageList);
         }
-        if(sectigoNotiforValidSup2List.size() > 0){
-            emailList = new List<String>();
-            emailList = System.Label.X48_Hour_Validation_Support_Notification_2_EmailList.split(',');
-            sendEmailNotification('48',sectigoNotiforValidSup2List,System.Label.X48_Hour_Notification_Email_Template,owea[0].Id,emailList);
-        }
+        
+        try{
+            if(casesListToUpdate.size() > 0 ){Update casesListToUpdate;}
+            if(caseCommentList.Size() > 0){Insert caseCommentList;}
+            if(publicCaseCommentList.size() > 0){Insert publicCaseCommentList;} 
+        }catch(dmlException e){system.debug('error ' + e);}
     }
     
     global void finish(Database.BatchableContext bc){
         
     }    
-    
-    // Update Case Details and Send Email Notification.
-    public static void sendEmailNotification(String emailFor,List<Case> caseList,String emailTemplateId,String owdId,List<String> emailList){
-        List<Messaging.SingleEmailMessage> emailMessageList = new List<Messaging.SingleEmailMessage>();
-        List<CaseComment> caseCommentList = new List<CaseComment>();
-        List<Case_comment__c> publicCaseCommentList = new List<Case_comment__c>();
-        OrgWideEmailAddress oweaRec = [select Id,Address from OrgWideEmailAddress where Id =: owdId];
-        
-        for(Case cs : caseList){
-            Case_comment__c publicCaseComment = new Case_comment__c();
-            
-            if(emailFor == '24'){
-                cs.X24_Hour_Notification__c = true;
-                emailList = new List<String>();
-                if(cs.SuppliedEmail != null){
-                    emailList.add(cs.SuppliedEmail);
-                }
-                else if(cs.ContactEmail != null){
-                    emailList.add(cs.ContactEmail);
-                }
-            }else if(emailFor == '48'){
-                cs.X48_Hour_Notification__c = true;
-                
-            }else if(emailFor == 'Customer 48'){
-                cs.X48_Hour_Customer_Notification__c = true;
-                emailList = new List<String>();
-                if(cs.SuppliedEmail != null){
-                    emailList.add(cs.SuppliedEmail);
-                }
-                else if(cs.ContactEmail != null){
-                    emailList.add(cs.ContactEmail);
-                }
-            }
-            if(emailList.size() > 0){
-                Messaging.SingleEmailMessage email = getMailMessage(emailTemplateId,cs.ContactId,cs.Id,owdId,emailList);
-                emailMessageList.add(email);
-                
-                if(emailFor == '48'){
-                    CaseComment cc = new CaseComment();
-                    cc.ParentId = cs.Id;
-                    cc.CommentBody = email.getPlainTextBody();
-                    caseCommentList.add(cc);
-                }else{
-                    publicCaseComment.From_Address__c = oweaRec.Address;
-                    publicCaseComment.To_Address__c = String.Join(email.toaddresses,',');
-                    publicCaseComment.Comment_Body__c = email.getHtmlBody();
-                    publicCaseComment.Email_Subject__c = email.getSubject();
-                    publicCaseComment.ParentId__c = cs.Id;
-                    publicCaseComment.CurrencyIsoCode = cs.CurrencyIsoCode;
-                    
-                    publicCaseCommentList.add(publicCaseComment);
-                }
-            }
-        }
-        if(emailMessageList.size() > 0){
-            Messaging.sendEmail(emailMessageList);
-            
-        }
-        try{
-            if(caseList.size() > 0){
-                update caseList;
-            }
-            if(caseCommentList.size() > 0){
-                insert caseCommentList;
-            }
-            if(publicCaseCommentList.size() > 0){
-                insert publicCaseCommentList;
-            }
-            
-        }catch(Exception err){
-            
-        }
-    }
     
     //Calculate Hour between two dates.
     public static Integer getHourDate(DateTime createdDate,Id bhId){
