@@ -98,9 +98,9 @@ public class Sec_dealRegistrationCtrl{
             oppRecTypeId = Schema.SObjectType.Opportunity.getRecordTypeInfosByName().get('Enterprise').getRecordTypeId();
             System.debug('recordtype id of opportunity: '+oppRecTypeId );
             
-            List<User> userList = new List<User>([Select ID, Name From User Where Name =: 'Heather Bell' Limit 1]);
+            List<User> userList = new List<User>([Select ID, Name From User Where Id =: System.Label.DealRegistrationOwner Limit 1]);
             
-            User BonnieId = [SELECT Id FROM User where Name = 'Heather Bell'];
+            User BonnieId = [SELECT Id FROM User where Id =: System.Label.DealRegistrationOwner];
             
             if(companyName != Null && cityVal != Null){
                 accountList = [Select Id, Name, Segment__c,ShippingCity,ShippingStreet,ShippingState,ShippingPostalCode,ShippingCountry,Phone From Account Where Name =: companyName AND ShippingCity =: cityVal ];
