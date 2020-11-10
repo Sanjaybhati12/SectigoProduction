@@ -248,4 +248,29 @@ public with sharing class Com_OpportunityContactHelperClass {
         }catch(dmlexception e){}
     }
     
+    public static void mostRecentClosedWon(Map<Id,Opportunity> newMapList, Map<Id,Opportunity> oldMapList){
+         Set<Id> set_OppId = new Set<Id>();
+        for(Id Key : newMapList.keySet()){
+            Opportunity oppNew= newMapList.get(key);
+            Opportunity oppOld= oldMapList.get(key);
+            Id recordypeId = Schema.getGlobalDescribe().get('Opportunity').getDescribe().getRecordTypeInfosByName().get('Retail').getRecordTypeId();
+            if(oppNew.StageName != oppOld.StageName && oppNew.StageName == 'Closed Won' && oppNew.RecordTypeId == recordypeId){
+                set_OppId.add(key);
+            }
+        }
+        if(!set_OppId.isEmpty()){
+            List<Contact> conList = new List<Contact>();
+            for(OpportunityContactRole ocr : [SELECT ContactId, OpportunityId, Id  FROM OpportunityContactRole WHERE OpportunityId in : set_OppId]){
+                
+                Contact c=new Contact();
+                c.id = ocr.ContactId;
+                c.Most_Recent_Closed_Won_Retail_Opportunit__c = OCR.OpportunityId;
+                conList.add(c);
+            }
+            if(!conList.isEmpty()){
+                update conList;
+            }
+        }
+    }
+    
 }

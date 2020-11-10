@@ -413,4 +413,25 @@ Public class Com_OpportunityContact_Test {
         delete opp1;
         test.stopTest();
     }
+    
+    public static testmethod void mostRecentClosedWon(){
+        Account a2 = new Account(Name = 'icrm testing acc');
+        insert a2;
+        Contact con = new Contact(FirstName = 'test1',LastName = 'test2',Accountid = a2.id,Email = 'test@abc.com');
+        insert con;
+                
+        Id OppRetailRecId = Schema.SObjectType.Opportunity.getRecordTypeInfosByName().get('Retail').getRecordTypeId();
+        Opportunity opp = new Opportunity(Name='Test Opportunity',RecordTypeId=OppRetailRecId,CloseDate=Date.Today(), stagename='Qualified Lead');
+        insert opp;
+        OpportunityContactRole occ = new OpportunityContactRole ();
+        occ.Contactid = con.id;
+        occ.Opportunityid = opp.id;
+        occ.Role = 'Decision Maker';
+        occ.IsPrimary = true;
+        insert occ;
+        test.startTest();
+        opp.StageName = 'Closed Won';
+        Update opp;
+        test.stopTest();
+    }
 }

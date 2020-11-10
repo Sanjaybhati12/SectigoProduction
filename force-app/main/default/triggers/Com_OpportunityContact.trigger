@@ -68,6 +68,7 @@ trigger Com_OpportunityContact on Opportunity (before Update,after update,before
 
     if(trigger.isAfter && trigger.isUpdate){
         Com_OpportunityContactHelperClass.validateOpportunityTransfer(trigger.new ,trigger.OldMap);
+        Com_OpportunityContactHelperClass.mostRecentClosedWon(Trigger.newMap, Trigger.oldMap);
     }
     
     // Update TCV Values on Campaign

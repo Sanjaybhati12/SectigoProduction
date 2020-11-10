@@ -3,7 +3,6 @@
 *                     
 *  Created By   : 
 *  Created On   : 
-
 *  Modification Log:  
 *  --------------------------------------------------------------------------------------------------------------------------------------
 *   Developer                Date                   Modification ID      Description 
@@ -40,7 +39,7 @@ public class CustomWebToCaseControllerTest1{
         
         mileStoneCaseReason__c mileStonCaseRea1 = new mileStoneCaseReason__c();
         mileStonCaseRea1.Name='CCM Validation';
-        mileStonCaseRea1.Label__c = 'CCM Validation';
+         mileStonCaseRea1.Label__c='CCM Validation';
         insert mileStonCaseRea1 ;
         
         mileStoneCaseReason__c mileStonCaseRea2 = new mileStoneCaseReason__c();
@@ -99,11 +98,12 @@ public class CustomWebToCaseControllerTest1{
         cases.Status = 'Closed';
         update cases;
         
-        
         Case_Reason_Category__c crc = new Case_Reason_Category__c();
-        crc.Name = 'Technincal Support';
-        crc.Case_Reason__c = 'Test1,Test2,Test3';
-        crc.Type__c = 'Parent';
+        crc.Name = 'Billing';
+        crc.Case_Reason__c = 'Billing';
+        crc.API_Name__c='Billing';
+        crc.Type__c = '';
+        crc.Case_Type__c = 'Biling';
         insert crc;
         
         PageReference myVfPage = Page.Com_KnowledgeWeb2Casepagesectigo ;
@@ -122,8 +122,8 @@ public class CustomWebToCaseControllerTest1{
         customWeb.Descriptions = 'testing my value';
         customWeb.caseNumer = '734673';
         customWeb.displaymessage1 = 'for error message';
-        customWeb.ReasonforTicket = 'Billing';
-        customWeb.getCaseTypeList();
+        customWeb.caseTypeforTicket = 'Billing';
+        customWeb.getReasons4CaseTypeList();
         customWeb.retriveCaseReason();
         customWeb.retriveCaseSubReason();
         
@@ -144,9 +144,9 @@ public class CustomWebToCaseControllerTest1{
         //String attachList = '[{"Name":"test","Body":"'+EncodingUtil.base64Encode(body)+'"}]';
         String ipAddress1 = 'true';
         
-        CustomWebToCaseController1.saveDataRemoting(fir_name, last_name, email, webcompany, phone, reason, ordernumber1, subject, description, ipAddress1,'30');
-        CustomWebToCaseController1.saveDataRemoting(fir_name, last_name, email, webcompany, phone, reason, ordernumber1, subject, description, ipAddress1,'23');
-        CustomWebToCaseController1.saveDataRemoting(fir_name, last_name, email, webcompany, phone, reason, ordernumber1, subject, description, ipAddress1,'3');
+        CustomWebToCaseController1.saveDataRemoting(fir_name, last_name, email, webcompany, phone, reason, ordernumber1, subject, description, ipAddress1,'30',caseType);
+        CustomWebToCaseController1.saveDataRemoting(fir_name, last_name, email, webcompany, phone, reason, ordernumber1, subject, description, ipAddress1,'23',caseType);
+        CustomWebToCaseController1.saveDataRemoting(fir_name, last_name, email, webcompany, phone, reason, ordernumber1, subject, description, ipAddress1,'3',caseType);
         //  CustomWebToCaseController1.saveDataRemoting(fir_name,last_name,email,webcompany,phone,caseType,reason,subCaseReason,ordernumber1,subject,description,ipAddress1);       
         
         Ticketing_Case_Reason__c casereason = new Ticketing_Case_Reason__c();
@@ -186,7 +186,7 @@ public class CustomWebToCaseControllerTest1{
         String Emailid='test@abc.com';
         String OrderNumber = '123456789';
         CustomWebToCaseController1.getContact(Emailid);
-        CustomWebToCaseController1.getCaseByOrderNumber(OrderNumber, EmailId);
+        CustomWebToCaseController1.getCaseByOrderNumber(OrderNumber,emailid);
         string Ipaddress = 'truecvc';
         CustomWebToCaseController1.isValidIpAddress(Ipaddress,'subject','12345','webCompany','email@gmail.com');
        
@@ -238,17 +238,17 @@ public class CustomWebToCaseControllerTest1{
         
          mileStoneCaseReason__c mileStonCaseRea = new mileStoneCaseReason__c();
         mileStonCaseRea.Name='Brand Validation';
-        mileStonCaseRea.Label__c = 'Brand Validation';
+        mileStonCaseRea.Label__c='Brand Validation';
         insert mileStonCaseRea ;
         
         mileStoneCaseReason__c mileStonCaseRea1 = new mileStoneCaseReason__c();
         mileStonCaseRea1.Name='CCM Validation';
-        mileStonCaseRea1.Label__c = 'CCM Validation';
+        mileStonCaseRea1.Label__c='CCM Validation';
         insert mileStonCaseRea1 ;
         
         mileStoneCaseReason__c mileStonCaseRea2 = new mileStoneCaseReason__c();
         mileStonCaseRea2.Name='EV Validation';
-        mileStonCaseRea2.Label__c = 'EV Validation';
+        mileStonCaseRea2.Label__c='EV Validation';
         insert mileStonCaseRea2 ;
         
         Account acc=new Account();
