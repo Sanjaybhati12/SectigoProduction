@@ -219,7 +219,7 @@ global class CustomWebToCaseController1{
         List<Case> existingOrder = new List<Case>();
         Case caseObj = new Case();
         if(String.isNotBlank(ordernumber)){
-           existingOrder = [SELECT id,casenumber,Order_Number__c,SuppliedEmail,CreatedDate FROM Case WHERE Order_Number__c=: OrderNumber AND SuppliedEmail =: email AND Status != 'Closed' AND Order_Number__c != null ORDER BY CreatedDate DESC limit 1];
+           existingOrder = [SELECT id,casenumber,Order_Number__c,SuppliedEmail,CreatedDate FROM Case WHERE Order_Number__c=: OrderNumber AND Status != 'Closed' AND Order_Number__c != null ORDER BY CreatedDate DESC limit 1];
            system.debug('existingOrder >>'+existingOrder);
            if(existingOrder.size() > 0){
                caseObj = existingOrder[0];
