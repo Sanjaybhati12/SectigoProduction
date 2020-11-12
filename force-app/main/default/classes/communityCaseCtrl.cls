@@ -93,6 +93,7 @@ AllAttachments.add(att);
         Case_Comment__c cc= new Case_Comment__c();
         if(String.isNotEmpty(comment)){
             cc.Comment_Body__c=comment;
+            cc.Customer_Email__c = UserEmail;
             cc.ParentId__c=currentRecordId;
             cc.From_Address__c=UserEmail;
             cc.To_Address__c='support@comodoca.com';

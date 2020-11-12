@@ -193,6 +193,7 @@ global class CustomWebToCaseController1{
                 onecasecmt.ParentId__c = existCe.id;
                 oneCaseCmt.Send_Email_to_Customer__c = true;
                 onecasecmt.Comment_Body__c = Description; 
+                onecasecmt.Customer_Email__c = email;
                 insert onecasecmt;  
                 rw.caseId = existCe.Id;
                 rw.type = 'Order Number';

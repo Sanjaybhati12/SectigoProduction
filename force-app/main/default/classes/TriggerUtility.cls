@@ -270,6 +270,7 @@ public class TriggerUtility{
                 autoCaseComment.Contact__c=eachCse.ContactId;
                 autoCaseComment.Comment_Body__c= letterHeadBody + emailBody.stripHtmlTags() ;  //emailBody
                 autoCaseComment.From_Address__c =Label.Email_Automation;
+                autoCaseComment.Customer_Email__c = eachCse.SuppliedEmail;
                 if(conwithCaseId.containsKey(eachCse.Id) )
                     autoCaseComment.To_Address__c = conwithCaseId.get(eachCse.Id).Email;
                 lstCaseComment.add(autoCaseComment);
